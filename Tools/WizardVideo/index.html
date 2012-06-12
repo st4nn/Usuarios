@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<title>Wizard Video Flash Player</title>
+	
+	<script src="Tools/WizardVideo/librerias/jquery.js"></script>
+	<script src="Tools/WizardVideo/librerias/prefixfree.min.js"></script>
+	<script src="Tools/WizardVideo/librerias/HTML5_enabling_script.js"></script>
+	<script src="Tools/WizardVideo/librerias/funciones.js"></script>
+	
+	<script src="Tools/WizardVideo/librerias/jscolor/jscolor.js"></script>
+	
+	<link rel="stylesheet" href="Tools/ShadowBox/shadowbox.css" />
+	<script src="Tools/ShadowBox/shadowbox.js"></script>
+	
+	<script type="text/javascript">
+		Shadowbox.init({language: "es", players: ['html']}); 
+	</script>
+	
+</head>
+<body>
+	<section>
+		<label for="Tipo">Tipo de Código</label>
+			<select id="cboTipoCodigo" placeholder="Selecciona el Tipo de Código">
+				<option value="JavaScript">JavaScript</option>
+				<option value ="Embed">Embed</option>
+			</select>
+	</section>
+	<form id="JS">
+	  <table  border="0" id="tabla">	
+		<tr>
+			<td><label>Stream:</label></td>
+			<td><input type="text" id="txtStream" placeholder="Stream"/></td>
+		</tr>
+		<tr>		
+			<td><label>Titulo:</label></td>
+			<td><input type="text" id="txtTitulo" placeholder="Titulo del Stream"/></td>
+		</tr>
+	<fieldset id="fdsNivel">
+			<tr>
+				<td><label>Color Panel:</label></td>
+				<td><input type="text" class="color" id="txtColorPanel" value="000000"/></td>
+			</tr>
+			<tr>
+				<td><label>Color Botones:</label></td>
+				<td><input type="text" class="color" id="txtColorBotones" value="FFFFFF"/></td>
+			</tr>
+			<tr>
+				<td><label>Color Sombras:</label></td>
+				<td><input type="text" class="color" id="txtColorSombras" value="cc9900"/></td>
+			</tr>
+			<tr>
+				<td><label>Color Pantalla:</label></td>
+				<td><input type="text" class="color" id="txtColorPantalla" value="000000"/></td>
+			</tr>
+	</fieldset>
+			<tr>
+				<td><label for="Tipo">Tipo de Código</label></td>
+				<td><select id="cboSkin" placeholder="Selecciona el Skin">
+					<option value="beelden">beelden</option>
+					<option value="bekle">bekle</option>
+					<option value="five">five</option>
+					<option value="glow">glow</option>
+					<option value="minima">minima</option>
+					<option value="modieus">modieus</option>
+					<option value="stijl">stijl</option>
+					<option value="stormtrooper">stormtrooper</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><label>Volumen Inicial:</label></td>
+				<td><input type="number" min="0" max="100" id="txtVolumen" value="60"/></td>
+			</tr>
+			<tr>
+			<td><label>Servidor:</label></td>
+			<td><input type="text" id="txtServidor" value="rtmp://video.cehis.net/live/"/></td>
+			</tr>
+			<p></p>
+			<tr>
+			<td><label>Iniciar al Cargar:</label></td>
+			<td><input type="checkbox" id="chkAutostart"/></td>
+			</tr>
+			<p>
+			<tr>
+			<td><label for="Tipo">Ubicación del Panel:</label></td>
+			<td><select id="cboUbicacionPanel" placeholder="Ubicacion del Panel">
+						<option value="bottom">Abajo</option>
+						<option value="top">Arriba</option>
+						<option value="left">Izquierda</option>
+						<option value="right">Derecha</option>
+				</select></td></p>
+			</tr>
+			<tr>
+			<td><label>Alto:</label></td>
+			<td><input type="number" id="txtAlto" value=""/></td>
+			</tr>
+			<tr>
+			<td><label>Ancho:</label></td>
+			<td><input type="number" id="txtAncho" value=""/></td>
+			</tr>
+		<p></p>
+		</table>
+	<center>
+		<button class='ui-button-success ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' id="btnGenerar">Generar</button>
+		<button class='ui-button-success ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only' id="btnPrevisualizar">Previsualizar</button></br>
+			<label>Codigo:</label>
+		<textarea rows='6' cols='50' id="txtCodigo" placeholder="Codigo del Reproductor"/></textarea>
+	</center>
+	</form>
+</body>
+</html>

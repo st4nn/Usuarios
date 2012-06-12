@@ -1,0 +1,47 @@
+/*body
+{
+	font-family: "Arial";
+	font-size: 16px;
+	margin: 0 auto;
+	text-align: center;
+	width: 600px;
+}
+input
+{
+	margin: 0.8em 0 1.2em 0;
+	padding: 0.4em 0.6em 0.4em 0.6em; 
+	width: 35%;
+}
+label
+{
+	float: left; 
+	clear: right;
+	margin: 0.4em 1.2em 0.4em 0;
+	text-align: right;    
+	width: 35%;
+}
+#Parametros #fdsParametros
+{
+	border-radius: 0.5em;
+	text-align: right;
+}
+
+#fdsParametros input, #fdsParametros select
+{
+	border-radius: 0.4em;
+	display: inline;
+	width: 50%;
+}
+
+#fdsParametros checkbox
+{
+	border-radius: 1em;
+	display: block;
+	color: blue;
+	width: 50%;
+}
+
+#Parametros #fdsParametros label
+{
+	padding-right:10%;
+}*/

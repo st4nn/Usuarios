@@ -5,11 +5,11 @@ function arranque()
 {
 	if(!localStorage.Usuario)
 	{CerrarSesion();}
-	
+	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
 	$("#cboLanguage").on("change", CambiarIdioma);
 	$("#cboToolsType").on("change", CambiarTipoCustomPlayer);
 	
-	$("txtMyAccount_Company").on("change", txtMyAccount_Company_Leave)
+	$("#txtMyAccount_Company").on("change", VerificarCompania);
 	
 	$("#lnkLogout").on("click", CerrarSesion);
 	
@@ -19,6 +19,8 @@ function arranque()
 	$("#tabs").tabs();
 	$("#divTools").tabs();	
 	$("#MyAccount_Options").tabs();	
+	
+	$('.password').pstrength();
 		
 	$("#cboLanguage").load('php/CargarIdiomas.php');
 	CargarUsuario();
@@ -76,19 +78,34 @@ function CerrarSesion()
 	delete localStorage.Usuario;
 	window.location.replace("index.html");
 }
-function txtMyAccount_Company_Leave()
+function GuardarDatosUsuario()
 {
-	alert("mao");
-/*$.post("php/VerificarCompania.php",  
+		
+}
+function VerificarCompania()
+{
+		$.post("php/VerificarCompania.php",  
 		{
 			Name: $("#txtMyAccount_Company").val()
 		}, 
 		function(data)
 		{	
-			if (!data)
-			{alert("nada");}
-			else{
-				alert("Si hubo");
-				}
-		});		*/
+			data = parseInt(data);
+			if (isNaN(data)) 
+			{ 
+				$("#CompanyData").slideDown();
+				$("#txtMyAccount_CompanyUrl").focus();
+			}
+			else
+			{ 
+				btnCompanyDataCancel_click();
+			} 
+		});		
 }
+function btnCompanyDataCancel_click(evento)
+{
+	evento.preventDefault();
+	$("#CompanyData").slideUp();
+	$("#txtMyAccount_Facebook").focus();	
+}
+

@@ -1,6 +1,12 @@
+@font-face
+{
+	font-family: "Nunito";
+	src: url("Nunito-Regular.ttf");
+}
 body
 {
 	display: inline-block;
+	font-family: "Nunito";
 	font-size: 16px;
 	width: 100%;
 }
@@ -14,7 +20,7 @@ footer
 {
 	text-align: right;
 }
-#alertEstadoLogin
+#alertEstadoLogin, #CompanyData
 {
 	display: none;
 }
@@ -35,6 +41,7 @@ footer
 
 #tabs
 {
+	font-family: "Nunito";
 	width: 100%;
 }
 #tabs section
@@ -70,4 +77,13 @@ footer
 	margin: 0.4em 1.2em 0.4em 0;
 	text-align: right;    
 	width: 35%;
+}
+.password {
+font-size : 12px;
+border : 1px solid #cc9933;
+width : 200px;
+font-family : arial, sans-serif;
+}
+.pstrength-minchar {
+font-size : 10px;
 }

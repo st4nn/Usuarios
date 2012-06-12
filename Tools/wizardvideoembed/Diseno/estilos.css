@@ -1,0 +1,73 @@
+article, footer, form, header, section
+{
+	display: block;
+}
+body
+{
+	background: #FFFFFF;
+	font-family: "Arial";
+	font-size: 16px;
+	margin: 0.1em auto;
+	text-align: left;
+	width: 600px;
+	/*behavior: url(ie-css3.htc);*/
+}
+input, select
+{
+	border-radius: 0.5em;
+	color: #585858;
+	/*height: 2.2em;*/
+	margin: 0.8em 0 1.2em 0;
+	padding: 0.4em 0.6em 0.4em 0.6em; 
+	width: 35%;
+}
+input:focus
+{
+	background: #F0F0F0;
+	border-color: #0066FF;
+	color: #606060;
+}
+label
+{
+	float: left; clear: right;
+	margin: 0.4em 1.2em 0.4em 0;
+	text-align: right;    
+	text-transform:capitalize;	
+	width: 35%;
+}
+section, form
+{
+	background: #f5f5f5;
+	border-radius: 0.5em;
+	box-shadow: rgba(0,0,0,0.8) 0px 4px 10px;
+	margin: 0.5em auto;
+	padding: 0.5em;
+	text-align: center; 
+}
+#Parametros #fdsParametros
+{
+	border-radius: 0.5em;
+	text-align: right;
+
+}
+#fdsParametros input, #fdsParametros select
+{
+	border-radius: 0.4em;
+	display: inline;
+	width: 50%;
+}
+#fdsParametros checkbox
+{
+	border-radius: 1em;
+	display: block;
+	color: blue;
+	width: 50%;
+}
+#Parametros #fdsParametros label
+{
+	padding-right:10%;
+}
+#fdsNivel1
+{
+	border: none;
+}

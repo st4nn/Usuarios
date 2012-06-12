@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8" />
+	<title>Wizard Video Flash Player</title>
+	
+	<script src="librerias/jquery.js"></script>
+	<script src="librerias/prefixfree.min.js"></script>
+	<script src="librerias/funciones.js"></script>
+
+	<script src="librerias/jscolor/jscolor.js"></script>
+		
+	<script src="librerias/HTML5_enabling_script.js"></script>
+	<link rel="stylesheet" href="Diseno/estilos.css" />
+	
+	<link rel="stylesheet" href="ShadowBox/shadowbox.css" />
+	<script src="ShadowBox/shadowbox.js"></script>
+	
+	<script type="text/javascript">
+		Shadowbox.init({language: "es", players: ['html']}); 
+	</script>
+	
+</head>
+<body>
+	<section>
+		<label for="Tipo">Tipo de Código</label>
+			<select id="cboTipoCodigo" placeholder="Selecciona el Tipo de Código">
+				<option value="JavaScript">JavaScript</option>
+				<option value ="Embed">Embed</option>
+			</select>
+	</section>
+	<form id="JS">
+			<label>Stream:</label>
+		<input type="text" id="txtStream" placeholder="Stream"/>
+			<label>Titulo:</label>
+		<input type="text" id="txtTitulo" placeholder="Titulo del Stream"/>
+		<label for="Tipo">Skin</label>
+		<select id="cboSkin" placeholder="Selecciona el Skin">
+			<option value="default">Default</option>
+			<option value="beelden">beelden</option>
+			<option value="bekle">bekle</option>
+			<option value="five">five</option>
+			<option value="glow">glow</option>
+			<option value="minima">minima</option>
+			<option value="modieus">modieus</option>
+			<option value="stijl">stijl</option>
+			<option value="stormtrooper">stormtrooper</option>
+		</select>
+		
+	<fieldset id="fdsNivel">
+			<label>Color Panel:</label>
+		<input type="text" class="color" id="txtColorPanel" value="000000"/>
+		<fieldset id="fdsNivel1">	
+				<label>Color Botones:</label>
+			<input type="text" class="color" id="txtColorBotones" value="FFFFFF"/>
+				<label>Color Sombras:</label>
+			<input type="text" class="color" id="txtColorSombras" value="cc9900"/>			
+		</fieldset>
+			<label>Color Pantalla:</label>
+		<input type="text" class="color" id="txtColorPantalla" value="000000"/>
+	</fieldset>
+
+			<label>Volumen Inicial:</label>
+		<input type="number" min="0" max="100" id="txtVolumen" value="60"/>
+			<label>FMS URL:</label>
+		<input type="text" id="txtServidor" value="rtmp://video.cehis.net/live/NOMBRE_DE_TU_STREAM"/>
+			<p></p>
+			<label>Iniciar al Cargar:</label>
+		<input type="checkbox" id="chkAutostart" checked="true"/>
+			<p><label for="Tipo">Ubicación de Controles:</label>
+		<select id="cboUbicacionPanel" placeholder="Ubicacion del Panel">
+			<option value="over">Encima</option>
+			<option value="bottom">Abajo</option>
+			<option value="top">Arriba</option>
+			<option value="left">Izquierda</option>
+			<option value="right">Derecha</option>
+		</select></p>
+			<label>Alto:</label>
+		<input type="number" id="txtAlto" value="480"/>
+			<label>Ancho:</label>
+		<input type="number" id="txtAncho" value="386"/>
+		<p></p>
+		<button id="btnGenerar">Generar</button>
+		<button id="btnPrevisualizar">Previsualizar</button>
+			<label>Codigo:</label>
+		<textarea rows='15' cols='60' id="txtCodigo" placeholder="Codigo del Reproductor"/></textarea>
+	</form>
+</body>
+</html>
