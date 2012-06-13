@@ -9,6 +9,8 @@ function arranque()
 	$("#cboLanguage").on("change", CambiarIdioma);
 	$("#cboToolsType").on("change", CambiarTipoCustomPlayer);
 	
+	$("#MyAccount_Options_AccessData").on("submit", MyAccount_Options_AccessData_Submit);
+	
 	$("#txtMyAccount_Company").on("change", VerificarCompania);
 	
 	$("#lnkLogout").on("click", CerrarSesion);
@@ -81,6 +83,57 @@ function CerrarSesion()
 function GuardarDatosUsuario()
 {
 		
+}
+function MyAccount_Options_AccessData_Submit(evento)
+{
+		evento.preventDefault();
+		if ($("#txtMyAccount_NewPassword").val().length > 5)
+		{
+			if ($("#txtMyAccount_NewPassword").val() == $("#txtMyAccount_ReTypePassword").val())
+			{
+				$.post("php/CambiarClave.php",  
+				{
+					Id : Usuario.Id,
+					OldPassword : $("#txtMyAccount_CurrentPassword").val(),
+					NewPassword :  $("#txtMyAccount_NewPassword").val() 
+				}, 
+				function(data)
+				{
+					if (parseInt(data) == "1") //Si el cambio fué exitoso
+					{
+						$("#AccessData_Message").removeClass("ui-state-error");
+						$("#AccessData_Message_span").removeClass("ui-icon-alert");
+						$("#AccessData_Message").addClass("ui-state-highlight");
+						$("#AccessData_Message span").addClass("ui-icon-info");
+						$("#AccessData_Message strong").text("Hey!");
+						$("#AccessData_Message texto").text("The password has been changed");
+						$("#AccessData_Message").fadeIn(300).delay(2600).fadeOut(600);
+					}else
+					{
+						CambiarClave_Error("There was an error, The password entered is incorrect"); //Si la Contraseña Actual no coincide
+						$("#txtMyAccount_CurrentPassword").focus();
+					}
+				});
+			} else
+			{
+					CambiarClave_Error("Passwords must be equal"); //Si las contraseñas no son Iguales
+					$("#txtMyAccount_NewPassword").focus();
+			}
+		} else
+		{
+			CambiarClave_Error("Minimum number of characters is 6"); //La contraseña es muy pequeña
+			$("#txtMyAccount_NewPassword").focus();
+		}
+}
+function CambiarClave_Error(texto)
+{
+	$("#AccessData_Message").removeClass("ui-state-highlight");
+	$("#AccessData_Message span").removeClass("ui-icon-infor");
+	$("#AccessData_Message").addClass("ui-state-error");
+	$("#AccessData_Message span").addClass("ui-icon-alert");
+	$("#AccessData_Message strong").text("Alert!");
+	$("#AccessData_Message texto").text(texto);
+	$("#AccessData_Message").fadeIn(300).delay(2600).fadeOut(600);
 }
 function VerificarCompania()
 {

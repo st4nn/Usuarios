@@ -69,7 +69,7 @@
 			<div id='MyAccount_Options'>
 				<ul>
 					<li><a id='lnkPersonalInformation' href="#MyAccount_Options-PersonalInformation">Personal Information</a></li>
-					<li><a id='lnkAccessData'  href="#MyAccount_Options-AccessData">Access Data</a></li>
+					<li><a id='lnkAccessData'  href="#MyAccount_Options_AccessData">Access Data</a></li>
 					<li><a id='lnkCustomTemplate'  href="#MyAccount_Options-CustomTemplate">Custom Template</a></li>
 				</ul>
 				<form id='MyAccount_Options-PersonalInformation'>
@@ -99,13 +99,22 @@
 					<h3>Estará lista cuando se defina la parte de Templates</h3>
 					<input type='image' src='css/Recursos/Llenar.png'/>	
 				</section>
-				<form id='MyAccount_Options-AccessData'>
+				<form id='MyAccount_Options_AccessData'>
 					<center>
 					<label class='labelForm' for='txtMyAccount_CurrentPassword'>Current Password: </label><input class='inputForm' type='password' id='txtMyAccount_CurrentPassword'/>
-					<label class='labelForm' for='txtMyAccount_NewPassword'>New Password: </label><input class='inputForm' type='password' id='txtMyAccount_NewPassword'/>
-					<label class='labelForm' for='txtMyAccount_ReTypePassword'>Re-type Password: </label><input class='password inputForm' type='password' id='txtMyAccount_ReTypePassword'/>
+					<label class='labelForm' for='txtMyAccount_NewPassword'>New Password: </label><input class='password inputForm' type='password' id='txtMyAccount_NewPassword'/>
+					</br><label class='labelForm' for='txtMyAccount_ReTypePassword'>Re-type Password: </label><input class=' inputForm' type='password' id='txtMyAccount_ReTypePassword'/>
 					</br>
 						<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
+						</br></br>
+						<div id='AccessData_Message' class="ui-state-highlight ui-corner-all">
+							<p>
+								<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+								<strong id='AccessData_ErrorMessage strong'>Alert!</strong> 
+								<texto>The password has been changed.</texto>
+							</p>
+						</div>
+
 					</center>
 					</br></br>
 				</form>
