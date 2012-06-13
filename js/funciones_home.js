@@ -5,14 +5,13 @@ function arranque()
 {
 	if(!localStorage.Usuario)
 	{CerrarSesion();}
-	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
+
 	$("#cboLanguage").on("change", CambiarIdioma);
 	$("#cboToolsType").on("change", CambiarTipoCustomPlayer);
 	
 	$("#MyAccount_Options_AccessData").on("submit", MyAccount_Options_AccessData_Submit);
-	
-	$("#txtMyAccount_Company").on("change", VerificarCompania);
-	
+	$("#MyAccount_Options_PersonalInformation").on("submit", MyAccount_Options_PersonalInformation_Submit)
+
 	$("#lnkLogout").on("click", CerrarSesion);
 	
 	//$("#tabs").tabs().addClass('ui-tabs-vertical ui-helper-clearfix');
@@ -80,9 +79,20 @@ function CerrarSesion()
 	delete localStorage.Usuario;
 	window.location.replace("index.html");
 }
-function GuardarDatosUsuario()
+function MostrarAlerta(NombreContenedor, TipoMensaje, Icono, Strong, Mensaje)
 {
-		
+	/*NombreContenedor : Id del Div que contiene el MessageAlert
+	 * TipoMensaje : {highlight, error, default}
+	 * Icono : Icono que acompaña el mensaje ver listado en bootstrap
+	 * Mensaje del AlertMessage*/
+	 
+	$("#" + NombreContenedor).removeClass("*");
+	$("#" + NombreContenedor + " span").removeClass("*");
+	$("#" + NombreContenedor).addClass("ui-state-" + TipoMensaje);
+	$("#" + NombreContenedor + " span").addClass(Icono);
+	$("#" + NombreContenedor + " strong").text(Strong);
+	$("#" + NombreContenedor + " texto").text(Mensaje);
+	$("#" + NombreContenedor).fadeIn(300).delay(2600).fadeOut(600);
 }
 function MyAccount_Options_AccessData_Submit(evento)
 {
@@ -101,64 +111,52 @@ function MyAccount_Options_AccessData_Submit(evento)
 				{
 					if (parseInt(data) == "1") //Si el cambio fué exitoso
 					{
-						$("#AccessData_Message").removeClass("ui-state-error");
-						$("#AccessData_Message_span").removeClass("ui-icon-alert");
-						$("#AccessData_Message").addClass("ui-state-highlight");
-						$("#AccessData_Message span").addClass("ui-icon-info");
-						$("#AccessData_Message strong").text("Hey!");
-						$("#AccessData_Message texto").text("The password has been changed");
-						$("#AccessData_Message").fadeIn(300).delay(2600).fadeOut(600);
+						MostrarAlerta("AccessData_Message", "default", "ui-icon-circle-check", "Hey!", "The password has been changed");
 					}else
 					{
-						CambiarClave_Error("There was an error, The password entered is incorrect"); //Si la Contraseña Actual no coincide
+						//Si las contraseñas no son Iguales
+						MostrarAlerta("AccessData_Message", "error", "ui-icon-alert", "Error!", "The password entered is incorrect");
 						$("#txtMyAccount_CurrentPassword").focus();
 					}
 				});
 			} else
 			{
-					CambiarClave_Error("Passwords must be equal"); //Si las contraseñas no son Iguales
+					//Si las contraseñas no son Iguales
+					MostrarAlerta("AccessData_Message", "error", "ui-icon-alert", "Alert!", "Passwords must be equal");
 					$("#txtMyAccount_NewPassword").focus();
 			}
 		} else
 		{
-			CambiarClave_Error("Minimum number of characters is 6"); //La contraseña es muy pequeña
+			//La contraseña es muy pequeña
+			MostrarAlerta("AccessData_Message", "error", "ui-icon-alert", "Alert!", "Minimum number of characters is 6");
 			$("#txtMyAccount_NewPassword").focus();
 		}
 }
-function CambiarClave_Error(texto)
+function MyAccount_Options_PersonalInformation_Submit(evento)
 {
-	$("#AccessData_Message").removeClass("ui-state-highlight");
-	$("#AccessData_Message span").removeClass("ui-icon-infor");
-	$("#AccessData_Message").addClass("ui-state-error");
-	$("#AccessData_Message span").addClass("ui-icon-alert");
-	$("#AccessData_Message strong").text("Alert!");
-	$("#AccessData_Message texto").text(texto);
-	$("#AccessData_Message").fadeIn(300).delay(2600).fadeOut(600);
+		evento.preventDefault();
+		$.post("php/ActualizarDatosUsuario.php",
+			{
+				Id : Usuario.Id,
+				Name : $("#txtMyAccount_Name").val(), 
+				NickName : $("#txtMyAccount_DisplayName").val(), 
+				Email : $("#txtMyAccount_Email").val(), 
+				urlFacebook : $("#txtMyAccount_Facebook").val(),  
+				urlTwitter : $("#txtMyAccount_Twitter").val()
+			},
+			function(data)
+			{
+					if (parseInt(data) == "1")
+					{
+						MostrarAlerta("PersonalInformation_Message", "default", "ui-icon-circle-check", "Hey!", "The changes were applied successfully");
+					} else
+					{
+						MostrarAlerta("PersonalInformation_Message", "error", "ui-icon-alert", "Alert!", "The changes are not applied");
+					}
+			});
 }
-function VerificarCompania()
-{
-		$.post("php/VerificarCompania.php",  
-		{
-			Name: $("#txtMyAccount_Company").val()
-		}, 
-		function(data)
-		{	
-			data = parseInt(data);
-			if (isNaN(data)) 
-			{ 
-				$("#CompanyData").slideDown();
-				$("#txtMyAccount_CompanyUrl").focus();
-			}
-			else
-			{ 
-				btnCompanyDataCancel_click();
-			} 
-		});		
-}
-function btnCompanyDataCancel_click(evento)
-{
-	evento.preventDefault();
-	$("#CompanyData").slideUp();
-	$("#txtMyAccount_Facebook").focus();	
-}
+
+
+
+
 

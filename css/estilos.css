@@ -20,7 +20,7 @@ footer
 {
 	text-align: right;
 }
-#alertEstadoLogin, #CompanyData, #AccessData_Message  
+#alertEstadoLogin, #CompanyData, #AccessData_Message , #PersonalInformation_Message
 {
 	display: none;
 }

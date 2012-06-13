@@ -68,29 +68,27 @@
 		<section id="MyAccount">
 			<div id='MyAccount_Options'>
 				<ul>
-					<li><a id='lnkPersonalInformation' href="#MyAccount_Options-PersonalInformation">Personal Information</a></li>
+					<li><a id='lnkPersonalInformation' href="#MyAccount_Options_PersonalInformation">Personal Information</a></li>
 					<li><a id='lnkAccessData'  href="#MyAccount_Options_AccessData">Access Data</a></li>
 					<li><a id='lnkCustomTemplate'  href="#MyAccount_Options-CustomTemplate">Custom Template</a></li>
 				</ul>
-				<form id='MyAccount_Options-PersonalInformation'>
+				<form id='MyAccount_Options_PersonalInformation'>
 					<label class='labelForm' id='lblName' for='txtMyAccount_Name'>Name: </label><input class='inputForm' type='text' id='txtMyAccount_Name'/>
 					<label class='labelForm' id='lblDisplayName' for='txtMyAccount_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyAccount_DisplayName'/>
 					<label class='labelForm' id='lblEmail' for='txtMyAccount_Email'>Email: </label><input class='inputForm' type='email' id='txtMyAccount_Email'/>
-					<label class='labelForm' id='lblCompany' for='txtMyAccount_Company'>Company: </label><input class='inputForm' type='text' id='txtMyAccount_Company'/>
-						<section id='CompanyData'>
-							<center>
-							<label class='labelForm' id='lblCompanyURL' for='txtMyAccount_CompanyUrl'>URl: </label><input class='inputForm' type='text' id='txtMyAccount_CompanyUrl'/>
-							<label class='labelForm' id='lblCompanyContact' for='txtMyAccount_CompanyContact'>Contact: </label><input class='inputForm' type='text' id='txtMyAccount_CompanyContact'/>
-							</br>
-							<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCompanyDataCreate'>Create</button>
-							<button class='ui-button-error ui-button ui-widget ui-corner-all' id = 'btnCompanyDataCancel'>Cancel</button>
-							</center>
-						</section>
+					<label class='labelForm' id='lblCompany' for='txtMyAccount_Company'>Company: </label><input class='inputForm' type='text' id='txtMyAccount_Company' readonly="readonly"/>
 					<label class='labelForm' id='lblFacebook' for='txtMyAccount_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtMyAccount_Facebook'/>
 					<label class='labelForm' id='lblTwitter' for='txtMyAccount_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyAccount_Twitter'/>
 					</br></br>
 					<center>
 						<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
+						<div id='PersonalInformation_Message' class="ui-state-highlight ui-corner-all">
+							<p>
+								<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+								<strong id='AccessData_ErrorMessage strong'>Alert!</strong> 
+								<texto>The password has been changed.</texto>
+							</p>
+						</div>
 					</center>
 					</br></br>
 				</form>
