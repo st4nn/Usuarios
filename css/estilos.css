@@ -38,31 +38,35 @@ footer
 	text-align: center;
 	width: 40%;
 }
-
-#tabs
-{
+#tabs {		/*Controla todo el contenedor*/
 	font-family: "Nunito";
+	position: relative;
+	padding-left: 10%;
+	border-bottom: none;
+}
+#tabs > .ui-tabs-nav { /*Controla el contenedor del menú lateral*/
+	bottom: 0.25em;
+	border-bottom: none;
+	left: 0.25em;
+	padding: 0.2em 0 0.2em 0.2em;
+	position: absolute;
+	top: 0.25em;
+	width: 10%;
+}
+#tabs > .ui-tabs-nav li { /*Controla los controles (las opciones) del menu lateral */
+	border-right: none;
+	right: 1px;
+	width: 100%;
+}
+#tabs > .ui-tabs-nav li a { /*Controla el mensaje (a) de los controles*/
+	float: right;
+	text-align: right;
 	width: 100%;
 }
 #tabs section
 {
-	width: 80%;	
 	float: rigth;
 	margin: 1em;
-}
-/*#MainMenu
-{
-	display: block;
-	float: left;
-	width: 10%;
-}*/
-.calentahuevos
-{
-	display: inline-block;
-	color: pink;
-	margin: 1%;
-	padding: 1% 0;
-	vertical-align: top;
 }
 .inputForm
 {

@@ -4,9 +4,9 @@
 	<meta charset="utf-8"/>
 	<title>BRONCO</title>
 	
-	<link rel="stylesheet" href="css/css/custom-theme/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.css" rel="stylesheet">
-    
+	<link rel="stylesheet" href="css/css/custom-theme/jquery-ui-1.8.16.custom.css"/>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+        
     <link rel="stylesheet" href="css/estilos.css" />
 	
 	<script src="Tools/HTML5/HTML5_enabling_script.js"></script>
@@ -29,9 +29,9 @@
 	<div id="tabs">
 		<ul id='MainMenu'>
 			<li><a id='lnkHome' href="#DashBoard">Home</a></li>
-			<li><a id='lnkTools'  href="#Tools">Tools</a></li>
-			<li><a id='lnkAnalytics'  href="#Analytics">Analytics</a></li>
-			<li><a id='lnkMyAccount'  href="#MyAccount">My Account</a></li>
+			<li><a id='lnkTools' href="#Tools">Tools</a></li>
+			<li><a id='lnkMyAccount' href="#MyAccount">My Account</a></li>
+			<li><a id='lnkAnalytics' href="#Analytics">Analytics</a></li>
 			<li><a id="lnkLogout">Logout</a></li>
 		</ul>
 		<section id="DashBoard">
@@ -70,7 +70,8 @@
 				<ul>
 					<li><a id='lnkPersonalInformation' href="#MyAccount_Options_PersonalInformation">Personal Information</a></li>
 					<li><a id='lnkAccessData'  href="#MyAccount_Options_AccessData">Access Data</a></li>
-					<li><a id='lnkCustomTemplate'  href="#MyAccount_Options-CustomTemplate">Custom Template</a></li>
+					<li><a id='lnkCustomTemplate'  href="#MyAccount_Options_CustomTemplate">Custom Template</a></li>
+					<li><a id='lnkMyUsers'  href="#MyAccount_Options_MyUsers">My Users</a></li>
 				</ul>
 				<form id='MyAccount_Options_PersonalInformation'>
 					<label class='labelForm' id='lblName' for='txtMyAccount_Name'>Name: </label><input class='inputForm' type='text' id='txtMyAccount_Name'/>
@@ -92,17 +93,17 @@
 					</center>
 					</br></br>
 				</form>
-				<section id='MyAccount_Options-CustomTemplate'>
+				<section id='MyAccount_Options_CustomTemplate'>
 					<h2>Zona en Construcción</h2>
 					<h3>Estará lista cuando se defina la parte de Templates</h3>
 					<input type='image' src='css/Recursos/Llenar.png'/>	
 				</section>
 				<form id='MyAccount_Options_AccessData'>
-					<center>
 					<label class='labelForm' for='txtMyAccount_CurrentPassword'>Current Password: </label><input class='inputForm' type='password' id='txtMyAccount_CurrentPassword'/>
 					<label class='labelForm' for='txtMyAccount_NewPassword'>New Password: </label><input class='password inputForm' type='password' id='txtMyAccount_NewPassword'/>
 					</br><label class='labelForm' for='txtMyAccount_ReTypePassword'>Re-type Password: </label><input class=' inputForm' type='password' id='txtMyAccount_ReTypePassword'/>
 					</br>
+					<center>
 						<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
 						</br></br>
 						<div id='AccessData_Message' class="ui-state-highlight ui-corner-all">
@@ -116,8 +117,38 @@
 					</center>
 					</br></br>
 				</form>
+				<section id='MyAccount_Options_MyUsers'>
+					<form id='MyUsersCreate'>
+						<label class='labelForm' for='txtMyUsersCreate_Name'>Name: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Name'/>
+						<label class='labelForm' for='txtMyUsersCreate_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyUsersCreate_DisplayName'/>
+						<label class='labelForm' for='txtMyUsersCreate_Email'>Email: </label><input class='inputForm' type='email' id='txtMyUsersCreate_Email'/>
+						<label class='labelForm' for='txtMyUsersCreate_Company'>Company: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Company'/>
+						<section id='CompanyData'>
+							<center>
+								<label class='labelForm' id='lblCompanyURL' for='txtMyUsersCreate_CompanyUrl'>URl: </label><input class='inputForm' type='text' id='txtMyUsersCreate_CompanyUrl'/>
+								<label class='labelForm' id='lblCompanyContact' for='txtMyUsersCreate_CompanyContact'>Contact: </label><input class='inputForm' type='text' id='txtMyUsersCreate_CompanyContact'/>
+								</br>
+								<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCompanyDataCreate'>Create</button>
+								<button class='ui-button-error ui-button ui-widget ui-corner-all' id = 'btnCompanyDataCancel'>Cancel</button>
+							</center>
+						</section>
+						<label class='labelForm' for='txtMyUsersCreate_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Facebook'/>
+						<label class='labelForm' for='txtMyUsersCreate_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Twitter'/>
+						</br></br>
+						<center>
+							<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
+							<div id='PersonalInformation_Message' class="ui-state-highlight ui-corner-all">
+								<p>
+									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+									<strong id='AccessData_ErrorMessage strong'>Alert!</strong> 
+									<texto>The password has been changed.</texto>
+								</p>
+							</div>
+						</center>
+						</br></br>
+					</form>
+				</section>
 			</div>
-			
 		</section>
 	</div>
 <footer>
