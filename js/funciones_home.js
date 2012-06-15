@@ -15,11 +15,13 @@ function arranque()
 	
 	$("#MyAccount_Options_AccessData").on("submit", MyAccount_Options_AccessData_Submit);
 	$("#MyAccount_Options_PersonalInformation").on("submit", MyAccount_Options_PersonalInformation_Submit)
-	$("#MyUsersCreate").on("submit", MyUsersCreate_submit);
+	$("#CreatingUsersCreate").on("submit", CreatingUsersCreate_submit);
 
 	$("#lnkLogout").on("click", CerrarSesion);
+	$("#tableMyUsersRefresh").on("click", CargarUsuariosPropios);
 	
-	$("#txtMyUsersCreate_Company").on("change", VerificarCompania);
+	
+	$("#txtCreatingUsersCreate_Company").on("change", VerificarCompania);
 	
 	//
 	//$("#divTools").addClass('ui-tabs-vertical ui-helper-clearfix');
@@ -40,16 +42,16 @@ function btnCompanyDataCancel_click(evento)
 {
 	evento.preventDefault();
 	$("#CompanyData").slideUp();
-	$("#txtMyUsersCreate_Facebook").focus();	
+	$("#txtCreatingUsersCreate_Facebook").focus();	
 }
 function btnCompanyDataCreate_click(evento)
 {
 	evento.preventDefault();
 		$.post("php/CrearCompania.php",  
 		{
-			Name: $("#txtMyUsersCreate_Company").val(),
-			Url: $("#txtMyUsersCreate_CompanyUrl").val(),
-			Contact: $("#txtMyUsersCreate_CompanyContact").val(),
+			Name: $("#txtCreatingUsersCreate_Company").val(),
+			Url: $("#txtCreatingUsersCreate_CompanyUrl").val(),
+			Contact: $("#txtCreatingUsersCreate_CompanyContact").val(),
 			IdOwn: Usuario.Id
 		}, 
 		function(data)
@@ -57,11 +59,11 @@ function btnCompanyDataCreate_click(evento)
 			data = parseInt(data);
 			if (isNaN(data)) 
 			{ 
-				MostrarAlerta("MyUsers_Create", "error", "ui-icon-alert", "Error!", "The Company was not created");
+				MostrarAlerta("CreatingUsers_Create", "error", "ui-icon-alert", "Error!", "The Company was not created");
 			}
 			else
 			{ 
-				MostrarAlerta("MyUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The Company has been create");
+				MostrarAlerta("CreatingUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The Company has been create");
 				btnCompanyDataCancel_click(evento)
 			} 
 		});		
@@ -113,6 +115,29 @@ function CargarUsuario()
 	$("#txtMyAccount_Company").val(Usuario.CompanyName);
 	$("#txtMyAccount_Facebook").val(Usuario.urlFacebook);
 	$("#txtMyAccount_Twitter").val(Usuario.urlTwitter);
+}
+function CargarUsuariosPropios()
+{
+	$("#tableMyUsers td").remove()
+		$.post("php/VerUsuariosPropios.php",
+		{ Id : Usuario.Id},
+		function(data)
+		{
+			$.each(data,function(index,value) 
+			{
+				if (data[index].IdUser)
+				{
+					//AgregarMateria(data[index].IdMateria, data[index].CodMateria, data[index].NomMateria, false); 
+					var tds = "<tr id='" + data[index].IdUser + "'>";
+						  tds += "<td>" + data[index].Name + "</td>";
+						  tds += "<td>" + data[index].NickName + "</td>";
+						  tds += "<td>" + data[index].Mail + "</td>";
+						  tds += "<td>" + data[index].Company + "</td>";
+						tds += '</tr>';	
+					$("#tableMyUsers").append(tds);
+				}
+			});
+		}, "json");
 }
 function CerrarSesion()
 {
@@ -195,22 +220,22 @@ function MyAccount_Options_PersonalInformation_Submit(evento)
 					}
 			});
 }
-function MyUsersCreate_submit(evento)
+function CreatingUsersCreate_submit(evento)
 {
 		evento.preventDefault();
-		if ($("#txtMyUsersCreate_Password").val() == $("#txtMyUsersCreate_ReTypePassword").val())
+		if ($("#txtCreatingUsersCreate_Password").val() == $("#txtCreatingUsersCreate_ReTypePassword").val())
 		{
 			$.post("php/CrearUsuario.php",  
 			{
 				Id: Usuario.Id,
-				User: $("#txtMyUsersCreate_User").val(),
-				Password: $("#txtMyUsersCreate_Password").val(),
-				Name: $("#txtMyUsersCreate_Name").val(),
-				NickName: $("#txtMyUsersCreate_DisplayName").val(),
-				Email: $("#txtMyUsersCreate_Email").val(),
-				Company: $("#txtMyUsersCreate_Company").val(),
-				urlFacebook: $("#txtMyUsersCreate_Facebook").val(),
-				urlTwitter: $("#txtMyUsersCreate_Twitter").val(),
+				User: $("#txtCreatingUsersCreate_User").val(),
+				Password: $("#txtCreatingUsersCreate_Password").val(),
+				Name: $("#txtCreatingUsersCreate_Name").val(),
+				NickName: $("#txtCreatingUsersCreate_DisplayName").val(),
+				Email: $("#txtCreatingUsersCreate_Email").val(),
+				Company: $("#txtCreatingUsersCreate_Company").val(),
+				urlFacebook: $("#txtCreatingUsersCreate_Facebook").val(),
+				urlTwitter: $("#txtCreatingUsersCreate_Twitter").val(),
 				NoFName : "false"
 			}, 
 			function(data)
@@ -218,16 +243,16 @@ function MyUsersCreate_submit(evento)
 				var Id = parseInt(data);
 				if (isNaN(Id)) //No lo Creó
 				{ 
-					MostrarAlerta("MyUsers_Create", "error", "ui-icon-alert", "Alert!", data);
+					MostrarAlerta("CreatingUsers_Create", "error", "ui-icon-alert", "Alert!", data);
 				}
 				else //Si lo Creó
 				{ 
-					MostrarAlerta("MyUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The User has been create");
+					MostrarAlerta("CreatingUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The User has been create");
 				} 
 			});	
 		} else
 		{
-			MostrarAlerta("MyUsers_Create", "error", "ui-icon-alert", "Error!", "Passwords must be equal");
+			MostrarAlerta("CreatingUsers_Create", "error", "ui-icon-alert", "Error!", "Passwords must be equal");
 		}
 		
 }
@@ -235,16 +260,16 @@ function VerificarCompania(evento)
 {
 		$.post("php/VerificarCompania.php",  
 		{
-			NoFName: $("#txtMyUsersCreate_Company").val()
+			NoFName: $("#txtCreatingUsersCreate_Company").val()
 		}, 
 		function(data)
 		{	
 			data = parseInt(data);
 			if (isNaN(data)) 
 			{ 
-				$("#txtMyUsersCreate_CompanyContact").val($("#txtMyUsersCreate_Name").val())
+				$("#txtCreatingUsersCreate_CompanyContact").val($("#txtCreatingUsersCreate_Name").val())
 				$("#CompanyData").slideDown();
-				$("#txtMyUsersCreate_CompanyUrl").focus();
+				$("#txtCreatingUsersCreate_CompanyUrl").focus();
 			}
 			else
 			{ 

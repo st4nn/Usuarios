@@ -72,6 +72,7 @@
 					<li><a id='lnkPersonalInformation' href="#MyAccount_Options_PersonalInformation">Personal Information</a></li>
 					<li><a id='lnkAccessData'  href="#MyAccount_Options_AccessData">Access Data</a></li>
 					<li><a id='lnkCustomTemplate'  href="#MyAccount_Options_CustomTemplate">Custom Template</a></li>
+					<li><a id='lnkCreatingUsers'  href="#MyAccount_Options_CreatingUsers">Creating Users</a></li>
 					<li><a id='lnkMyUsers'  href="#MyAccount_Options_MyUsers">My Users</a></li>
 				</ul>
 				<form id='MyAccount_Options_PersonalInformation'>
@@ -118,30 +119,30 @@
 					</center>
 					</br></br>
 				</form>
-				<section id='MyAccount_Options_MyUsers'>
-					<form id='MyUsersCreate'>
-						<label class='labelForm' for='txtMyUsersCreate_User'>User: </label><input class='inputForm' type='text' id='txtMyUsersCreate_User' required/>
-						<label class='labelForm' for='txtMyUsersCreate_Password'>Password: </label><input class='password inputForm' type='password' id='txtMyUsersCreate_Password' required/>
-						<label class='labelForm' for='txtMyUsersCreate_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtMyUsersCreate_ReTypePassword'/>
+				<section id='MyAccount_Options_CreatingUsers'>
+					<form id='CreatingUsersCreate'>
+						<label class='labelForm' for='txtCreatingUsersCreate_User'>User: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_User' required/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Password'>Password: </label><input class='password inputForm' type='password' id='txtCreatingUsersCreate_Password' required/>
+						<label class='labelForm' for='txtCreatingUsersCreate_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtCreatingUsersCreate_ReTypePassword'/>
 						</br></br></br></br>
-						<label class='labelForm' for='txtMyUsersCreate_Name'>Name: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Name' required/>
-						<label class='labelForm' for='txtMyUsersCreate_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyUsersCreate_DisplayName' required/>
-						<label class='labelForm' for='txtMyUsersCreate_Email'>Email: </label><input class='inputForm' type='email' id='txtMyUsersCreate_Email'/>
-						<label class='labelForm' for='txtMyUsersCreate_Company'>Company: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Company' required/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Name'>Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Name' required/>
+						<label class='labelForm' for='txtCreatingUsersCreate_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_DisplayName' required/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Email'>Email: </label><input class='inputForm' type='email' id='txtCreatingUsersCreate_Email'/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Company'>Company: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Company' required/>
 						<section id='CompanyData'>
 							<center>
-								<label class='labelForm' id='lblCompanyURL' for='txtMyUsersCreate_CompanyUrl'>URl: </label><input class='inputForm' type='text' id='txtMyUsersCreate_CompanyUrl'/>
-								<label class='labelForm' id='lblCompanyContact' for='txtMyUsersCreate_CompanyContact'>Contact: </label><input class='inputForm' type='text' id='txtMyUsersCreate_CompanyContact'/>
+								<label class='labelForm' id='lblCompanyURL' for='txtCreatingUsersCreate_CompanyUrl'>URl: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_CompanyUrl'/>
+								<label class='labelForm' id='lblCompanyContact' for='txtCreatingUsersCreate_CompanyContact'>Contact: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_CompanyContact'/>
 								</br>
 								<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCompanyDataCreate'>Create Company</button>
 								<button class='ui-button-error ui-button ui-widget ui-corner-all' id = 'btnCompanyDataCancel'>Cancel</button>
 							</center>
 						</section>
-						<label class='labelForm' for='txtMyUsersCreate_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Facebook'/>
-						<label class='labelForm' for='txtMyUsersCreate_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Twitter'/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Facebook'/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Twitter'/>
 						</br></br>
 						<center>
-							<div id='MyUsers_Create' class="ui-state-highlight ui-corner-all">
+							<div id='CreatingUsers_Create' class="ui-state-highlight ui-corner-all">
 								<p>
 									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 									<strong>Hey!</strong> 
@@ -152,6 +153,17 @@
 						</center>
 						</br></br>
 					</form>
+				</section>
+				<section id='MyAccount_Options_MyUsers'>
+					<button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button>
+					<table id='tableMyUsers'>
+						<tr>
+							<th>Name</th>
+							<th>NickName</th>
+							<th>Mail</th>
+							<th>Company</th>
+						</tr>
+					</table>
 				</section>
 			</div>
 		</section>
