@@ -124,7 +124,7 @@
 						<label class='labelForm' for='txtCreatingUsersCreate_User'>User: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_User' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_Password'>Password: </label><input class='password inputForm' type='password' id='txtCreatingUsersCreate_Password' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtCreatingUsersCreate_ReTypePassword'/>
-						</br></br></br></br>
+						
 						<label class='labelForm' for='txtCreatingUsersCreate_Name'>Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Name' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_DisplayName' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_Email'>Email: </label><input class='inputForm' type='email' id='txtCreatingUsersCreate_Email'/>
@@ -155,15 +155,49 @@
 					</form>
 				</section>
 				<section id='MyAccount_Options_MyUsers'>
-					<button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button>
+					<center><button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button></center>
 					<table id='tableMyUsers'>
 						<tr>
 							<th>Name</th>
 							<th>NickName</th>
 							<th>Mail</th>
 							<th>Company</th>
+							<th>Login</th>
+							<th>Edit</th>
+							<th>Delete</th>
 						</tr>
 					</table>
+					<article id='MyUsers_Edit'>
+						<label class='labelForm' for='txtMyUsersEdit_Password'>Password: </label><input class='password inputForm' type='password' id='txtMyUsersEdit_Password' />
+						<label class='labelForm' for='txtMyUsersEdit_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtMyUsersEdit_ReTypePassword'/>
+						
+						<label class='labelForm' for='txtMyUsersEdit_Name'>Name: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Name' />
+						<label class='labelForm' for='txtMyUsersEdit_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyUsersEdit_DisplayName' />
+						<label class='labelForm' for='txtMyUsersEdit_Email'>Email: </label><input class='inputForm' type='email' id='txtMyUsersEdit_Email'/>
+						<label class='labelForm' for='txtMyUsersEdit_Company'>Company: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Company' />
+						<section id='txtMyUsersEdit_CompanyData'>
+							<center>
+								<label class='labelForm' id='lblCompanyURL' for='txtMyUsersEdit_CompanyUrl'>URl: </label><input class='inputForm' type='text' id='txtMyUsersEdit_CompanyUrl'/>
+								<label class='labelForm' id='lblCompanyContact' for='txtMyUsersEdit_CompanyContact'>Contact: </label><input class='inputForm' type='text' id='txtMyUsersEdit_CompanyContact'/>
+								</br>
+								<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnMyUsersEditCompanyDataCreate'>Create Company</button>
+								<button class='ui-button-error ui-button ui-widget ui-corner-all' id = 'btnMyUsersEditCompanyDataCancel'>Cancel</button>
+							</center>
+						</section>
+						<label class='labelForm' for='txtMyUsersEdit_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Facebook'/>
+						<label class='labelForm' for='txtMyUsersEdit_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Twitter'/>
+						<center>
+							<div id='txtMyUsersEdit_Create' class="ui-state-highlight ui-corner-all">
+								<p>
+									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+									<strong>Hey!</strong> 
+									<texto>The Company has been created.</texto>
+								</p>
+						</div>
+						<!--<input class='ui-button-success ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Create User'/>-->
+						</center>					
+					</article>
+					
 				</section>
 			</div>
 		</section>

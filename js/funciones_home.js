@@ -8,6 +8,7 @@ function arranque()
 	
 	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
 	$("#btnCompanyDataCreate").on("click", btnCompanyDataCreate_click);
+	$("#btnMyUsers_Edit").live("click", btnMyUsers_Edit_click);
 	
 	
 	$("#cboLanguage").on("change", CambiarIdioma);
@@ -18,10 +19,12 @@ function arranque()
 	$("#CreatingUsersCreate").on("submit", CreatingUsersCreate_submit);
 
 	$("#lnkLogout").on("click", CerrarSesion);
+	$("#lnkMyUsers").on("click", CargarUsuariosPropios);
 	$("#tableMyUsersRefresh").on("click", CargarUsuariosPropios);
 	
 	
-	$("#txtCreatingUsersCreate_Company").on("change", VerificarCompania);
+	
+	$("#txtCreatingUsersCreate_Company").live("change", VerificarCompania);
 	
 	//
 	//$("#divTools").addClass('ui-tabs-vertical ui-helper-clearfix');
@@ -36,6 +39,7 @@ function arranque()
 	$('.password').pstrength();
 		
 	$("#cboLanguage").load('php/CargarIdiomas.php');
+	
 	CargarUsuario();
 }
 function btnCompanyDataCancel_click(evento)
@@ -67,6 +71,19 @@ function btnCompanyDataCreate_click(evento)
 				btnCompanyDataCancel_click(evento)
 			} 
 		});		
+}
+function btnMyUsers_Edit_click()
+{	
+	var Fila = document.getElementsByName($(this).parent("td").attr("name"));
+	var strObj = "Edit " + $(Fila[0]).text();
+	var dialogo = $('<div></div>')
+			.html($("#MyUsers_Edit").html())
+			.dialog({
+				autoOpen: false,
+				minWidth: 500,
+				title: strObj
+			});
+	dialogo.dialog('open');
 }
 function CambiarIdioma()
 {
@@ -129,10 +146,13 @@ function CargarUsuariosPropios()
 				{
 					//AgregarMateria(data[index].IdMateria, data[index].CodMateria, data[index].NomMateria, false); 
 					var tds = "<tr id='" + data[index].IdUser + "'>";
-						  tds += "<td>" + data[index].Name + "</td>";
-						  tds += "<td>" + data[index].NickName + "</td>";
-						  tds += "<td>" + data[index].Mail + "</td>";
-						  tds += "<td>" + data[index].Company + "</td>";
+						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Name + "</td>";
+						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].NickName + "</td>";
+						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Mail + "</td>";
+						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Company + "</td>";
+						  tds += "<td name='" + data[index].IdUser + "'><button class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-play'></span></strong></button></td>";
+						  tds += "<td name='" + data[index].IdUser + "'><button id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button></td>";
+						  tds += "<td name='" + data[index].IdUser + "'><button class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button></td>";
 						tds += '</tr>';	
 					$("#tableMyUsers").append(tds);
 				}

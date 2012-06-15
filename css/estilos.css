@@ -24,7 +24,7 @@ table tr:hover
 {
 	background: #F8F8F8;
 }
-#alertEstadoLogin, #CompanyData, #AccessData_Message , #PersonalInformation_Message, #CreatingUsers_Create
+#alertEstadoLogin, #CompanyData, #AccessData_Message , #PersonalInformation_Message, #CreatingUsers_Create, #MyUsers_Edit
 {
 	display: none;
 }
