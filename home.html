@@ -4,8 +4,9 @@
 	<meta charset="utf-8"/>
 	<title>BRONCO</title>
 	
-	<link rel="stylesheet" href="css/css/custom-theme/jquery-ui-1.8.16.custom.css"/>
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+	<link rel="stylesheet" href="css/jquery.ui.1.8.16.ie.css"/>
+	<link rel="stylesheet" href="css/jquery-ui-1.8.16.custom.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css">
         
     <link rel="stylesheet" href="css/estilos.css" />
 	
@@ -74,9 +75,9 @@
 					<li><a id='lnkMyUsers'  href="#MyAccount_Options_MyUsers">My Users</a></li>
 				</ul>
 				<form id='MyAccount_Options_PersonalInformation'>
-					<label class='labelForm' id='lblName' for='txtMyAccount_Name'>Name: </label><input class='inputForm' type='text' id='txtMyAccount_Name'/>
-					<label class='labelForm' id='lblDisplayName' for='txtMyAccount_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyAccount_DisplayName'/>
-					<label class='labelForm' id='lblEmail' for='txtMyAccount_Email'>Email: </label><input class='inputForm' type='email' id='txtMyAccount_Email'/>
+					<label class='labelForm' id='lblName' for='txtMyAccount_Name'>Name: </label><input class='inputForm' type='text' id='txtMyAccount_Name' required />
+					<label class='labelForm' id='lblDisplayName' for='txtMyAccount_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyAccount_DisplayName' required/>
+					<label class='labelForm' id='lblEmail' for='txtMyAccount_Email'>Email: </label><input class='inputForm' type='email' id='txtMyAccount_Email' required/>
 					<label class='labelForm' id='lblCompany' for='txtMyAccount_Company'>Company: </label><input class='inputForm' type='text' id='txtMyAccount_Company' readonly="readonly"/>
 					<label class='labelForm' id='lblFacebook' for='txtMyAccount_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtMyAccount_Facebook'/>
 					<label class='labelForm' id='lblTwitter' for='txtMyAccount_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyAccount_Twitter'/>
@@ -109,7 +110,7 @@
 						<div id='AccessData_Message' class="ui-state-highlight ui-corner-all">
 							<p>
 								<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-								<strong id='AccessData_ErrorMessage strong'>Alert!</strong> 
+								<stronglo>Alert!</strong> 
 								<texto>The password has been changed.</texto>
 							</p>
 						</div>
@@ -119,16 +120,20 @@
 				</form>
 				<section id='MyAccount_Options_MyUsers'>
 					<form id='MyUsersCreate'>
-						<label class='labelForm' for='txtMyUsersCreate_Name'>Name: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Name'/>
-						<label class='labelForm' for='txtMyUsersCreate_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyUsersCreate_DisplayName'/>
+						<label class='labelForm' for='txtMyUsersCreate_User'>User: </label><input class='inputForm' type='text' id='txtMyUsersCreate_User' required/>
+						<label class='labelForm' for='txtMyUsersCreate_Password'>Password: </label><input class='password inputForm' type='password' id='txtMyUsersCreate_Password' required/>
+						<label class='labelForm' for='txtMyUsersCreate_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtMyUsersCreate_ReTypePassword'/>
+						</br></br></br></br>
+						<label class='labelForm' for='txtMyUsersCreate_Name'>Name: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Name' required/>
+						<label class='labelForm' for='txtMyUsersCreate_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyUsersCreate_DisplayName' required/>
 						<label class='labelForm' for='txtMyUsersCreate_Email'>Email: </label><input class='inputForm' type='email' id='txtMyUsersCreate_Email'/>
-						<label class='labelForm' for='txtMyUsersCreate_Company'>Company: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Company'/>
+						<label class='labelForm' for='txtMyUsersCreate_Company'>Company: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Company' required/>
 						<section id='CompanyData'>
 							<center>
 								<label class='labelForm' id='lblCompanyURL' for='txtMyUsersCreate_CompanyUrl'>URl: </label><input class='inputForm' type='text' id='txtMyUsersCreate_CompanyUrl'/>
 								<label class='labelForm' id='lblCompanyContact' for='txtMyUsersCreate_CompanyContact'>Contact: </label><input class='inputForm' type='text' id='txtMyUsersCreate_CompanyContact'/>
 								</br>
-								<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCompanyDataCreate'>Create</button>
+								<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCompanyDataCreate'>Create Company</button>
 								<button class='ui-button-error ui-button ui-widget ui-corner-all' id = 'btnCompanyDataCancel'>Cancel</button>
 							</center>
 						</section>
@@ -136,14 +141,14 @@
 						<label class='labelForm' for='txtMyUsersCreate_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyUsersCreate_Twitter'/>
 						</br></br>
 						<center>
-							<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
-							<div id='PersonalInformation_Message' class="ui-state-highlight ui-corner-all">
+							<div id='MyUsers_Create' class="ui-state-highlight ui-corner-all">
 								<p>
 									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-									<strong id='AccessData_ErrorMessage strong'>Alert!</strong> 
-									<texto>The password has been changed.</texto>
+									<strong>Hey!</strong> 
+									<texto>The Company has been created.</texto>
 								</p>
-							</div>
+						</div>
+						<input class='ui-button-success ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Create User'/>
 						</center>
 						</br></br>
 					</form>

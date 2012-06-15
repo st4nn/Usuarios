@@ -20,7 +20,7 @@ footer
 {
 	text-align: right;
 }
-#alertEstadoLogin, #CompanyData, #AccessData_Message , #PersonalInformation_Message
+#alertEstadoLogin, #CompanyData, #AccessData_Message , #PersonalInformation_Message, #MyUsers_Create
 {
 	display: none;
 }
@@ -83,11 +83,11 @@ footer
 	width: 35%;
 }
 .password {
-font-size : 12px;
-border : 1px solid #cc9933;
-/*width : 200px;*/
-font-family : arial, sans-serif;
+	font-size : 12px;
+	border : 1px solid #cc9933;
+	/*width : 200px;*/
+	font-family : arial, sans-serif;
 }
 .pstrength-minchar {
-font-size : 10px;
+	font-size : 10px;
 }

@@ -1,9 +1,10 @@
 <?php 
    require("conectar.php"); 
+
+$NoFName = $_POST['NoFName'];
+
 function CompanyVerify($Name)
 {
-//	$Name = $_POST['Name'];
-							
 	$link=Conectarse(); 
 	$var = null;
 	$sql = "SELECT IdCompany FROM Company WHERE Name = '$Name';";
@@ -13,8 +14,9 @@ function CompanyVerify($Name)
 	{
 		$var = $row['IdCompany'];
 	} 
-	echo $var;
+	return $var;
 	mysql_close($link);	
 }
- 
+	if ($NoFName)
+	{echo CompanyVerify($NoFName);}
 ?> 

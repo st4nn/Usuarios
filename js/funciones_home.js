@@ -7,16 +7,19 @@ function arranque()
 	{CerrarSesion();}
 	
 	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
+	$("#btnCompanyDataCreate").on("click", btnCompanyDataCreate_click);
+	
 	
 	$("#cboLanguage").on("change", CambiarIdioma);
 	$("#cboToolsType").on("change", CambiarTipoCustomPlayer);
 	
 	$("#MyAccount_Options_AccessData").on("submit", MyAccount_Options_AccessData_Submit);
 	$("#MyAccount_Options_PersonalInformation").on("submit", MyAccount_Options_PersonalInformation_Submit)
+	$("#MyUsersCreate").on("submit", MyUsersCreate_submit);
 
 	$("#lnkLogout").on("click", CerrarSesion);
 	
-	$("#txtMyAccount_Company").on("change", VerificarCompania);
+	$("#txtMyUsersCreate_Company").on("change", VerificarCompania);
 	
 	//
 	//$("#divTools").addClass('ui-tabs-vertical ui-helper-clearfix');
@@ -26,9 +29,8 @@ function arranque()
 	
 	$("#divTools").tabs();
 	$("#MyAccount_Options").tabs();	
-	//$("#tabs").addClass('ui-tabs-vertical ui-helper-clearfix');
 	$("#tabs").tabs();
-	
+
 	$('.password').pstrength();
 		
 	$("#cboLanguage").load('php/CargarIdiomas.php');
@@ -38,7 +40,31 @@ function btnCompanyDataCancel_click(evento)
 {
 	evento.preventDefault();
 	$("#CompanyData").slideUp();
-	$("#txtMyAccount_Facebook").focus();	
+	$("#txtMyUsersCreate_Facebook").focus();	
+}
+function btnCompanyDataCreate_click(evento)
+{
+	evento.preventDefault();
+		$.post("php/CrearCompania.php",  
+		{
+			Name: $("#txtMyUsersCreate_Company").val(),
+			Url: $("#txtMyUsersCreate_CompanyUrl").val(),
+			Contact: $("#txtMyUsersCreate_CompanyContact").val(),
+			IdOwn: Usuario.Id
+		}, 
+		function(data)
+		{	
+			data = parseInt(data);
+			if (isNaN(data)) 
+			{ 
+				MostrarAlerta("MyUsers_Create", "error", "ui-icon-alert", "Error!", "The Company was not created");
+			}
+			else
+			{ 
+				MostrarAlerta("MyUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The Company has been create");
+				btnCompanyDataCancel_click(evento)
+			} 
+		});		
 }
 function CambiarIdioma()
 {
@@ -100,7 +126,7 @@ function MostrarAlerta(NombreContenedor, TipoMensaje, Icono, Strong, Mensaje)
 	 * Icono : Icono que acompaña el mensaje ver listado en bootstrap
 	 * Mensaje del AlertMessage*/
 	 
-	$("#" + NombreContenedor).removeClass("*");
+	$("#" + NombreContenedor).removeClass(function() {return $(this).prev().attr('class');});
 	$("#" + NombreContenedor + " span").removeClass("*");
 	$("#" + NombreContenedor).addClass("ui-state-" + TipoMensaje);
 	$("#" + NombreContenedor + " span").addClass(Icono);
@@ -128,7 +154,7 @@ function MyAccount_Options_AccessData_Submit(evento)
 						MostrarAlerta("AccessData_Message", "default", "ui-icon-circle-check", "Hey!", "The password has been changed");
 					}else
 					{
-						//Si las contraseñas no son Iguales
+						//Si no validó el Password Ingresado
 						MostrarAlerta("AccessData_Message", "error", "ui-icon-alert", "Error!", "The password entered is incorrect");
 						$("#txtMyAccount_CurrentPassword").focus();
 					}
@@ -169,28 +195,60 @@ function MyAccount_Options_PersonalInformation_Submit(evento)
 					}
 			});
 }
-
-
-
-
-
-function VerificarCompania()
+function MyUsersCreate_submit(evento)
+{
+		evento.preventDefault();
+		if ($("#txtMyUsersCreate_Password").val() == $("#txtMyUsersCreate_ReTypePassword").val())
+		{
+			$.post("php/CrearUsuario.php",  
+			{
+				Id: Usuario.Id,
+				User: $("#txtMyUsersCreate_User").val(),
+				Password: $("#txtMyUsersCreate_Password").val(),
+				Name: $("#txtMyUsersCreate_Name").val(),
+				NickName: $("#txtMyUsersCreate_DisplayName").val(),
+				Email: $("#txtMyUsersCreate_Email").val(),
+				Company: $("#txtMyUsersCreate_Company").val(),
+				urlFacebook: $("#txtMyUsersCreate_Facebook").val(),
+				urlTwitter: $("#txtMyUsersCreate_Twitter").val(),
+				NoFName : "false"
+			}, 
+			function(data)
+			{
+				var Id = parseInt(data);
+				if (isNaN(Id)) //No lo Creó
+				{ 
+					MostrarAlerta("MyUsers_Create", "error", "ui-icon-alert", "Alert!", data);
+				}
+				else //Si lo Creó
+				{ 
+					MostrarAlerta("MyUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The User has been create");
+				} 
+			});	
+		} else
+		{
+			MostrarAlerta("MyUsers_Create", "error", "ui-icon-alert", "Error!", "Passwords must be equal");
+		}
+		
+}
+function VerificarCompania(evento)
 {
 		$.post("php/VerificarCompania.php",  
 		{
-			Name: $("#txtMyAccount_Company").val()
+			NoFName: $("#txtMyUsersCreate_Company").val()
 		}, 
 		function(data)
 		{	
 			data = parseInt(data);
 			if (isNaN(data)) 
 			{ 
+				$("#txtMyUsersCreate_CompanyContact").val($("#txtMyUsersCreate_Name").val())
 				$("#CompanyData").slideDown();
-				$("#txtMyAccount_CompanyUrl").focus();
+				$("#txtMyUsersCreate_CompanyUrl").focus();
 			}
 			else
 			{ 
-				btnCompanyDataCancel_click();
+				btnCompanyDataCancel_click(evento);
 			} 
 		});		
 }
