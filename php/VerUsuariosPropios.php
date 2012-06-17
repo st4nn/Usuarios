@@ -5,16 +5,21 @@
 	$Id = $_POST['Id'];
 	
 	$sql = "SELECT DISTINCT
-				d.IdUsersData AS 'Id', 
+				l.IdLogin AS 'Id', 
 				d.Name AS 'Name',
 				d.NickName AS 'NickName',
 				d.mail AS 'Mail', 
-				c.Name AS 'Company'
+				c.Name AS 'Company',
+				d.urlFacebook AS 'urlFacebook',
+				d.urlTwitter AS 'urlTwitter',
+				l.State as 'State'
 		FROM
+				Login AS l, 
 				UsersData AS d,
 				Company AS c,
 				UsersTransactions AS r
 		WHERE
+			l.IdLogin = d.IdUsersData AND 
 			d.IdCompany = c.IdCompany AND
 			r.Operation = 'Create' AND
 			r.IdUser = d.IdUsersData AND
@@ -30,6 +35,9 @@
 		public $NickName;
 		public $Mail;
 		public $Company;
+		public $urlFacebook;
+		public $urlTwitter;
+		public $State;
 	}
 	$Index = 0;
 	do 
@@ -41,11 +49,13 @@
 		$Users[$Index]->NickName = $row['NickName'];
 		$Users[$Index]->Mail = $row['Mail'];
 		$Users[$Index]->Company = $row['Company'];
+		$Users[$Index]->urlFacebook = $row['urlFacebook'];
+		$Users[$Index]->urlTwitter = $row['urlTwitter'];
+		$Users[$Index]->State = $row['State'];
 
 		$Index++;
 	} while($row = mysql_fetch_array($result));
 
 	mysql_close($link);	
 	echo json_encode($Users);
-	
 ?> 

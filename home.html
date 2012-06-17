@@ -162,20 +162,27 @@
 							<th>NickName</th>
 							<th>Mail</th>
 							<th>Company</th>
+							<th>State</th>
 							<th>Login</th>
 							<th>Edit</th>
-							<th>Delete</th>
+							<th>Deactivate</th>
+							
 						</tr>
 					</table>
-					<article id='MyUsers_Edit'>
+					<div id='MyUsers_Edit' title='Edit'>
 						<label class='labelForm' for='txtMyUsersEdit_Password'>Password: </label><input class='password inputForm' type='password' id='txtMyUsersEdit_Password' />
 						<label class='labelForm' for='txtMyUsersEdit_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtMyUsersEdit_ReTypePassword'/>
 						
+						<label class='labelForm' for='txtMyUsersEdit_State'>State: </label><select class='inputForm' id='txtMyUsersEdit_State'>
+																								<option value='Active'>Active</option>
+																								<option value='Inactive'>Inactive</option>		
+																							</select>																						
+
 						<label class='labelForm' for='txtMyUsersEdit_Name'>Name: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Name' />
 						<label class='labelForm' for='txtMyUsersEdit_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyUsersEdit_DisplayName' />
 						<label class='labelForm' for='txtMyUsersEdit_Email'>Email: </label><input class='inputForm' type='email' id='txtMyUsersEdit_Email'/>
 						<label class='labelForm' for='txtMyUsersEdit_Company'>Company: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Company' />
-						<section id='txtMyUsersEdit_CompanyData'>
+						<section id='MyUsersEdit_CompanyData'>
 							<center>
 								<label class='labelForm' id='lblCompanyURL' for='txtMyUsersEdit_CompanyUrl'>URl: </label><input class='inputForm' type='text' id='txtMyUsersEdit_CompanyUrl'/>
 								<label class='labelForm' id='lblCompanyContact' for='txtMyUsersEdit_CompanyContact'>Contact: </label><input class='inputForm' type='text' id='txtMyUsersEdit_CompanyContact'/>
@@ -187,16 +194,24 @@
 						<label class='labelForm' for='txtMyUsersEdit_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Facebook'/>
 						<label class='labelForm' for='txtMyUsersEdit_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Twitter'/>
 						<center>
-							<div id='txtMyUsersEdit_Create' class="ui-state-highlight ui-corner-all">
+							<section id='MyUsersEdit_Message' class="ui-state-highlight ui-corner-all">
 								<p>
 									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 									<strong>Hey!</strong> 
 									<texto>The Company has been created.</texto>
 								</p>
-						</div>
+							</section>
 						<!--<input class='ui-button-success ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Create User'/>-->
 						</center>					
-					</article>
+					</div>
+					<div id='MyUsers_DeleteUser' title='Delete' IdUsuario='0'>
+						<center>
+							<p>Are you sure you want to delete the User?</p>
+								
+								<button class='ui-button-primary ui-button ui-widget ui-corner-all' id='btnMyUsersDeleteOk'>Delete</button>
+								<button class='ui-button-error ui-button ui-widget ui-corner-all' id = 'btnMyUsersDeleteCancel'>Cancel</button>
+						</center>
+					</div>
 					
 				</section>
 			</div>

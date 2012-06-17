@@ -41,7 +41,7 @@ class UserData
 		FROM 
 			Login as l, UsersData as d , Company as c
 		WHERE
-			l.IdLogin = d.IdUsersData AND d.IdCompany = c.IdCompany AND 
+			l.IdLogin = d.IdUsersData AND d.IdCompany = c.IdCompany AND State = 'Active' AND 
 			l.User = '$User' AND l.Pass = '$Pass';";
 				
 	$result=mysql_query($sql, $link); 

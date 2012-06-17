@@ -8,15 +8,26 @@ function arranque()
 	
 	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
 	$("#btnCompanyDataCreate").on("click", btnCompanyDataCreate_click);
+	$("#btnMyUsers_Delete").live("click", btnMyUsers_Delete_click);
+	$("#btnMyUsersDeleteCancel").live("click", btnMyUsersDeleteCancel_click);
+	$("#btnMyUsersDeleteOk").live("click", btnMyUsers_DeleteOk_click);
 	$("#btnMyUsers_Edit").live("click", btnMyUsers_Edit_click);
+	
+	
+	
+	$("#btnMyUsersEditCompanyDataCreate").live("click", btnMyUsersEditCompanyDataCreate_click);
 	
 	
 	$("#cboLanguage").on("change", CambiarIdioma);
 	$("#cboToolsType").on("change", CambiarTipoCustomPlayer);
 	
+	$("#CreatingUsersCreate").on("submit", CreatingUsersCreate_submit);
+	
 	$("#MyAccount_Options_AccessData").on("submit", MyAccount_Options_AccessData_Submit);
 	$("#MyAccount_Options_PersonalInformation").on("submit", MyAccount_Options_PersonalInformation_Submit)
-	$("#CreatingUsersCreate").on("submit", CreatingUsersCreate_submit);
+	
+	$("#MyUsers_DeleteUser").live("submit", MyUsers_DeleteUser_Submit);
+	
 
 	$("#lnkLogout").on("click", CerrarSesion);
 	$("#lnkMyUsers").on("click", CargarUsuariosPropios);
@@ -72,18 +83,53 @@ function btnCompanyDataCreate_click(evento)
 			} 
 		});		
 }
+function btnMyUsers_Delete_click()
+{	
+	var Fila = document.getElementsByName($(this).parent("td").attr("name"));
+	$("#MyUsers_DeleteUser").attr("title", "Deactivate " + $(Fila[0]).text());
+	$("#MyUsers_DeleteUser").attr("IdUsuario", $(this).parent("td").attr("name"));
+	$("#MyUsers_DeleteUser").dialog();
+	$("#MyUsers_DeleteUser").dialog('open');
+}
+function btnMyUsersDeleteCancel_click()
+{
+		$('#MyUsers_DeleteUser').dialog('close');
+		return false;
+}
+function btnMyUsers_DeleteOk_click()
+{
+	var IdUsuario = $('#MyUsers_DeleteUser').attr("IdUsuario");
+	
+	$.post("php/EliminarUsuario.php",
+		{ Id: IdUsuario},
+		function(data)
+		{
+			alert(data);
+		});		
+}
+function btnMyUsersEditCompanyDataCreate_click()
+{
+		alert('mao');
+}
 function btnMyUsers_Edit_click()
 {	
 	var Fila = document.getElementsByName($(this).parent("td").attr("name"));
+	
 	var strObj = "Edit " + $(Fila[0]).text();
-	var dialogo = $('<div></div>')
-			.html($("#MyUsers_Edit").html())
-			.dialog({
-				autoOpen: false,
-				minWidth: 500,
-				title: strObj
-			});
-	dialogo.dialog('open');
+		$("#MyUsers_Edit").attr("title", "Edit " + $(Fila[0]).text());
+		$("#MyUsers_Edit").dialog({
+									autoOpen: false, 				
+									minWidth: 600
+								});
+			$("#txtMyUsersEdit_Name").val($(Fila[0]).text());
+			$("#txtMyUsersEdit_DisplayName").val($(Fila[1]).text());
+			$("#txtMyUsersEdit_Email").val($(Fila[2]).text());
+			$("#txtMyUsersEdit_Company").val($(Fila[3]).text());
+			$("#txtMyUsersEdit_State").val($(Fila[8]).attr("State"));
+			$("#txtMyUsersEdit_Facebook").val($(Fila[8]).attr("urlFacebook"));
+			$("#txtMyUsersEdit_Twitter").val($(Fila[8]).attr("urlTwitter"));
+			
+		$("#MyUsers_Edit").dialog('open');
 }
 function CambiarIdioma()
 {
@@ -144,15 +190,16 @@ function CargarUsuariosPropios()
 			{
 				if (data[index].IdUser)
 				{
-					//AgregarMateria(data[index].IdMateria, data[index].CodMateria, data[index].NomMateria, false); 
 					var tds = "<tr id='" + data[index].IdUser + "'>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Name + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].NickName + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Mail + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Company + "</td>";
+						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].State + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-play'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button></td>";
-						  tds += "<td name='" + data[index].IdUser + "'><button class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button></td>";
+						  tds += "<td name='" + data[index].IdUser + "'><button id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button></td>";
+						  tds += "<td name='" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "'></td>";
 						tds += '</tr>';	
 					$("#tableMyUsers").append(tds);
 				}
@@ -163,6 +210,42 @@ function CerrarSesion()
 {
 	delete localStorage.Usuario;
 	window.location.replace("index.html");
+}
+function CreatingUsersCreate_submit(evento)
+{
+		evento.preventDefault();
+		if ($("#txtCreatingUsersCreate_Password").val() == $("#txtCreatingUsersCreate_ReTypePassword").val())
+		{
+			$.post("php/CrearUsuario.php",  
+			{
+				Id: Usuario.Id,
+				User: $("#txtCreatingUsersCreate_User").val(),
+				Password: $("#txtCreatingUsersCreate_Password").val(),
+				Name: $("#txtCreatingUsersCreate_Name").val(),
+				NickName: $("#txtCreatingUsersCreate_DisplayName").val(),
+				Email: $("#txtCreatingUsersCreate_Email").val(),
+				Company: $("#txtCreatingUsersCreate_Company").val(),
+				urlFacebook: $("#txtCreatingUsersCreate_Facebook").val(),
+				urlTwitter: $("#txtCreatingUsersCreate_Twitter").val(),
+				NoFName : "false"
+			}, 
+			function(data)
+			{
+				var Id = parseInt(data);
+				if (isNaN(Id)) //No lo Creó
+				{ 
+					MostrarAlerta("CreatingUsers_Create", "error", "ui-icon-alert", "Alert!", data);
+				}
+				else //Si lo Creó
+				{ 
+					MostrarAlerta("CreatingUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The User has been create");
+				} 
+			});	
+		} else
+		{
+			MostrarAlerta("CreatingUsers_Create", "error", "ui-icon-alert", "Error!", "Passwords must be equal");
+		}
+		
 }
 function MostrarAlerta(NombreContenedor, TipoMensaje, Icono, Strong, Mensaje)
 {
@@ -240,41 +323,10 @@ function MyAccount_Options_PersonalInformation_Submit(evento)
 					}
 			});
 }
-function CreatingUsersCreate_submit(evento)
+
+function MyUsers_DeleteUser_Submit()
 {
-		evento.preventDefault();
-		if ($("#txtCreatingUsersCreate_Password").val() == $("#txtCreatingUsersCreate_ReTypePassword").val())
-		{
-			$.post("php/CrearUsuario.php",  
-			{
-				Id: Usuario.Id,
-				User: $("#txtCreatingUsersCreate_User").val(),
-				Password: $("#txtCreatingUsersCreate_Password").val(),
-				Name: $("#txtCreatingUsersCreate_Name").val(),
-				NickName: $("#txtCreatingUsersCreate_DisplayName").val(),
-				Email: $("#txtCreatingUsersCreate_Email").val(),
-				Company: $("#txtCreatingUsersCreate_Company").val(),
-				urlFacebook: $("#txtCreatingUsersCreate_Facebook").val(),
-				urlTwitter: $("#txtCreatingUsersCreate_Twitter").val(),
-				NoFName : "false"
-			}, 
-			function(data)
-			{
-				var Id = parseInt(data);
-				if (isNaN(Id)) //No lo Creó
-				{ 
-					MostrarAlerta("CreatingUsers_Create", "error", "ui-icon-alert", "Alert!", data);
-				}
-				else //Si lo Creó
-				{ 
-					MostrarAlerta("CreatingUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The User has been create");
-				} 
-			});	
-		} else
-		{
-			MostrarAlerta("CreatingUsers_Create", "error", "ui-icon-alert", "Error!", "Passwords must be equal");
-		}
-		
+	
 }
 function VerificarCompania(evento)
 {
