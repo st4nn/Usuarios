@@ -3,6 +3,7 @@
 
  $Id = $_POST['Id'];
  $Name = $_POST['Name']; 
+ $Password = $_POST['Password']; 
  $State = $_POST['State']; 
  $NickName = $_POST['NickName'];
  $Email = $_POST['Email'];
@@ -22,6 +23,20 @@
 			IdUsersData = '$Id';";
 				
 	mysql_query($sql, $link); 
+	if ($Password)
+	{
+		$obj = "Pass = '". md5($Password) . "', ";
+	} else {$obj = "";}
+	
+	$sql = "
+		UPDATE Login SET
+			$obj
+			State = '$State'
+		WHERE
+			IdLogin = '$Id';";
+	
+	mysql_query($sql, $link); 
 	echo mysql_affected_rows();
+
 	mysql_close($link); 
 ?> 

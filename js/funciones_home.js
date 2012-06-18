@@ -8,16 +8,12 @@ function arranque()
 	
 	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
 	$("#btnCompanyDataCreate").on("click", btnCompanyDataCreate_click);
-	$("#btnMyUsers_Delete").live("click", btnMyUsers_Delete_click);
-	$("#btnMyUsersDeleteCancel").live("click", btnMyUsersDeleteCancel_click);
-	$("#btnMyUsersDeleteOk").live("click", btnMyUsers_DeleteOk_click);
+	
 	$("#btnMyUsers_Edit").live("click", btnMyUsers_Edit_click);
+		$("#btnMyUsersEditConfirmOk").live("click", btnMyUsersEditOk_click);
+	$("#btnMyUsersEditOk").live("click", btnMyUsersEditOk_click);
 	
-	
-	
-	$("#btnMyUsersEditCompanyDataCreate").live("click", btnMyUsersEditCompanyDataCreate_click);
-	
-	
+
 	$("#cboLanguage").on("change", CambiarIdioma);
 	$("#cboToolsType").on("change", CambiarTipoCustomPlayer);
 	
@@ -36,12 +32,6 @@ function arranque()
 	
 	
 	$("#txtCreatingUsersCreate_Company").live("change", VerificarCompania);
-	
-	//
-	//$("#divTools").addClass('ui-tabs-vertical ui-helper-clearfix');
-	//$("#MyAccount_Options").addClass('ui-tabs-vertical ui-helper-clearfix');
-	//$("#MainMenu li").removeClass('ui-corner-top').addClass('ui-corner-left');
-
 	
 	$("#divTools").tabs();
 	$("#MyAccount_Options").tabs();	
@@ -83,53 +73,101 @@ function btnCompanyDataCreate_click(evento)
 			} 
 		});		
 }
-function btnMyUsers_Delete_click()
-{	
-	var Fila = document.getElementsByName($(this).parent("td").attr("name"));
-	$("#MyUsers_DeleteUser").attr("title", "Deactivate " + $(Fila[0]).text());
-	$("#MyUsers_DeleteUser").attr("IdUsuario", $(this).parent("td").attr("name"));
-	$("#MyUsers_DeleteUser").dialog();
-	$("#MyUsers_DeleteUser").dialog('open');
-}
-function btnMyUsersDeleteCancel_click()
-{
-		$('#MyUsers_DeleteUser').dialog('close');
-		return false;
-}
-function btnMyUsers_DeleteOk_click()
-{
-	var IdUsuario = $('#MyUsers_DeleteUser').attr("IdUsuario");
-	
-	$.post("php/EliminarUsuario.php",
-		{ Id: IdUsuario},
-		function(data)
-		{
-			alert(data);
-		});		
-}
-function btnMyUsersEditCompanyDataCreate_click()
-{
-		alert('mao');
-}
 function btnMyUsers_Edit_click()
 {	
 	var Fila = document.getElementsByName($(this).parent("td").attr("name"));
 	
 	var strObj = "Edit " + $(Fila[0]).text();
+		$("#MyUsers_Edit").attr("IdUsuario", $(this).parent("td").attr("name"));
 		$("#MyUsers_Edit").attr("title", "Edit " + $(Fila[0]).text());
-		$("#MyUsers_Edit").dialog({
-									autoOpen: false, 				
-									minWidth: 600
-								});
 			$("#txtMyUsersEdit_Name").val($(Fila[0]).text());
 			$("#txtMyUsersEdit_DisplayName").val($(Fila[1]).text());
 			$("#txtMyUsersEdit_Email").val($(Fila[2]).text());
 			$("#txtMyUsersEdit_Company").val($(Fila[3]).text());
-			$("#txtMyUsersEdit_State").val($(Fila[8]).attr("State"));
-			$("#txtMyUsersEdit_Facebook").val($(Fila[8]).attr("urlFacebook"));
-			$("#txtMyUsersEdit_Twitter").val($(Fila[8]).attr("urlTwitter"));
-			
+			$("#txtMyUsersEdit_State").val($(Fila[7]).attr("State"));
+			$("#txtMyUsersEdit_Facebook").val($(Fila[7]).attr("urlFacebook"));
+			$("#txtMyUsersEdit_Twitter").val($(Fila[7]).attr("urlTwitter"));
+		
+		$("#MyUsers_Edit").dialog({
+				autoOpen: false, 				
+				minWidth: 600,
+				buttons: [
+							{
+								text: "Update",
+								click: function() { btnMyUsersEditOk_click();
+												  }
+							},
+							{
+								text: "Cancel",
+								click: function() { $(this).dialog("close"); 
+												  }
+							}
+						  ]
+								});
 		$("#MyUsers_Edit").dialog('open');
+}
+function btnMyUsersEditOk_click()
+{
+	if ($("#txtMyUsersEdit_Password").val() == $("#txtMyUsersEdit_ReTypePassword").val())
+	{
+		if ($("#txtMyAccount_NewPassword").val().length > 5 | $("#txtMyAccount_NewPassword").val()=="")
+		{
+			var dialogo = $('<div></div>')
+				  .html("Are you sure that you wish to update the data?")
+				  .dialog({
+					autoOpen: false,
+					buttons: [
+								{
+									text: "Update",
+									click: function() { 
+														var IdUsuario = $("#MyUsers_Edit").attr("IdUsuario");
+														$.post("php/ActualizarDatosUsuario.php",
+																{
+																	Id : IdUsuario,
+																	Name :  $("#txtMyUsersEdit_Name").val(),
+																	Password : $("#txtMyUsersEdit_Password").val(),
+																	State : $("#txtMyUsersEdit_State").val(),
+																	NickName : $("#txtMyUsersEdit_DisplayName").val(),
+																	Email : $("#txtMyUsersEdit_Email").val(),
+																	urlFacebook : $("#txtMyUsersEdit_Facebook").val(),
+																	urlTwitter : $("#txtMyUsersEdit_Twitter").val()
+																},
+																function(data)
+																	{
+																		if (parseInt(data) >= 0)
+																		{
+																			var IdUsuario = $("#MyUsers_Edit").attr("IdUsuario");
+																			dialogo.dialog("close"); 
+																			$("#MyUsers_Edit").dialog('close');
+																			CargarUsuariosPropios();
+																		}
+																	}
+															  );
+													  }
+								},
+								{
+									text: "Cancel",
+									click: function() { $(this).dialog("close"); 
+														$("#MyUsers_Edit").dialog('close');
+													  }
+								}
+							  ],
+					modal: true, 
+					stack: true,
+					title: "confirm Update"
+				  });
+			dialogo.dialog('open');
+		}
+		else
+		{
+			MostrarAlerta("MyUsersEdit_Message", "error", "ui-icon-alert", "Alert!", "Minimum number of characters is 6");
+			$("#txtMyAccount_NewPassword").focus();
+		}
+	} else
+	{
+		MostrarAlerta("MyUsersEdit_Message", "error", "ui-icon-alert", "Error!", "Passwords must be equal");
+		$("#txtMyUsersEdit_Password").focus();
+	}
 }
 function CambiarIdioma()
 {
@@ -196,9 +234,8 @@ function CargarUsuariosPropios()
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Mail + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Company + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].State + "</td>";
-						  tds += "<td name='" + data[index].IdUser + "'><button class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-play'></span></strong></button></td>";
-						  tds += "<td name='" + data[index].IdUser + "'><button id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button></td>";
-						  tds += "<td name='" + data[index].IdUser + "'><button id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button></td>";
+						  tds += "<td name='" + data[index].IdUser + "'><button title='Login as User' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-play'></span></strong></button></td>";
+						  tds += "<td name='" + data[index].IdUser + "'><button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "'></td>";
 						tds += '</tr>';	
 					$("#tableMyUsers").append(tds);
@@ -210,6 +247,7 @@ function CerrarSesion()
 {
 	delete localStorage.Usuario;
 	window.location.replace("index.html");
+	
 }
 function CreatingUsersCreate_submit(evento)
 {
