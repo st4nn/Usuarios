@@ -1,7 +1,7 @@
 <?php 
    include("conectar.php"); 
-$User = $_POST['Usuario'];
-$Pass = md5($_POST['Clave']);
+$User = $_GET['Usuario'];
+$Pass = md5($_GET['Clave']);
 
 class UserData
 {

@@ -10,6 +10,7 @@
 				d.NickName AS 'NickName',
 				d.mail AS 'Mail', 
 				c.Name AS 'Company',
+				c.IdCompany AS 'IdCompany',
 				d.urlFacebook AS 'urlFacebook',
 				d.urlTwitter AS 'urlTwitter',
 				l.State as 'State'
@@ -34,6 +35,7 @@
 		public $Name;
 		public $NickName;
 		public $Mail;
+		public $IdCompany;
 		public $Company;
 		public $urlFacebook;
 		public $urlTwitter;
@@ -48,6 +50,7 @@
 		$Users[$Index]->Name = $row['Name'];
 		$Users[$Index]->NickName = $row['NickName'];
 		$Users[$Index]->Mail = $row['Mail'];
+		$Users[$Index]->IdCompany = $row['IdCompany'];
 		$Users[$Index]->Company = $row['Company'];
 		$Users[$Index]->urlFacebook = $row['urlFacebook'];
 		$Users[$Index]->urlTwitter = $row['urlTwitter'];

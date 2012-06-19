@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8"/>
+	<title>BRONCO</title>
+	
+	<link rel="stylesheet" href="css/jquery.ui.1.8.16.ie.css"/>
+	<link rel="stylesheet" href="css/jquery-ui-1.8.16.custom.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css">
+        
+    <link rel="stylesheet" href="css/estilos.css" />
+	
+	<script src="Tools/HTML5/HTML5_enabling_script.js"></script>
+	<script src="Tools/HTML5/prefixfree.min.js"></script>
+	<script src="Tools/HTML5/jquery.js"></script>
+	<script src="Tools/HTML5/jquery-ui.js"></script>
+	<script src="Tools/HTML5/jquery.pstrength-min.1.2.js"></script>
+	
+	
+	<script src="js/funciones_LoginAsAUser.js"></script>
+	<link  rel="shortcut icon" href="css/imagenes/favicon.ico" />
+	
+</head>
+<body>
+<header>
+	<select id="cboLanguage" placeholder="Language"></select>
+</header>
+	<h3 id='lblWelcome'>Welcome <span></span></h3>
+	<hr width='97%'>
+	<div id="tabs">
+		<ul id='MainMenu'>
+			<li><a id='lnkHome' href="#DashBoard">Home</a></li>
+			<li><a id='lnkTools' href="#Tools">Tools</a></li>
+			<li><a id='lnkMyAccount' href="#MyAccount">My Account</a></li>
+			<li><a id='lnkAnalytics' href="#Analytics">Analytics</a></li>
+			<li><a id="lnkLogout">Logout</a></li>
+		</ul>
+		<section id="DashBoard">
+			
+				<h3 id='lblMyStreams'>My Streams</h3>
+			<section>
+					<h2>Zona en Construcción</h2>
+					<h3>Estará cuando se puedan asociar productos a usuarios</h3>
+				<input type='image' src='css/Recursos/Llenar.png'/>	
+				<input type='image' src='css/Recursos/Grafica1.png'/>
+			</section>
+			
+		</section>
+		<section id="Tools">
+			<div id='divTools'>
+				<ul>
+					<li><a id='lnkCustomPlayer' href="#divTools-CustomPlayer">Custom Player</a></li>
+					<li><a id='lnkExportCode'  href="#divTools-ExportCode">Export Code</a></li>
+				</ul>
+			</div>
+				<section id='divTools-CustomPlayer'>
+					<select id="cboToolsType" placeholder="Language">
+						<option value=''>Seleccione el Tipo de Reproductor</option>
+						<option value='Tools/WizardPlayer'>Audio</option>
+						<option value='Tools/WizardVideo'>Video</option>
+					</select>
+					<br><section id='IframeCustomPlayer'></section><br>
+				</section>
+		</section>
+		<section id="Analytics">
+			<h2>Zona en Construcción</h2>
+			<h3>Estará cuando se puedan generar Estadísticas</h3>
+		</section>
+		<section id="MyAccount">
+			<div id='MyAccount_Options'>
+				<ul>
+					<li><a id='lnkPersonalInformation' href="#MyAccount_Options_PersonalInformation">Personal Information</a></li>
+					<li><a id='lnkAccessData'  href="#MyAccount_Options_AccessData">Access Data</a></li>
+					<li><a id='lnkCustomTemplate'  href="#MyAccount_Options_CustomTemplate">Custom Template</a></li>
+					<li><a id='lnkCreatingUsers'  href="#MyAccount_Options_CreatingUsers">Creating Users</a></li>
+					<li><a id='lnkMyUsers'  href="#MyAccount_Options_MyUsers">My Users</a></li>
+				</ul>
+				<form id='MyAccount_Options_PersonalInformation'>
+					<label class='labelForm' id='lblName' for='txtMyAccount_Name'>Name: </label><input class='inputForm' type='text' id='txtMyAccount_Name' required />
+					<label class='labelForm' id='lblDisplayName' for='txtMyAccount_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyAccount_DisplayName' required/>
+					<label class='labelForm' id='lblEmail' for='txtMyAccount_Email'>Email: </label><input class='inputForm' type='email' id='txtMyAccount_Email' required/>
+					<label class='labelForm' id='lblCompany' for='txtMyAccount_Company'>Company: </label><input class='inputForm' type='text' id='txtMyAccount_Company' readonly="readonly"/>
+					<label class='labelForm' id='lblFacebook' for='txtMyAccount_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtMyAccount_Facebook'/>
+					<label class='labelForm' id='lblTwitter' for='txtMyAccount_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyAccount_Twitter'/>
+					</br></br>
+					<center>
+						<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
+						<div id='PersonalInformation_Message' class="ui-state-highlight ui-corner-all">
+							<p>
+								<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+								<strong id='AccessData_ErrorMessage strong'>Alert!</strong> 
+								<texto>The password has been changed.</texto>
+							</p>
+						</div>
+					</center>
+					</br></br>
+				</form>
+				<section id='MyAccount_Options_CustomTemplate'>
+					<h2>Zona en Construcción</h2>
+					<h3>Estará lista cuando se defina la parte de Templates</h3>
+					<input type='image' src='css/Recursos/Llenar.png'/>	
+				</section>
+				<form id='MyAccount_Options_AccessData'>
+					<label class='labelForm' for='txtMyAccount_CurrentPassword'>Current Password: </label><input class='inputForm' type='password' id='txtMyAccount_CurrentPassword'/>
+					<label class='labelForm' for='txtMyAccount_NewPassword'>New Password: </label><input class='password inputForm' type='password' id='txtMyAccount_NewPassword'/>
+					</br><label class='labelForm' for='txtMyAccount_ReTypePassword'>Re-type Password: </label><input class=' inputForm' type='password' id='txtMyAccount_ReTypePassword'/>
+					</br>
+					<center>
+						<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
+						</br></br>
+						<div id='AccessData_Message' class="ui-state-highlight ui-corner-all">
+							<p>
+								<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+								<stronglo>Alert!</strong> 
+								<texto>The password has been changed.</texto>
+							</p>
+						</div>
+
+					</center>
+					</br></br>
+				</form>
+				<section id='MyAccount_Options_CreatingUsers'>
+					<form id='CreatingUsersCreate'>
+						<label class='labelForm' for='txtCreatingUsersCreate_User'>User: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_User' required/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Password'>Password: </label><input class='password inputForm' type='password' id='txtCreatingUsersCreate_Password' required/>
+						<label class='labelForm' for='txtCreatingUsersCreate_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtCreatingUsersCreate_ReTypePassword'/>
+						
+						<label class='labelForm' for='txtCreatingUsersCreate_Name'>Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Name' required/>
+						<label class='labelForm' for='txtCreatingUsersCreate_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_DisplayName' required/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Email'>Email: </label><input class='inputForm' type='email' id='txtCreatingUsersCreate_Email'/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Company'>Company: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Company' required/>
+						<section id='CompanyData'>
+							<center>
+								<label class='labelForm' id='lblCompanyURL' for='txtCreatingUsersCreate_CompanyUrl'>URl: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_CompanyUrl'/>
+								<label class='labelForm' id='lblCompanyContact' for='txtCreatingUsersCreate_CompanyContact'>Contact: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_CompanyContact'/>
+								</br>
+								<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCompanyDataCreate'>Create Company</button>
+								<button class='ui-button-error ui-button ui-widget ui-corner-all' id = 'btnCompanyDataCancel'>Cancel</button>
+							</center>
+						</section>
+						<label class='labelForm' for='txtCreatingUsersCreate_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Facebook'/>
+						<label class='labelForm' for='txtCreatingUsersCreate_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Twitter'/>
+						</br></br>
+						<center>
+							<div id='CreatingUsers_Create' class="ui-state-highlight ui-corner-all">
+								<p>
+									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+									<strong>Hey!</strong> 
+									<texto>The Company has been created.</texto>
+								</p>
+						</div>
+						<input class='ui-button-success ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Create User'/>
+						</center>
+						</br></br>
+					</form>
+				</section>
+				<section id='MyAccount_Options_MyUsers'>
+					<center><button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button></center>
+					<table id='tableMyUsers'>
+						<tr>
+							<th>Name</th>
+							<th>NickName</th>
+							<th>Mail</th>
+							<th>Company</th>
+							<th>State</th>
+							<th>Login</th>
+							<th>Edit</th>
+						</tr>
+					</table>
+					<div id='MyUsers_Edit' title='Edit' IdUsuario='0'>
+						<label class='labelForm' for='txtMyUsersEdit_Password'>Password: </label><input class='password inputForm' type='password' id='txtMyUsersEdit_Password' />
+						<label class='labelForm' for='txtMyUsersEdit_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtMyUsersEdit_ReTypePassword'/>
+						
+						<label class='labelForm' for='txtMyUsersEdit_State'>State: </label><select class='inputForm' id='txtMyUsersEdit_State'>
+																								<option value='Active'>Active</option>
+																								<option value='Inactive'>Inactive</option>		
+																							</select>																						
+
+						<label class='labelForm' for='txtMyUsersEdit_Name'>Name: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Name' />
+						<label class='labelForm' for='txtMyUsersEdit_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyUsersEdit_DisplayName' />
+						<label class='labelForm' for='txtMyUsersEdit_Email'>Email: </label><input class='inputForm' type='email' id='txtMyUsersEdit_Email'/>
+						<label class='labelForm' for='txtMyUsersEdit_Company'>Company: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Company' readonly='readonly' />
+						<section id='MyUsersEdit_CompanyData'>
+							<center>
+								<label class='labelForm' id='lblCompanyURL' for='txtMyUsersEdit_CompanyUrl'>URl: </label><input class='inputForm' type='text' id='txtMyUsersEdit_CompanyUrl'/>
+								<label class='labelForm' id='lblCompanyContact' for='txtMyUsersEdit_CompanyContact'>Contact: </label><input class='inputForm' type='text' id='txtMyUsersEdit_CompanyContact'/>
+								</br>
+								<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnMyUsersEditCompanyDataCreate'>Create Company</button>
+								<button class='ui-button-error ui-button ui-widget ui-corner-all' id = 'btnMyUsersEditCompanyDataCancel'>Cancel</button>
+							</center>
+						</section>
+						<label class='labelForm' for='txtMyUsersEdit_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Facebook'/>
+						<label class='labelForm' for='txtMyUsersEdit_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Twitter'/>
+						<center>
+							<section id='MyUsersEdit_Message' class="ui-state-highlight ui-corner-all">
+								<p>
+									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+									<strong>Hey!</strong> 
+									<texto>.</texto>
+								</p>
+							</section>
+						<!--<input class='ui-button-success ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Create User'/>-->
+						</center>					
+					</div>
+				</section>
+			</div>
+		</section>
+	</div>
+<footer>
+	Powered by <input type='image' src='css/imagenes/LogoBronco-mini.png'/>
+</footer>
+</body>
+</html>

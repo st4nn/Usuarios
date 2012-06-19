@@ -10,7 +10,7 @@ function arranque()
 {
 	$('body').on("close", obj);
 	
-	if(!localStorage.Usuario)
+	if(!localStorage.UsuarioSimulado)
 	{CerrarSesion();}
 	
 	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
@@ -241,7 +241,7 @@ function CambiarTipoCustomPlayer()
 }
 function CargarUsuario()
 {
-	Usuario = JSON.parse(localStorage.Usuario)[0];
+	Usuario = JSON.parse(localStorage.UsuarioSimulado)[0];
 	$("#lblWelcome span").text(Usuario.Name);
 	
 	$("#txtMyAccount_Name").val(Usuario.Name);
@@ -279,7 +279,7 @@ function CargarUsuariosPropios()
 }
 function CerrarSesion()
 {
-	delete localStorage.Usuario;
+	delete localStorage.UsuarioSimulado;
 	window.location.replace("index.html");
 	
 }
