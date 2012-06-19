@@ -1,7 +1,7 @@
 <?php 
    include("conectar.php"); 
-$User = $_GET['Usuario'];
-$Pass = md5($_GET['Clave']);
+$User = $_POST['Usuario'];
+$Pass = md5($_POST['Clave']);
 
 class UserData
 {
@@ -60,7 +60,7 @@ if ($row)
 							);
 }else
 {
-	$User = new UserData('','','','','','','', '');
+	$User = new UserData('','','','','','','','');
 }
 	echo json_encode($User);
 	mysql_free_result($result); 

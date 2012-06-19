@@ -1,0 +1,40 @@
+[18-Jun-2012 16:30:46] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[18-Jun-2012 16:30:48] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[18-Jun-2012 16:30:53] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[18-Jun-2012 16:31:15] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[18-Jun-2012 16:31:53] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:46:04] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:46:06] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:46:30] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:46:41] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:47:26] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:47:41] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:47:46] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:34] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:34] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:37] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:40] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:40] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:41] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:43] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:49] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:58] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:49:58] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:50:48] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:52:14] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:52:14] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Access denied for user 'root'@'localhost' (using password: NO) in /home/broncoce/public_html/usuarios/php/conectar.php on line 4
+[19-Jun-2012 05:52:16] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:52:16] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Access denied for user 'root'@'localhost' (using password: NO) in /home/broncoce/public_html/usuarios/php/conectar.php on line 4
+[19-Jun-2012 05:52:29] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:52:29] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Access denied for user 'root'@'localhost' (using password: NO) in /home/broncoce/public_html/usuarios/php/conectar.php on line 4
+[19-Jun-2012 05:52:30] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:52:30] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Access denied for user 'root'@'localhost' (using password: NO) in /home/broncoce/public_html/usuarios/php/conectar.php on line 4
+[19-Jun-2012 05:53:43] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:53:45] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:53:49] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:54:07] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:58:10] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:58:16] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:58:25] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:58:57] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0
+[19-Jun-2012 05:59:04] PHP Warning:  PHP Startup: Suhosin Extension does not officially support PHP 5.2 and below anymore, because it is discontinued. Use it at your own risk. in Unknown on line 0

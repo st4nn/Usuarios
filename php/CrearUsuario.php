@@ -23,7 +23,7 @@
 	
 	$sql = "
 		INSERT INTO Login 
-				(User, Pass)
+				(User, Pass, State)
 			VALUES
 				(
 			'$User',   
@@ -44,7 +44,8 @@
 						'$Email', 
 						'$CompanyId', 
 						'$urlFacebook', 
-						'$urlTwitter')";		
+						'$urlTwitter',
+						'Active')";		
 	
 			mysql_query($sql, $link);
 		
