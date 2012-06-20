@@ -18,6 +18,7 @@ function arranque()
 	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
 	$("#btnCompanyDataCreate").on("click", btnCompanyDataCreate_click);
 	
+		$("#btnMyUsers_Delete").live("click", btnMyUsers_Delete_click);
 	$("#btnMyUsers_Edit").live("click", btnMyUsers_Edit_click);
 		$("#btnMyUsersEditConfirmOk").live("click", btnMyUsersEditOk_click);
 	$("#btnMyUsersEditOk").live("click", btnMyUsersEditOk_click);
@@ -86,23 +87,96 @@ function btnCompanyDataCreate_click(evento)
 			} 
 		});		
 }
+function btnMyUsers_Delete_click()
+{
+	IdUsuario = $(this).parent('td').attr("name");
+	$("#tableDeleteMyUsers td").remove()
+	$.post("php/VerUsuariosPropios.php",
+		{ Id : IdUsuario},
+		function(data)
+		{
+			if (data[0].IdUser)
+			{
+				$.each(data,function(index,value) 
+				{
+					if (data[index].IdUser)
+					{
+						var tds = "<tr id='" + data[index].IdUser + "'>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Name + "</td>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].NickName + "</td>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Mail + "</td>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Owner + "</td>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].State + "</td>";
+							tds += '</tr>';	
+						$("#tableDeleteMyUsers").append(tds);
+					}
+				});
+			}else
+			{
+				$("#tableDeleteMyUsers th").remove()
+				var tds = "<tr>";
+					  tds += "<td>No Users associate</td>";
+					tds += '</tr>';	
+				$("#tableDeleteMyUsers").append(tds);
+			}
+		}, "json");
+										
+	$("#MyUsers_Delete").dialog({
+		autoOpen: false, 				
+		minWidth: 620,
+		buttons: [
+			{
+				text: "Delete",
+				click: function() { 
+										$.post("php/EliminarUsuario.php",
+											{ Id : IdUsuario},
+											function(data)
+											{
+												if (parseInt(data) == 0)
+												{
+													
+													MostrarAlerta("MyUsers_DeleteAlert", "error", "ui-icon-alert", "Alert!", "no user has been removed");
+													// No hubo ningún Cambio
+												}else if (parseInt(data) > 0)
+												{
+													MostrarAlerta("MyUsers_DeleteAlert", "default", "ui-icon-circle-check", "Hey!", "Users have been eliminated");
+														//Cambios Correctos
+												} else
+												{
+													MostrarAlerta("MyUsers_DeleteAlert", "error", "ui-icon-alert", "Alert!", "There was an unexpected error");
+														//Hubo un error
+												}
+											});
+											$(this).dialog("close"); 
+											CargarUsuariosPropios();
+								  }
+			},
+			{
+				text: "Cancel",
+				click: function() { $(this).dialog("close"); 
+								  }
+			}
+				  ]
+								});
+	$("#MyUsers_Delete").dialog('open');	
+}
 function btnMyUsers_Edit_click()
 {	
 	var Fila = document.getElementsByName($(this).parent("td").attr("name"));
 	
 	var strObj = "Edit " + $(Fila[0]).text();
 		$("#MyUsers_Edit").attr("IdUsuario", $(this).parent("td").attr("name"));
-		$("#MyUsers_Edit").attr("title", "Edit " + $(Fila[0]).text());
 			$("#txtMyUsersEdit_Name").val($(Fila[0]).text());
 			$("#txtMyUsersEdit_DisplayName").val($(Fila[1]).text());
 			$("#txtMyUsersEdit_Email").val($(Fila[2]).text());
 			$("#txtMyUsersEdit_Company").val($(Fila[3]).text());
-			$("#txtMyUsersEdit_State").val($(Fila[7]).attr("State"));
-			$("#txtMyUsersEdit_Facebook").val($(Fila[7]).attr("urlFacebook"));
-			$("#txtMyUsersEdit_Twitter").val($(Fila[7]).attr("urlTwitter"));
+			$("#txtMyUsersEdit_State").val($(Fila[8]).attr("State"));
+			$("#txtMyUsersEdit_Facebook").val($(Fila[8]).attr("urlFacebook"));
+			$("#txtMyUsersEdit_Twitter").val($(Fila[8]).attr("urlTwitter"));
 		
 		$("#MyUsers_Edit").dialog({
 				autoOpen: false, 				
+				title: "Edit " + $(Fila[0]).text(),
 				minWidth: 600,
 				buttons: [
 							{
@@ -295,6 +369,7 @@ function CargarUsuariosPropios()
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].State + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-play'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button></td>";
+						  tds += "<td name='" + data[index].IdUser + "'><button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "'></td>";
 						tds += '</tr>';	
 					$("#tableMyUsers").append(tds);
