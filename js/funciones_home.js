@@ -291,7 +291,7 @@ function CargarUsuariosPropios()
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Name + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].NickName + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Mail + "</td>";
-						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Company + "</td>";
+						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Owner + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].State + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-play'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button></td>";
