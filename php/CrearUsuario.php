@@ -27,7 +27,8 @@
 			VALUES
 				(
 			'$User',   
-			'$Password'
+			'$Password',
+			'Active'
 				);";
 				
 	$result = mysql_query($sql, $link); 			
@@ -44,18 +45,20 @@
 						'$Email', 
 						'$CompanyId', 
 						'$urlFacebook', 
-						'$urlTwitter',
-						'Active')";		
+						'$urlTwitter');";		
 	
 			mysql_query($sql, $link);
-		
+				
+				$Fecha = date('Y-m-d'); 
+				
 			$sql = "INSERT INTO UsersTransactions
-						(IdUser, IdMasterUser, Operation)
+						(IdUser, IdMasterUser, Operation, Date)
 					VALUES
 						(
 						'$UserId', 
 						'$Id', 
-						'Create')";		
+						'Create',
+						'$Fecha')";		
 						
 			mysql_query($sql, $link); 
 			echo $UserId;

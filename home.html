@@ -29,11 +29,13 @@
 	<hr width='97%'>
 	<div id="tabs">
 		<ul id='MainMenu'>
-			<li><a id='lnkHome' href="#DashBoard">Home</a></li>
-			<li><a id='lnkTools' href="#Tools">Tools</a></li>
-			<li><a id='lnkMyAccount' href="#MyAccount">My Account</a></li>
-			<li><a id='lnkAnalytics' href="#Analytics">Analytics</a></li>
-			<li><a id="lnkLogout">Logout</a></li>
+			<li id='lnkHome'><a id='lblHome' href="#DashBoard">Home</a></li>
+			<li id='lnkTools'><a id='lblTools' href="#Tools">Tools</a></li>
+			<li id='lnkMyAccount'><a id='lblMyAccount' href="#MyAccount">My Account</a></li>
+			<li id='lnkUsers'><a id='lblUsers' href="#Users">Users</a></li>
+			<li id='lnkAnalytics'><a id='lblAnalytics' href="#Analytics">Analytics</a></li>
+			<li id='lnkMyService'><a id='lblMyService' href="#MyService">My Service</a></li>
+			<li id="lnkLogout"><a id='lblLogout' >Logout</a></li>
 		</ul>
 		<section id="DashBoard">
 			
@@ -49,8 +51,8 @@
 		<section id="Tools">
 			<div id='divTools'>
 				<ul>
-					<li><a id='lnkCustomPlayer' href="#divTools-CustomPlayer">Custom Player</a></li>
-					<li><a id='lnkExportCode'  href="#divTools-ExportCode">Export Code</a></li>
+					<li id='lnkCustomPlayer'><a href="#divTools-CustomPlayer">Custom Player</a></li>
+					<li id='lnkExportCode'><a href="#divTools-ExportCode">Export Code</a></li>
 				</ul>
 			</div>
 				<section id='divTools-CustomPlayer'>
@@ -69,11 +71,9 @@
 		<section id="MyAccount">
 			<div id='MyAccount_Options'>
 				<ul>
-					<li><a id='lnkPersonalInformation' href="#MyAccount_Options_PersonalInformation">Personal Information</a></li>
-					<li><a id='lnkAccessData'  href="#MyAccount_Options_AccessData">Access Data</a></li>
-					<li><a id='lnkCustomTemplate'  href="#MyAccount_Options_CustomTemplate">Custom Template</a></li>
-					<li><a id='lnkCreatingUsers'  href="#MyAccount_Options_CreatingUsers">Creating Users</a></li>
-					<li><a id='lnkMyUsers'  href="#MyAccount_Options_MyUsers">My Users</a></li>
+					<li id='lnkPersonalInformation'><a id='lblHome' href="#MyAccount_Options_PersonalInformation">Personal Information</a></li>
+					<li id='lnkAccessData'><a id='lblAccessData' href="#MyAccount_Options_AccessData">Access Data</a></li>
+					<li id='lnkCustomTemplate'><a id='lblCustomTemplate' href="#MyAccount_Options_CustomTemplate">Custom Template</a></li>
 				</ul>
 				<form id='MyAccount_Options_PersonalInformation'>
 					<label class='labelForm' id='lblName' for='txtMyAccount_Name'>Name: </label><input class='inputForm' type='text' id='txtMyAccount_Name' required />
@@ -119,7 +119,16 @@
 					</center>
 					</br></br>
 				</form>
-				<section id='MyAccount_Options_CreatingUsers'>
+			</div>
+		</section>
+		<section id='Users'>
+			<ul>
+				<li id='lnkCreatingUsers'><a id='lblCreatingUsers' href="#MyAccount_Options_CreatingUsers">Creating Users</a></li>
+				<li id='lnkMyUsers'><a id='lblMyUsers' href="#MyAccount_Options_MyUsers">My Users</a></li>
+				<li id='lnkPermissions'><a id='lblPermissions' href="#MyAccount_Options_Permissions">Permissions</a></li>
+			</ul>
+
+			<section id='MyAccount_Options_CreatingUsers'>
 					<form id='CreatingUsersCreate'>
 						<label class='labelForm' for='txtCreatingUsersCreate_User'>User: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_User' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_Password'>Password: </label><input class='password inputForm' type='password' id='txtCreatingUsersCreate_Password' required/>
@@ -153,6 +162,7 @@
 						</center>
 						</br></br>
 					</form>
+					<button class='ui-button-success ui-button ui-widget ui-corner-all' id='LimpiarAlgo'>Limpiar</button>
 				</section>
 				<section id='MyAccount_Options_MyUsers'>
 					<center><button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button></center>
@@ -203,8 +213,28 @@
 						</center>					
 					</div>
 				</section>
-			</div>
+				<section id='MyAccount_Options_Permissions'>
+						<table id='TableFunctions'>
+							<tr>
+								<th>Name</th>
+								<th>Function</th>
+								<th>Associated Control</th>
+							</tr>
+						</table>
+						<select id='MyUsers_Functions_AssociatedControl'></select>
+						<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCargarControlesAsociados'>Load Controls</button>
+				</section>
 		</section>
+		<section id='MyService'>
+				<h3 id='MyService'>My Service</h3>
+			<section>
+					<h2>Zona en Construcción</h2>
+					<h3>Estará cuando se puedan Crear Servicios y asociarlos a un usuario</h3>
+				<input type='image' src='css/Recursos/Llenar.png'/>	
+				<input type='image' src='css/Recursos/Grafica1.png'/>
+			</section>
+		</section>
+		
 	</div>
 <footer>
 	Powered by <input type='image' src='css/imagenes/LogoBronco-mini.png'/>
