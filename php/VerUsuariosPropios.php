@@ -75,9 +75,8 @@ Busqueda:
 			$Id = $Users[$i]->IdUser;
 			
 			$i++;
-			if ($i < $Index)
+			if ($i <= $Index)
 			{
-				
 				goto Busqueda;
 			}
 end:			
