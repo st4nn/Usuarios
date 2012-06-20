@@ -2,18 +2,16 @@
 var Usuario;
 $(document).on("ready", arranque);
 
-function obj()
-{
-	ResetearContenedor($("#MyAccount_Options_CreatingUsers"));
-}
-
 function arranque()
 {
-	$("#LimpiarAlgo").live("click", obj);
 	//$('body').on("close", obj);
-	$("#btnCargarControlesAsociados").live("click", Permisos_CargarControlesAsociados);
+	
 	if(!localStorage.Usuario)
 	{CerrarSesion();}
+	
+	$("#btnMyAccount_CreatingUsersCreate_Reset").on("click", function(evento){evento.preventDefault();ResetearContenedor("CreatingUsersCreate");})
+	
+	$("#btnCargarControlesAsociados").live("click", Permisos_CargarControlesAsociados);
 	
 	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
 	$("#btnCompanyDataCreate").on("click", btnCompanyDataCreate_click);
@@ -34,8 +32,10 @@ function arranque()
 	$("#MyAccount_Options_AccessData").on("submit", MyAccount_Options_AccessData_Submit);
 	$("#MyAccount_Options_PersonalInformation").on("submit", MyAccount_Options_PersonalInformation_Submit)
 	
-	$("#lnkLogout").on("click", CerrarSesion);
+	$("#lblAccessData").on("click", function(){ResetearContenedor("MyAccount_Options_AccessData");});
 	$("#lblMyUsers").on("click", CargarUsuariosPropios);
+	
+	$("#lnkLogout").on("click", CerrarSesion);
 	$("#tableMyUsersRefresh").on("click", CargarUsuariosPropios);
 	
 	$("#txtCreatingUsersCreate_Company").live("change", VerificarCompania);
@@ -162,6 +162,7 @@ function btnMyUsers_Delete_click()
 }
 function btnMyUsers_Edit_click()
 {	
+	ResetearContenedor("MyUsers_Edit");
 	var Fila = document.getElementsByName($(this).parent("td").attr("name"));
 	
 	var strObj = "Edit " + $(Fila[0]).text();
@@ -173,7 +174,7 @@ function btnMyUsers_Edit_click()
 			$("#txtMyUsersEdit_State").val($(Fila[8]).attr("State"));
 			$("#txtMyUsersEdit_Facebook").val($(Fila[8]).attr("urlFacebook"));
 			$("#txtMyUsersEdit_Twitter").val($(Fila[8]).attr("urlTwitter"));
-		
+			
 		$("#MyUsers_Edit").dialog({
 				autoOpen: false, 				
 				title: "Edit " + $(Fila[0]).text(),
@@ -411,6 +412,7 @@ function CreatingUsersCreate_submit(evento)
 				else //Si lo Creó
 				{ 
 					MostrarAlerta("CreatingUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The User has been create");
+					ResetearContenedor("CreatingUsersCreate");
 				} 
 			});	
 		} else
@@ -456,6 +458,7 @@ function MyAccount_Options_AccessData_Submit(evento)
 					if (parseInt(data) == "1") //Si el cambio fué exitoso
 					{
 						MostrarAlerta("AccessData_Message", "default", "ui-icon-circle-check", "Hey!", "The password has been changed");
+						ResetearContenedor("MyAccount_Options_AccessData");
 					}else
 					{
 						//Si no validó el Password Ingresado
@@ -505,7 +508,6 @@ function MyAccount_Options_PersonalInformation_Submit(evento)
 									"urlFacebook": $("#txtMyAccount_Facebook").val(),
 									"urlTwitter": $("#txtMyAccount_Twitter").val()};
 						localStorage.setItem("Usuario", '[' + JSON.stringify(data) + ']');
-						
 					} else
 					{
 						MostrarAlerta("PersonalInformation_Message", "error", "ui-icon-alert", "Alert!", "The changes are not applied");
@@ -528,16 +530,14 @@ function Permisos_CargarControlesAsociados()
 			}
 		});
 }
-function ResetearContenedor(Contenedor)
+function ResetearContenedor(IdContenedor)
 {
-		var Controles = $(Contenedor).children("input");
-		$(Controles).each(
-				function(index) 
-			{	
-				if ($(Controles[index]).attr("type") != "submit")
-				{$(Controles[index]).val("");}
-			}
-						);
+		  $('#' + IdContenedor).find(':input').each(function() {
+			if ($(this).attr('type') != 'submit')
+			  {
+                $(this).val('');
+              }
+			});
 }
 function VerificarCompania(evento)
 {
