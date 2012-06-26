@@ -5,8 +5,8 @@
 	$Id = $_POST['Id'];
 	
 	$sql = "SELECT
-				p.IdPermission AS 'IdPermission ',
-				p.IdFunction AS 'IdFunction ',
+				p.IdPermission AS 'IdPermission',
+				p.IdFunction AS 'IdFunction',
 				f.Name AS 'Name',
 				f.Description AS 'Description',
 				f.AssociatedControl AS 'AssociatedControl'

@@ -46,6 +46,7 @@
 				<input type='image' src='css/Recursos/Llenar.png'/>	
 				<input type='image' src='css/Recursos/Grafica1.png'/>
 			</section>
+			<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnObj'>View Permisions</button>
 			
 		</section>
 		<section id="Tools">
@@ -74,6 +75,7 @@
 					<li id='lnkPersonalInformation'><a id='lblHome' href="#MyAccount_Options_PersonalInformation">Personal Information</a></li>
 					<li id='lnkAccessData'><a id='lblAccessData' href="#MyAccount_Options_AccessData">Access Data</a></li>
 					<li id='lnkCustomTemplate'><a id='lblCustomTemplate' href="#MyAccount_Options_CustomTemplate">Custom Template</a></li>
+					<li id='lnkPermissions'><a id='lblPermissions' href="#MyAccount_Options_Permissions">Permissions</a></li>
 				</ul>
 				<form id='MyAccount_Options_PersonalInformation'>
 						<div id='PersonalInformation_Message' class="ui-state-highlight ui-corner-all">
@@ -118,13 +120,24 @@
 					</center>
 					</br></br>
 				</form>
+				<section id='MyAccount_Options_Permissions'>
+						<table id='TableFunctions'>
+							<tr>
+								<th>Name</th>
+								<th>Function</th>
+								<th>Associated Control</th>
+								<th>Delete</th>
+							</tr>
+						</table>
+						<select id='MyUsers_Functions_AssociatedControl'></select>
+						<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCargarControlesAsociados'>Load Controls</button>
+				</section>
 			</div>
 		</section>
 		<section id='Users'>
 			<ul>
 				<li id='lnkCreatingUsers'><a id='lblCreatingUsers' href="#MyAccount_Options_CreatingUsers">Creating Users</a></li>
 				<li id='lnkMyUsers'><a id='lblMyUsers' href="#MyAccount_Options_MyUsers">My Users</a></li>
-				<li id='lnkPermissions'><a id='lblPermissions' href="#MyAccount_Options_Permissions">Permissions</a></li>
 			</ul>
 
 			<section id='MyAccount_Options_CreatingUsers'>
@@ -232,17 +245,6 @@
 						<label class='labelForm' for='txtMyUsersEdit_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Twitter'/>
 						<center>
 					</div>
-				</section>
-				<section id='MyAccount_Options_Permissions'>
-						<table id='TableFunctions'>
-							<tr>
-								<th>Name</th>
-								<th>Function</th>
-								<th>Associated Control</th>
-							</tr>
-						</table>
-						<select id='MyUsers_Functions_AssociatedControl'></select>
-						<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCargarControlesAsociados'>Load Controls</button>
 				</section>
 		</section>
 		<section id='MyService'>

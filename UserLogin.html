@@ -76,6 +76,13 @@
 					<li id='lnkCustomTemplate'><a id='lblCustomTemplate' href="#MyAccount_Options_CustomTemplate">Custom Template</a></li>
 				</ul>
 				<form id='MyAccount_Options_PersonalInformation'>
+						<div id='PersonalInformation_Message' class="ui-state-highlight ui-corner-all">
+							<p>
+								<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+								<strong id='AccessData_ErrorMessage strong'>Alert!</strong> 
+								<texto>The password has been changed.</texto>
+							</p>
+						</div>
 					<label class='labelForm' id='lblName' for='txtMyAccount_Name'>Name: </label><input class='inputForm' type='text' id='txtMyAccount_Name' required />
 					<label class='labelForm' id='lblDisplayName' for='txtMyAccount_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtMyAccount_DisplayName' required/>
 					<label class='labelForm' id='lblEmail' for='txtMyAccount_Email'>Email: </label><input class='inputForm' type='email' id='txtMyAccount_Email' required/>
@@ -85,13 +92,6 @@
 					</br></br>
 					<center>
 						<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
-						<div id='PersonalInformation_Message' class="ui-state-highlight ui-corner-all">
-							<p>
-								<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-								<strong id='AccessData_ErrorMessage strong'>Alert!</strong> 
-								<texto>The password has been changed.</texto>
-							</p>
-						</div>
 					</center>
 					</br></br>
 				</form>
@@ -101,13 +101,6 @@
 					<input type='image' src='css/Recursos/Llenar.png'/>	
 				</section>
 				<form id='MyAccount_Options_AccessData'>
-					<label class='labelForm' for='txtMyAccount_CurrentPassword'>Current Password: </label><input class='inputForm' type='password' id='txtMyAccount_CurrentPassword'/>
-					<label class='labelForm' for='txtMyAccount_NewPassword'>New Password: </label><input class='password inputForm' type='password' id='txtMyAccount_NewPassword'/>
-					</br><label class='labelForm' for='txtMyAccount_ReTypePassword'>Re-type Password: </label><input class=' inputForm' type='password' id='txtMyAccount_ReTypePassword'/>
-					</br>
-					<center>
-						<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
-						</br></br>
 						<div id='AccessData_Message' class="ui-state-highlight ui-corner-all">
 							<p>
 								<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
@@ -115,7 +108,13 @@
 								<texto>The password has been changed.</texto>
 							</p>
 						</div>
-
+					<label class='labelForm' for='txtMyAccount_CurrentPassword'>Current Password: </label><input class='inputForm' type='password' id='txtMyAccount_CurrentPassword'/>
+					<label class='labelForm' for='txtMyAccount_NewPassword'>New Password: </label><input class='password inputForm' type='password' id='txtMyAccount_NewPassword'/>
+					</br><label class='labelForm' for='txtMyAccount_ReTypePassword'>Re-type Password: </label><input class=' inputForm' type='password' id='txtMyAccount_ReTypePassword'/>
+					</br>
+					<center>
+						<input class='ui-button-primary ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Save'/>
+						</br></br>
 					</center>
 					</br></br>
 				</form>
@@ -130,6 +129,13 @@
 
 			<section id='MyAccount_Options_CreatingUsers'>
 					<form id='CreatingUsersCreate'>
+							<div id='CreatingUsers_Create' class="ui-state-highlight ui-corner-all">
+								<p>
+									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+									<strong>Hey!</strong> 
+									<texto>The Company has been created.</texto>
+								</p>
+							</div>
 						<label class='labelForm' for='txtCreatingUsersCreate_User'>User: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_User' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_Password'>Password: </label><input class='password inputForm' type='password' id='txtCreatingUsersCreate_Password' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtCreatingUsersCreate_ReTypePassword'/>
@@ -151,21 +157,22 @@
 						<label class='labelForm' for='txtCreatingUsersCreate_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Twitter'/>
 						</br></br>
 						<center>
-							<div id='CreatingUsers_Create' class="ui-state-highlight ui-corner-all">
+						<input class='ui-button-success ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Create User'/>
+						<button class='ui-button-default ui-button ui-widget ui-corner-all' id='btnMyAccount_CreatingUsersCreate_Reset'>Reset</button>
+						</center>
+						</br></br>
+					</form>
+				</section>
+				<section id='MyAccount_Options_MyUsers'>
+					
+					<center><button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button></center>
+						<div id='MyUsers_DeleteAlert' class="ui-state-highlight ui-corner-all">
 								<p>
 									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 									<strong>Hey!</strong> 
 									<texto>The Company has been created.</texto>
 								</p>
 						</div>
-						<input class='ui-button-success ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Create User'/>
-						</center>
-						</br></br>
-					</form>
-					<button class='ui-button-success ui-button ui-widget ui-corner-all' id='LimpiarAlgo'>Limpiar</button>
-				</section>
-				<section id='MyAccount_Options_MyUsers'>
-					<center><button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button></center>
 					<table id='tableMyUsers'>
 						<tr>
 							<th>Name</th>
@@ -175,9 +182,31 @@
 							<th>State</th>
 							<th>Login</th>
 							<th>Edit</th>
+							<th>Delete</th>
 						</tr>
 					</table>
+					<section id='MyUsers_Delete' title='Delete'>
+						<p>Will be deleted the following Users and their services permanently too</p>
+						<table id='tableDeleteMyUsers'>
+							<tr>
+								<th>Name</th>
+								<th>NickName</th>
+								<th>Mail</th>
+								<th>Owner</th>
+								<th>State</th>
+							</tr>
+						</table>	
+					</section>
 					<div id='MyUsers_Edit' title='Edit' IdUsuario='0'>
+							<section id='MyUsersEdit_Message' class="ui-state-highlight ui-corner-all">
+								<p>
+									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+									<strong>Hey!</strong> 
+									<texto>.</texto>
+								</p>
+							</section>
+						<!--<input class='ui-button-success ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Create User'/>-->
+						</center>		
 						<label class='labelForm' for='txtMyUsersEdit_Password'>Password: </label><input class='password inputForm' type='password' id='txtMyUsersEdit_Password' />
 						<label class='labelForm' for='txtMyUsersEdit_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtMyUsersEdit_ReTypePassword'/>
 						
@@ -202,15 +231,6 @@
 						<label class='labelForm' for='txtMyUsersEdit_Facebook'>Facebook: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Facebook'/>
 						<label class='labelForm' for='txtMyUsersEdit_Twitter'>Twitter: </label><input class='inputForm' type='text' id='txtMyUsersEdit_Twitter'/>
 						<center>
-							<section id='MyUsersEdit_Message' class="ui-state-highlight ui-corner-all">
-								<p>
-									<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-									<strong>Hey!</strong> 
-									<texto>.</texto>
-								</p>
-							</section>
-						<!--<input class='ui-button-success ui-button ui-widget ui-corner-all' type='submit' id='btnMyAccount_Save' value='Create User'/>-->
-						</center>					
 					</div>
 				</section>
 				<section id='MyAccount_Options_Permissions'>

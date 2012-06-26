@@ -1,5 +1,5 @@
 <?php 
-   require("conectar.php"); 
+   include("conectar.php"); 
 	$link=Conectarse(); 
 	
 	$i = 0;

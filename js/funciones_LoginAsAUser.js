@@ -1,21 +1,22 @@
-﻿var Usuario;
+﻿
+var Usuario;
 $(document).on("ready", arranque);
-
-function obj()
-{
-	alert("mao");
-}
 
 function arranque()
 {
-	$('body').on("close", obj);
+	//$('body').on("close", obj);
 	
 	if(!localStorage.UsuarioSimulado)
 	{CerrarSesion();}
 	
+	$("#btnMyAccount_CreatingUsersCreate_Reset").on("click", function(evento){evento.preventDefault();ResetearContenedor("CreatingUsersCreate");})
+	
+	$("#btnCargarControlesAsociados").live("click", Permisos_CargarControlesAsociados);
+	
 	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
 	$("#btnCompanyDataCreate").on("click", btnCompanyDataCreate_click);
 	
+		$("#btnMyUsers_Delete").live("click", btnMyUsers_Delete_click);
 	$("#btnMyUsers_Edit").live("click", btnMyUsers_Edit_click);
 		$("#btnMyUsersEditConfirmOk").live("click", btnMyUsersEditOk_click);
 	$("#btnMyUsersEditOk").live("click", btnMyUsersEditOk_click);
@@ -31,19 +32,18 @@ function arranque()
 	$("#MyAccount_Options_AccessData").on("submit", MyAccount_Options_AccessData_Submit);
 	$("#MyAccount_Options_PersonalInformation").on("submit", MyAccount_Options_PersonalInformation_Submit)
 	
-	$("#MyUsers_DeleteUser").live("submit", MyUsers_DeleteUser_Submit);
+	$("#lblAccessData").on("click", function(){ResetearContenedor("MyAccount_Options_AccessData");});
+	$("#lblMyUsers").on("click", CargarUsuariosPropios);
 	
-
 	$("#lnkLogout").on("click", CerrarSesion);
-	$("#lnkMyUsers").on("click", CargarUsuariosPropios);
 	$("#tableMyUsersRefresh").on("click", CargarUsuariosPropios);
-	
-	
 	
 	$("#txtCreatingUsersCreate_Company").live("change", VerificarCompania);
 	
 	$("#divTools").tabs();
 	$("#MyAccount_Options").tabs();	
+	$("#Users").tabs();	
+	
 	$("#tabs").tabs();
 
 	$('.password').pstrength();
@@ -87,23 +87,97 @@ function btnCompanyDataCreate_click(evento)
 			} 
 		});		
 }
+function btnMyUsers_Delete_click()
+{
+	IdUsuario = $(this).parent('td').attr("name");
+	$("#tableDeleteMyUsers td").remove()
+	$.post("php/VerUsuariosPropios.php",
+		{ Id : IdUsuario},
+		function(data)
+		{
+			if (data[0].IdUser)
+			{
+				$.each(data,function(index,value) 
+				{
+					if (data[index].IdUser)
+					{
+						var tds = "<tr id='" + data[index].IdUser + "'>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Name + "</td>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].NickName + "</td>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Mail + "</td>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Owner + "</td>";
+							  tds += "<td name='" + data[index].IdUser + "'>" + data[index].State + "</td>";
+							tds += '</tr>';	
+						$("#tableDeleteMyUsers").append(tds);
+					}
+				});
+			}else
+			{
+				$("#tableDeleteMyUsers th").remove()
+				var tds = "<tr>";
+					  tds += "<td>No Users associate</td>";
+					tds += '</tr>';	
+				$("#tableDeleteMyUsers").append(tds);
+			}
+		}, "json");
+										
+	$("#MyUsers_Delete").dialog({
+		autoOpen: false, 				
+		minWidth: 620,
+		buttons: [
+			{
+				text: "Delete",
+				click: function() { 
+										$.post("php/EliminarUsuario.php",
+											{ Id : IdUsuario},
+											function(data)
+											{
+												if (parseInt(data) == 0)
+												{
+													
+													MostrarAlerta("MyUsers_DeleteAlert", "error", "ui-icon-alert", "Alert!", "no user has been removed");
+													// No hubo ningún Cambio
+												}else if (parseInt(data) > 0)
+												{
+													MostrarAlerta("MyUsers_DeleteAlert", "default", "ui-icon-circle-check", "Hey!", "Users have been eliminated");
+														//Cambios Correctos
+												} else
+												{
+													MostrarAlerta("MyUsers_DeleteAlert", "error", "ui-icon-alert", "Alert!", "There was an unexpected error");
+														//Hubo un error
+												}
+											});
+											$(this).dialog("close"); 
+											CargarUsuariosPropios();
+								  }
+			},
+			{
+				text: "Cancel",
+				click: function() { $(this).dialog("close"); 
+								  }
+			}
+				  ]
+								});
+	$("#MyUsers_Delete").dialog('open');	
+}
 function btnMyUsers_Edit_click()
 {	
+	ResetearContenedor("MyUsers_Edit");
 	var Fila = document.getElementsByName($(this).parent("td").attr("name"));
 	
 	var strObj = "Edit " + $(Fila[0]).text();
 		$("#MyUsers_Edit").attr("IdUsuario", $(this).parent("td").attr("name"));
-		$("#MyUsers_Edit").attr("title", "Edit " + $(Fila[0]).text());
 			$("#txtMyUsersEdit_Name").val($(Fila[0]).text());
 			$("#txtMyUsersEdit_DisplayName").val($(Fila[1]).text());
 			$("#txtMyUsersEdit_Email").val($(Fila[2]).text());
 			$("#txtMyUsersEdit_Company").val($(Fila[3]).text());
-			$("#txtMyUsersEdit_State").val($(Fila[7]).attr("State"));
-			$("#txtMyUsersEdit_Facebook").val($(Fila[7]).attr("urlFacebook"));
-			$("#txtMyUsersEdit_Twitter").val($(Fila[7]).attr("urlTwitter"));
-		
+			$("#txtMyUsersEdit_State").val($(Fila[8]).attr("State"));
+			$("#txtMyUsersEdit_Facebook").val($(Fila[8]).attr("urlFacebook"));
+			$("#txtMyUsersEdit_Twitter").val($(Fila[8]).attr("urlTwitter"));
+			
 		$("#MyUsers_Edit").dialog({
 				autoOpen: false, 				
+				title: "Edit " + $(Fila[0]).text(),
 				minWidth: 600,
 				buttons: [
 							{
@@ -212,17 +286,17 @@ function CambiarIdioma()
 		function(data)
 		{	
 			$("#lblWelcome").text(data.Welcome + " " + Usuario.Name);
-			$("#lnkHome").text(data.Home);
-			$("#lnkTools").text(data.Tools);
-			$("#lnkAnalytics").text(data.Analytics);
-			$("#lnkMyAccount").text(data.MyAccount);
-			$("#lnkLogout").text(data.Logout);
+			$("#lblHome").text(data.Home);
+			$("#lblTools").text(data.Tools);
+			$("#lblAnalytics").text(data.Analytics);
+			$("#lblMyAccount").text(data.MyAccount);
+			$("#lblLogout").text(data.Logout);
 			
-			$("#lnkCustomPlayer").text(data.CustomPlayer);
-			$("#lnkExportCode").text(data.ExportCode);
+			$("#lblCustomPlayer").text(data.CustomPlayer);
+			$("#lblExportCode").text(data.ExportCode);
 			
-			$("#lnkPersonalInformation").text(data.PersonalInformation);
-			$("#lnkCustomTemplate").text(data.CustomTemplate);
+			$("#lblPersonalInformation").text(data.PersonalInformation);
+			$("#lblCustomTemplate").text(data.CustomTemplate);
 			
 			$("#lblName").text(data.Name);
 			$("#lblDisplayName").text(data.DisplayName);
@@ -242,7 +316,7 @@ function CambiarTipoCustomPlayer()
 function CargarUsuario()
 {
 	Usuario = JSON.parse(localStorage.UsuarioSimulado)[0];
-	$("#lblWelcome span").text(Usuario.Name);
+	$("#lblWelcome span").text(Usuario.NickName);
 	
 	$("#txtMyAccount_Name").val(Usuario.Name);
 	$("#txtMyAccount_DisplayName").val(Usuario.NickName);
@@ -250,6 +324,32 @@ function CargarUsuario()
 	$("#txtMyAccount_Company").val(Usuario.CompanyName);
 	$("#txtMyAccount_Facebook").val(Usuario.urlFacebook);
 	$("#txtMyAccount_Twitter").val(Usuario.urlTwitter);
+	
+	var Permisos = CargarPermisos(Usuario.Id);
+	$("#tableMyUsers td").remove()
+	$(Permisos).each(
+		function(index) 
+		{
+				var tds = "<tr id='" + Permisos[index].IdPermission + "'>";
+						  tds += "<td>" + Permisos[index].Name + "</td>";
+						  tds += "<td>" + Permisos[index].Description + "</td>";
+						  tds += "<td>" + Permisos[index].AssociatedControl + "</td>";
+						  tds += "<td></td>";
+						 tds += "</tr>";
+					$("#TableFunctions").append(tds);
+		}
+		);
+}
+function CargarPermisos(IdUsuario)
+{
+	var Permisos;
+	$.post("php/VerPermisos.php",
+		{ Id : IdUsuario},
+		function(data){
+			Permisos = '[' + JSON.stringify(data) + ']';
+				},
+		"json");
+		return Permisos;
 }
 function CargarUsuariosPropios()
 {
@@ -266,10 +366,11 @@ function CargarUsuariosPropios()
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Name + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].NickName + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Mail + "</td>";
-						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Company + "</td>";
+						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].Owner + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].State + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-play'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button></td>";
+						  tds += "<td name='" + data[index].IdUser + "'><button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "'></td>";
 						tds += '</tr>';	
 					$("#tableMyUsers").append(tds);
@@ -311,6 +412,7 @@ function CreatingUsersCreate_submit(evento)
 				else //Si lo Creó
 				{ 
 					MostrarAlerta("CreatingUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The User has been create");
+					ResetearContenedor("CreatingUsersCreate");
 				} 
 			});	
 		} else
@@ -356,6 +458,7 @@ function MyAccount_Options_AccessData_Submit(evento)
 					if (parseInt(data) == "1") //Si el cambio fué exitoso
 					{
 						MostrarAlerta("AccessData_Message", "default", "ui-icon-circle-check", "Hey!", "The password has been changed");
+						ResetearContenedor("MyAccount_Options_AccessData");
 					}else
 					{
 						//Si no validó el Password Ingresado
@@ -382,27 +485,59 @@ function MyAccount_Options_PersonalInformation_Submit(evento)
 		$.post("php/ActualizarDatosUsuario.php",
 			{
 				Id : Usuario.Id,
+				IdOwn : Usuario.Id,
 				Name : $("#txtMyAccount_Name").val(), 
 				NickName : $("#txtMyAccount_DisplayName").val(), 
 				Email : $("#txtMyAccount_Email").val(), 
 				urlFacebook : $("#txtMyAccount_Facebook").val(),  
-				urlTwitter : $("#txtMyAccount_Twitter").val()
+				urlTwitter : $("#txtMyAccount_Twitter").val(),
+				Password : '',
+				State : 'Active'
 			},
 			function(data)
 			{
 					if (parseInt(data) == "1")
 					{
 						MostrarAlerta("PersonalInformation_Message", "default", "ui-icon-circle-check", "Hey!", "The changes were applied successfully");
+						var data = {"Id":Usuario.Id,
+									"Name": $("#txtMyAccount_Name").val(),
+									"NickName": $("#txtMyAccount_DisplayName").val(),
+									"IdCompany": Usuario.IdCompany,
+									"CompanyName": Usuario.CompanyName,
+									"Email": $("#txtMyAccount_Email").val(),
+									"urlFacebook": $("#txtMyAccount_Facebook").val(),
+									"urlTwitter": $("#txtMyAccount_Twitter").val()};
+						localStorage.setItem("Usuario", '[' + JSON.stringify(data) + ']');
 					} else
 					{
 						MostrarAlerta("PersonalInformation_Message", "error", "ui-icon-alert", "Alert!", "The changes are not applied");
 					}
 			});
 }
-
-function MyUsers_DeleteUser_Submit()
+function Permisos_CargarControlesAsociados()
 {
-	
+//MyUsers_Functions_AssociatedControl	
+	Controles = document.getElementsByTagName("li");
+	$(Controles).each(
+		function(index) 
+		{
+			if ($(Controles[index]).css("display") != "none")
+			{
+				var Options = "<option value='" + $(Controles[index]).attr("id") + "'>";
+						  Options += $(Controles[index]).text();
+						  Options += "</option>";
+					$("#MyUsers_Functions_AssociatedControl").append(Options);
+			}
+		});
+}
+function ResetearContenedor(IdContenedor)
+{
+		  $('#' + IdContenedor).find(':input').each(function() {
+			if ($(this).attr('type') != 'submit')
+			  {
+                $(this).val('');
+              }
+			});
 }
 function VerificarCompania(evento)
 {
