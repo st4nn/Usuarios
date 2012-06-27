@@ -1,26 +1,8 @@
 ﻿var Usuario;
 $(document).on("ready", arranque);
 
-function obj()
-{
-	var Permisos = new Array();
-	
-	$.post("php/VerPermisos.php",
-		{ Id : Usuario.Id},
-		function(data)
-		{
-			$.each(data,function(index,value) 
-			{
-				alert(data[index].AssociatedControl);
-				$("#" + data[index].AssociatedControl).slideDown();
-			});
-		}, "json");
-						
-}
 function arranque()
 {
-	//$('body').on("close", obj);
-	$("#btnObj").on("click", obj);
 	
 	if(!localStorage.Usuario)
 	{CerrarSesion();}
@@ -35,6 +17,8 @@ function arranque()
 		$("#btnMyUsers_Delete").live("click", btnMyUsers_Delete_click);
 	$("#btnMyUsers_Edit").live("click", btnMyUsers_Edit_click);
 		$("#btnMyUsersEditConfirmOk").live("click", btnMyUsersEditOk_click);
+	$("#btnMyUsers_EditPermissions").live("click", btnMyUsers_EditPermissions_click);
+	
 	$("#btnMyUsersEditOk").live("click", btnMyUsersEditOk_click);
 	$("#btnMyUsers_LoginAsAUser").live("click", btnMyUsers_LoginAsAUser_click);
 	$("#btnMyAccount_Options_Permissions_Delete").live("click", btnMyAccount_Options_Permissions_Delete_click);
@@ -314,6 +298,78 @@ function btnMyUsersEditOk_click()
 		$("#txtMyUsersEdit_Password").focus();
 	}
 }
+function btnMyUsers_EditPermissions_click()
+{
+	var IdUsuario = $(this).parent("td").attr("name");
+	
+	$.post("php/VerPermisos.php",
+		{ Id : Usuario.Id},
+		function(data){
+			$("#UserTableFunctions td").remove();
+			$.each(data,function(index,value) 
+			{
+				if (data[index].IdPermission)
+				{
+					var tds = "<tr id='" + data[index].IdPermission + "'>";
+						  tds += "<td name='" + data[index].IdPermission + "'><input type='checkbox' id='chk" + data[index].AssociatedControl + "' AssociatedControl='" + data[index].AssociatedControl + "' IdFunction='" + data[index].IdFunction + "'/></td>";
+						  tds += "<td name='" + data[index].IdPermission + "'>" + data[index].Name + "</td>";
+						  tds += "<td name='" + data[index].IdPermission + "'>" + data[index].Description + "</td>";
+						  tds += "<td name='" + data[index].IdPermission + "' IdFunction='" + data[index].IdFunction + "'></td>";
+						tds += '</tr>';	
+					$("#UserTableFunctions").append(tds);
+				}
+			});
+			$.post("php/VerPermisos.php",
+								{ Id : IdUsuario},
+								function(data2)
+								{
+									$.each(data2,function(index2,value2)
+									{
+										$("#chk" + data2[index2].AssociatedControl).attr("checked", "checked");
+									});
+								}, "json");
+					},
+		"json");
+		$("#MyUsersEdit_Permissions").dialog({
+		autoOpen: false, 				
+		minWidth: 620,
+		buttons: [
+			{
+				text: "Ok",
+				click: function() { 
+									var tabla = document.getElementById("UserTableFunctions");
+									var numFilas = tabla.rows.length;
+									var Controles = "";
+									var elementos = tabla.getElementsByTagName("input")
+									for (i = 0; i < numFilas; i++)
+									{
+										if($(elementos[i]).is(':checked'))
+										{
+											Controles += $(elementos[i]).attr("IdFunction") + "@";
+										}
+									}
+									$.post("php/EditarPermiso.php",
+											{Functions: Controles, IdUser: IdUsuario},
+											function(data)
+											{
+												if (parseInt(data) > 0)
+												{
+													alert(data);
+													$("#MyUsersEdit_Permissions").dialog("close"); 
+												}
+											}
+										  );
+								  }
+			},
+			{
+				text: "Cancel",
+				click: function() { $(this).dialog("close"); 
+								  }
+			}
+				  ]
+								});
+	$("#MyUsersEdit_Permissions").dialog('open');	
+}
 function btnMyUsers_LoginAsAUser_click()
 {
 	var IdUsuario = $(this).parent("td").attr("name");
@@ -442,6 +498,7 @@ function CargarUsuariosPropios()
 						  tds += "<td name='" + data[index].IdUser + "'>" + data[index].State + "</td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-play'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button></td>";
+						  tds += "<td name='" + data[index].IdUser + "'><button title='Edit Permissions' id='btnMyUsers_EditPermissions' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-unlocked'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "'></td>";
 						tds += '</tr>';	

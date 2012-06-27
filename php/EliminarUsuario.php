@@ -12,7 +12,8 @@
 		public $IdUser;
 	}
 	
-Busqueda:
+do
+{
 
 	$sql = "SELECT DISTINCT
 				IdUser
@@ -38,12 +39,10 @@ Busqueda:
 		
 	} while($row = mysql_fetch_array($result));
 
-			if ($i <= $Index)
-			{
 				$Id = $User[$i]->IdUser;
 					$i++;
-				goto Busqueda;
-			}
+				
+} while ($i <= $Index);
 		$User[$Index] = new Users();
 		$User[$Index]->IdUser = $IdOwn;
 	

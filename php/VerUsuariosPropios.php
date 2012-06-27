@@ -20,7 +20,8 @@
 		public $State;
 	}
 	
-Busqueda:
+do
+{
 
 	$sql = "SELECT DISTINCT
 				l.IdLogin AS 'Id', 
@@ -75,11 +76,7 @@ Busqueda:
 			$Id = $Users[$i]->IdUser;
 			
 			$i++;
-			if ($i <= $Index)
-			{
-				goto Busqueda;
-			}
-end:			
+} while($i <= $Index);
 		
 	mysql_close($link);	
 	echo json_encode($Users);
