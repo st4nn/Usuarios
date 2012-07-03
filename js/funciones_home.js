@@ -1,15 +1,16 @@
 ﻿var Usuario;
 $(document).on("ready", arranque);
-
+function objPrueba()
+{
+	alert($("#MyUsersEdit_Permissions_Roll").val());
+}
 function arranque()
 {
-	
+	$("#btnObj").on('click', objPrueba);
 	if(!localStorage.Usuario)
 	{CerrarSesion();}
 	
 	$("#btnMyAccount_CreatingUsersCreate_Reset").on("click", function(evento){evento.preventDefault();ResetearContenedor("CreatingUsersCreate");})
-	
-	$("#btnCargarControlesAsociados").live("click", Permisos_CargarControlesAsociados);
 	
 	$("#btnCompanyDataCancel").on("click", btnCompanyDataCancel_click);
 	$("#btnCompanyDataCreate").on("click", btnCompanyDataCreate_click);
@@ -17,7 +18,8 @@ function arranque()
 		$("#btnMyUsers_Delete").live("click", btnMyUsers_Delete_click);
 	$("#btnMyUsers_Edit").live("click", btnMyUsers_Edit_click);
 		$("#btnMyUsersEditConfirmOk").live("click", btnMyUsersEditOk_click);
-	$("#btnMyUsers_EditPermissions").live("click", btnMyUsers_EditPermissions_click);
+	$("#btnMyUsers_EditPermissions").live("click", function(){EditarPermisos($(this).parent("td").attr("name"))});
+		$("#MyUsersEdit_Permissions_Roll").on('change', CambiarRoll);
 	
 	$("#btnMyUsersEditOk").live("click", btnMyUsersEditOk_click);
 	$("#btnMyUsers_LoginAsAUser").live("click", btnMyUsers_LoginAsAUser_click);
@@ -28,6 +30,8 @@ function arranque()
 	$("#cboLanguage").on("change", CambiarIdioma);
 	$("#cboToolsType").on("change", CambiarTipoCustomPlayer);
 	
+	$("#cboLanguage").load('php/CargarIdiomas.php');
+		
 	$("#CreatingUsersCreate").on("submit", CreatingUsersCreate_submit);
 	
 	$("#MyAccount_Options_AccessData").on("submit", MyAccount_Options_AccessData_Submit);
@@ -49,9 +53,7 @@ function arranque()
 	$("#tabs").tabs();
 
 	$('.password').pstrength();
-		
-	$("#cboLanguage").load('php/CargarIdiomas.php');
-	
+
 	CargarUsuario();
 }
 
@@ -298,78 +300,6 @@ function btnMyUsersEditOk_click()
 		$("#txtMyUsersEdit_Password").focus();
 	}
 }
-function btnMyUsers_EditPermissions_click()
-{
-	var IdUsuario = $(this).parent("td").attr("name");
-	
-	$.post("php/VerPermisos.php",
-		{ Id : Usuario.Id},
-		function(data){
-			$("#UserTableFunctions td").remove();
-			$.each(data,function(index,value) 
-			{
-				if (data[index].IdPermission)
-				{
-					var tds = "<tr id='" + data[index].IdPermission + "'>";
-						  tds += "<td name='" + data[index].IdPermission + "'><input type='checkbox' id='chk" + data[index].AssociatedControl + "' AssociatedControl='" + data[index].AssociatedControl + "' IdFunction='" + data[index].IdFunction + "'/></td>";
-						  tds += "<td name='" + data[index].IdPermission + "'>" + data[index].Name + "</td>";
-						  tds += "<td name='" + data[index].IdPermission + "'>" + data[index].Description + "</td>";
-						  tds += "<td name='" + data[index].IdPermission + "' IdFunction='" + data[index].IdFunction + "'></td>";
-						tds += '</tr>';	
-					$("#UserTableFunctions").append(tds);
-				}
-			});
-			$.post("php/VerPermisos.php",
-								{ Id : IdUsuario},
-								function(data2)
-								{
-									$.each(data2,function(index2,value2)
-									{
-										$("#chk" + data2[index2].AssociatedControl).attr("checked", "checked");
-									});
-								}, "json");
-					},
-		"json");
-		$("#MyUsersEdit_Permissions").dialog({
-		autoOpen: false, 				
-		minWidth: 620,
-		buttons: [
-			{
-				text: "Ok",
-				click: function() { 
-									var tabla = document.getElementById("UserTableFunctions");
-									var numFilas = tabla.rows.length;
-									var Controles = "";
-									var elementos = tabla.getElementsByTagName("input")
-									for (i = 0; i < numFilas; i++)
-									{
-										if($(elementos[i]).is(':checked'))
-										{
-											Controles += $(elementos[i]).attr("IdFunction") + "@";
-										}
-									}
-									$.post("php/EditarPermiso.php",
-											{Functions: Controles, IdUser: IdUsuario},
-											function(data)
-											{
-												if (parseInt(data) > 0)
-												{
-													alert(data);
-													$("#MyUsersEdit_Permissions").dialog("close"); 
-												}
-											}
-										  );
-								  }
-			},
-			{
-				text: "Cancel",
-				click: function() { $(this).dialog("close"); 
-								  }
-			}
-				  ]
-								});
-	$("#MyUsersEdit_Permissions").dialog('open');	
-}
 function btnMyUsers_LoginAsAUser_click()
 {
 	var IdUsuario = $(this).parent("td").attr("name");
@@ -418,6 +348,21 @@ function CambiarIdioma()
 		}, 
 		"json");	
 }
+function CambiarRoll()
+{
+	$("#UserTableFunctions :checkbox").attr('checked', false);
+	
+	$.post("php/CargarPermisosRoll.php",
+			{IdRoll : $("#MyUsersEdit_Permissions_Roll").val()},
+			function(data)
+			{
+				$.each(data,function(index,value) 
+				{
+					$("#chk" + data[index].IdFunction).attr('checked', true);
+				});
+			}, "json"
+		  );
+}
 function CambiarTipoCustomPlayer()
 {
 	if ($("#cboToolsType").val())
@@ -444,6 +389,7 @@ function CargarPermisos(IdUsuario)
 						tds += '</tr>';	
 					$("#TableFunctions").append(tds);
 					$("#" + data[index].AssociatedControl).slideDown();
+					$("#lnkLogout").slideDown();
 				}
 			});
 					},
@@ -463,20 +409,13 @@ function CargarUsuario()
 	
 	$("#tableMyUsers td").remove();
 	CargarPermisos(Usuario.Id);
-	/*alert(Permisos);
-	$(Permisos).each(
-		function(index) 
-		{
-			//alert(Permisos[index].AssociatedControl);
-				/*var tds = "<tr id='" + Permisos[index].IdPermission + "'>";
-						  tds += "<td>" + Permisos[index].Name + "</td>";
-						  tds += "<td>" + Permisos[index].Description + "</td>";
-						  tds += "<td>" + Permisos[index].AssociatedControl + "</td>";
-						  tds += "<td></td>";
-						 tds += "</tr>";
-					$("#TableFunctions").append(tds);
-		}
-		);*/
+	$.post('php/CargarRoles.php',
+			{Id_Roll : Usuario.IdInitialRoll},
+			function(data)
+			   {
+					$("#cboCreatingUsersCreate_Roll").html(data);
+			   }, "html"	
+			);
 }
 
 function CargarUsuariosPropios()
@@ -529,7 +468,8 @@ function CreatingUsersCreate_submit(evento)
 				Company: $("#txtCreatingUsersCreate_Company").val(),
 				urlFacebook: $("#txtCreatingUsersCreate_Facebook").val(),
 				urlTwitter: $("#txtCreatingUsersCreate_Twitter").val(),
-				NoFName : "false"
+				IdRoll: $("#cboCreatingUsersCreate_Roll").val(),
+				NoFName: "false"
 			}, 
 			function(data)
 			{
@@ -540,6 +480,7 @@ function CreatingUsersCreate_submit(evento)
 				}
 				else //Si lo Creó
 				{ 
+					EditarPermisos(Id);
 					MostrarAlerta("CreatingUsers_Create", "default", "ui-icon-circle-check", "Hey!", "The User has been create");
 					ResetearContenedor("CreatingUsersCreate");
 				} 
@@ -550,9 +491,82 @@ function CreatingUsersCreate_submit(evento)
 		}
 		
 }
-function IngresarComoUsuario(IdUsuario)
+function EditarPermisos(IdUsuario)
 {
-	localhost
+	$.post('php/CargarRoles.php',
+			{Id_Roll : Usuario.IdInitialRoll},
+			function(data)
+			   {
+					$("#MyUsersEdit_Permissions_Roll").html(data);
+			   }, "html"	
+			);
+	$.post("php/VerPermisos.php",
+		{ Id : Usuario.Id},
+		function(data){
+			$("#UserTableFunctions td").remove();
+			$.each(data,function(index,value) 
+			{
+				if (data[index].IdPermission)
+				{
+					var tds = "<tr id='" + data[index].IdPermission + "'>";
+						  tds += "<td name='" + data[index].IdPermission + "'><input name='chkPermissionState' type='checkbox' id='chk" + data[index].IdFunction + "' AssociatedControl='" + data[index].AssociatedControl + "' IdFunction='" + data[index].IdFunction + "'/></td>";
+						  tds += "<td name='" + data[index].IdPermission + "'>" + data[index].Name + "</td>";
+						  tds += "<td name='" + data[index].IdPermission + "'>" + data[index].Description + "</td>";
+						  tds += "<td name='" + data[index].IdPermission + "' IdFunction='" + data[index].IdFunction + "'></td>";
+						tds += '</tr>';	
+					$("#UserTableFunctions").append(tds);
+				}
+			});
+			$.post("php/VerPermisos.php",
+								{ Id : IdUsuario},
+								function(data2)
+								{
+									$.each(data2,function(index2,value2)
+									{
+										$("#chk" + data2[index2].AssociatedControl).attr("checked", "checked");
+									});
+								}, "json");
+					},
+		"json");
+		$("#MyUsersEdit_Permissions").dialog({
+		autoOpen: false, 				
+		minWidth: 620,
+		tittle: "Edit Permissions",
+		buttons: [
+			{
+				text: "Ok",
+				click: function() { 
+									var tabla = document.getElementById("UserTableFunctions");
+									var numFilas = tabla.rows.length;
+									var Controles = "";
+									var elementos = tabla.getElementsByTagName("input")
+									for (i = 0; i < numFilas; i++)
+									{
+										if($(elementos[i]).is(':checked'))
+										{
+											Controles += $(elementos[i]).attr("IdFunction") + "@";
+										}
+									}
+									$.post("php/EditarPermiso.php",
+											{Functions: Controles, IdUser: IdUsuario},
+											function(data)
+											{
+												if (parseInt(data) > 0)
+												{
+													$("#MyUsersEdit_Permissions").dialog("close"); 
+												}
+											}
+										  );
+								  }
+			},
+			{
+				text: "Cancel",
+				click: function() { $(this).dialog("close"); 
+								  }
+			}
+				  ]
+								});
+	$("#MyUsersEdit_Permissions").dialog('open');	
 }
 function MostrarAlerta(NombreContenedor, TipoMensaje, Icono, Strong, Mensaje)
 {
@@ -643,22 +657,6 @@ function MyAccount_Options_PersonalInformation_Submit(evento)
 					}
 			});
 }
-function Permisos_CargarControlesAsociados()
-{
-//MyUsers_Functions_AssociatedControl	
-	Controles = document.getElementsByTagName("li");
-	$(Controles).each(
-		function(index) 
-		{
-			if ($(Controles[index]).css("display") != "none")
-			{
-				var Options = "<option value='" + $(Controles[index]).attr("id") + "'>";
-						  Options += $(Controles[index]).text();
-						  Options += "</option>";
-					$("#MyUsers_Functions_AssociatedControl").append(Options);
-			}
-		});
-}
 function ResetearContenedor(IdContenedor)
 {
 		  $('#' + IdContenedor).find(':input').each(function() {
@@ -688,4 +686,20 @@ function VerificarCompania(evento)
 				btnCompanyDataCancel_click(evento);
 			} 
 		});		
+}
+function obj()
+{
+//MyUsers_Functions_AssociatedControl	
+	Controles = document.getElementsByTagName("li");
+	$(Controles).each(
+		function(index) 
+		{
+			if ($(Controles[index]).css("display") != "none")
+			{
+				var Options = "<option value='" + $(Controles[index]).attr("id") + "'>";
+						  Options += $(Controles[index]).text();
+						  Options += "</option>";
+					$("#MyUsers_Functions_AssociatedControl").append(Options);
+			}
+		});
 }

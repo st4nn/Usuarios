@@ -13,8 +13,9 @@ class UserData
  var $Email;
  var $urlFacebook;
  var $urlTwitter;
+ var $IdInitialRoll;
  
- function __construct($Id, $Name, $NickName, $IdCompany, $CompanyName, $Email, $urlFacebook, $urlTwitter)
+ function __construct($Id, $Name, $NickName, $IdCompany, $CompanyName, $Email, $urlFacebook, $urlTwitter, $IdInitialRoll)
 	   {
 	      $this->Id = $Id;
 	      $this->Name = $Name;
@@ -24,6 +25,7 @@ class UserData
 	      $this->Email = $Email;
 	      $this->urlFacebook = $urlFacebook;
 	      $this->urlTwitter = $urlTwitter;
+	      $this->IdInitialRoll = $IdInitialRoll;
 	   }
 }
 	
@@ -37,7 +39,8 @@ class UserData
 			c.Name as 'CompanyName',
 			d.mail as 'Email',
 			d.urlFacebook as 'urlFacebook',
-			d.urlTwitter as 'urlTwitter'
+			d.urlTwitter as 'urlTwitter',
+			d.IdInitialRoll as 'IdInitialRoll'
 		FROM 
 			Login as l, UsersData as d , Company as c
 		WHERE
@@ -56,11 +59,12 @@ if ($row)
 							utf8_encode($row['CompanyName']),
 							utf8_encode($row['Email']),
 							utf8_encode($row['urlFacebook']),
-							utf8_encode($row['urlTwitter'])
+							utf8_encode($row['urlTwitter']),
+							utf8_encode($row['IdInitialRoll'])
 							);
 }else
 {
-	$User = new UserData('','','','','','','','');
+	$User = new UserData('','','','','','','','','');
 }
 	echo json_encode($User);
 	mysql_free_result($result); 

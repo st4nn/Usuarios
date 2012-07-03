@@ -12,6 +12,7 @@
  $Company = $_POST['Company'];
  $urlFacebook = $_POST['urlFacebook'];
  $urlTwitter = $_POST['urlTwitter'];
+ $IdInitialRoll = $_POST['IdRoll'];
  
  $CompanyId = CompanyVerify($Company); //Verfica que el nombre de la Compañía exista en la Base de Datos
 	if (!$CompanyId)			
@@ -36,7 +37,7 @@
 		{
 			$UserId = mysql_insert_id();			
 			$sql = "INSERT INTO UsersData
-						(IdUsersData, Name, NickName, mail, IdCompany, urlFacebook, urlTwitter)
+						(IdUsersData, Name, NickName, mail, IdCompany, urlFacebook, urlTwitter, IdInitialRoll)
 					VALUES
 						(
 						'$UserId', 
@@ -45,7 +46,8 @@
 						'$Email', 
 						'$CompanyId', 
 						'$urlFacebook', 
-						'$urlTwitter');";		
+						'$urlTwitter', 
+						'$IdInitialRoll');";		
 	
 			mysql_query($sql, $link);
 				

@@ -46,8 +46,6 @@
 				<input type='image' src='css/Recursos/Llenar.png'/>	
 				<input type='image' src='css/Recursos/Grafica1.png'/>
 			</section>
-			<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnObj'>View Permisions</button>
-			
 		</section>
 		<section id="Tools">
 			<div id='divTools'>
@@ -129,8 +127,6 @@
 								<th>Delete</th>
 							</tr>
 						</table>
-						<select id='MyUsers_Functions_AssociatedControl'></select>
-						<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnCargarControlesAsociados'>Load Controls</button>
 				</section>
 			</div>
 		</section>
@@ -153,6 +149,7 @@
 						<label class='labelForm' for='txtCreatingUsersCreate_Password'>Password: </label><input class='password inputForm' type='password' id='txtCreatingUsersCreate_Password' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtCreatingUsersCreate_ReTypePassword'/>
 						
+						<label class='labelForm' for='cboCreatingUsersCreate_Roll'>Roll</label><select class='inputForm' id='cboCreatingUsersCreate_Roll'></select>
 						<label class='labelForm' for='txtCreatingUsersCreate_Name'>Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Name' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_DisplayName' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_Email'>Email: </label><input class='inputForm' type='email' id='txtCreatingUsersCreate_Email'/>
@@ -248,6 +245,8 @@
 					</div>
 				</section>
 				<section id='MyUsersEdit_Permissions'>
+					<label for='MyUsersEdit_Permissions_Roll'>Roll</label>
+					<select id='MyUsersEdit_Permissions_Roll'></select>
 					<table id='UserTableFunctions'>
 						<tr>
 							<th>State</th>
@@ -255,6 +254,7 @@
 							<th>Function</th>
 						</tr>
 					</table>
+					<button class='ui-button-success ui-button ui-widget ui-corner-all' id='btnObj'>obj</button>
 				</section>
 		</section>
 		<section id='MyService'>
