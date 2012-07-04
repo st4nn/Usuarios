@@ -4,6 +4,7 @@
 	
 	$obj = substr($_POST['Functions'], 0, -1);
 	$IdUsuario = $_POST['IdUser'];
+	$IdInitialRoll = $_POST['IdInitialRoll'];
 	
 	$Functions = explode('@', $obj);
 	
@@ -17,6 +18,8 @@
 			$Values = substr($Values, 0, -2); 
 		$sql = "INSERT INTO Permissions (idFunction, IdLogin) VALUES $Values;";
 		mysql_query($sql, $link);
-
+		
 	echo mysql_affected_rows();
+		$sql = "UPDATE UsersData SET IdInitialRoll = '$IdInitialRoll' WHERE IdUsersData ='$IdUsuario'";
+		mysql_query($sql, $link);
 ?> 

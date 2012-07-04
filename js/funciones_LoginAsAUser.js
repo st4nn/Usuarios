@@ -1,12 +1,8 @@
 ﻿var Usuario;
 $(document).on("ready", arranque);
-function objPrueba()
-{
-	alert($("#MyUsersEdit_Permissions_Roll").val());
-}
+
 function arranque()
 {
-	$("#btnObj").on('click', objPrueba);
 	if(!localStorage.UsuarioSimulado)
 	{CerrarSesion();}
 	
@@ -43,6 +39,11 @@ function arranque()
 	
 	$("#lnkLogout").on("click", CerrarSesion);
 	$("#tableMyUsersRefresh").on("click", CargarUsuariosPropios);
+	$("#tableMyUsersAddUser").on('click', function()
+		{
+			$("#Users").tabs('select', 0)
+			$("#txtCreatingUsersCreate_User").focus();
+		});
 	
 	$("#txtCreatingUsersCreate_Company").live("change", VerificarCompania);
 	
@@ -133,7 +134,7 @@ function btnMyUsers_Delete_click()
 {
 	IdUsuario = $(this).parent('td').attr("name");
 	$("#tableDeleteMyUsers td").remove()
-	$.post("php/VerUsuariosPropios.php",
+	$.post("php/MyUsers_Edit.php",
 		{ Id : IdUsuario},
 		function(data)
 		{
@@ -205,17 +206,18 @@ function btnMyUsers_Delete_click()
 function btnMyUsers_Edit_click()
 {	
 	ResetearContenedor("MyUsers_Edit");
-	var Fila = document.getElementsByName($(this).parent("td").attr("name"));
+	var IdUsuario = $(this).parent("td").attr("name");
+	var Fila = document.getElementsByName("InfoUser" + IdUsuario);
 	
-	var strObj = "Edit " + $(Fila[0]).text();
-		$("#MyUsers_Edit").attr("IdUsuario", $(this).parent("td").attr("name"));
-			$("#txtMyUsersEdit_Name").val($(Fila[0]).text());
-			$("#txtMyUsersEdit_DisplayName").val($(Fila[1]).text());
-			$("#txtMyUsersEdit_Email").val($(Fila[2]).text());
-			$("#txtMyUsersEdit_Company").val($(Fila[3]).text());
-			$("#txtMyUsersEdit_State").val($(Fila[8]).attr("State"));
-			$("#txtMyUsersEdit_Facebook").val($(Fila[8]).attr("urlFacebook"));
-			$("#txtMyUsersEdit_Twitter").val($(Fila[8]).attr("urlTwitter"));
+	var strObj = "Edit " + $(Fila).attr('UserName');
+		$("#MyUsers_Edit").attr("IdUsuario", IdUsuario);
+			$("#txtMyUsersEdit_Name").val($(Fila).attr('UserName'));
+			$("#txtMyUsersEdit_DisplayName").val($(Fila).attr('DisplayName'));
+			$("#txtMyUsersEdit_Email").val($(Fila).attr('Mail'));
+			//$("#txtMyUsersEdit_Company").val($(Fila).attr('IdCompany'));
+			$("#txtMyUsersEdit_State").val($(Fila).attr("State"));
+			$("#txtMyUsersEdit_Facebook").val($(Fila).attr("urlFacebook"));
+			$("#txtMyUsersEdit_Twitter").val($(Fila).attr("urlTwitter"));
 			
 		$("#MyUsers_Edit").dialog({
 				autoOpen: false, 				
@@ -303,19 +305,19 @@ function btnMyUsersEditOk_click()
 function btnMyUsers_LoginAsAUser_click()
 {
 	var IdUsuario = $(this).parent("td").attr("name");
-	var Fila = document.getElementsByName(IdUsuario);
+	var Fila = document.getElementsByName("InfoUser" + IdUsuario);
 	
 	localStorage.setItem("UsuarioSimulado", '[' + JSON.stringify(
 	{	"Id": IdUsuario ,
-		"Name": $(Fila[0]).text(),
-		"NickName": $(Fila[1]).text(),
-		"IdCompany": $(Fila[7]).attr("IdCompany"),
-		"CompanyName": 	$(Fila[3]).text(),
-		"Email": $(Fila[2]).text(),
-		"urlFacebook": $(Fila[7]).attr("urlFacebook"),
-		"urlTwitter": $(Fila[7]).attr("urlTwitter")
+		"Name": $(Fila).attr('UserName'),
+		"NickName": $(Fila).attr('DisplayName'),
+		"IdCompany": $(Fila).attr("IdCompany"),
+		"CompanyName": 	$(Fila).attr("IdCompany"),
+		"Email": $(Fila).attr('Mail'),
+		"urlFacebook": $(Fila).attr("urlFacebook"),
+		"urlTwitter": $(Fila).attr("urlTwitter"),
+		"IdInitialRoll": $(Fila).attr("IdInitialRoll")
 	}
-	
 																) + ']');
 	abrirPopup("UserLogin.html");
 }
@@ -351,7 +353,7 @@ function CambiarIdioma()
 function CambiarRoll()
 {
 	$("#UserTableFunctions :checkbox").attr('checked', false);
-	
+
 	$.post("php/CargarPermisosRoll.php",
 			{IdRoll : $("#MyUsersEdit_Permissions_Roll").val()},
 			function(data)
@@ -439,7 +441,7 @@ function CargarUsuariosPropios()
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Edit Permissions' id='btnMyUsers_EditPermissions' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-unlocked'></span></strong></button></td>";
 						  tds += "<td name='" + data[index].IdUser + "'><button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button></td>";
-						  tds += "<td name='" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "'></td>";
+						  tds += "<td name='InfoUser" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "'></td>";
 						tds += '</tr>';	
 					$("#tableMyUsers").append(tds);
 				}
@@ -489,18 +491,10 @@ function CreatingUsersCreate_submit(evento)
 		{
 			MostrarAlerta("CreatingUsers_Create", "error", "ui-icon-alert", "Error!", "Passwords must be equal");
 		}
-		
 }
 function EditarPermisos(IdUsuario)
 {
-	$.post('php/CargarRoles.php',
-			{Id_Roll : Usuario.IdInitialRoll},
-			function(data)
-			   {
-					$("#MyUsersEdit_Permissions_Roll").html(data);
-			   }, "html"	
-			);
-	$.post("php/VerPermisos.php",
+$.post("php/VerPermisos.php",
 		{ Id : Usuario.Id},
 		function(data){
 			$("#UserTableFunctions td").remove();
@@ -523,13 +517,14 @@ function EditarPermisos(IdUsuario)
 								{
 									$.each(data2,function(index2,value2)
 									{
-										$("#chk" + data2[index2].AssociatedControl).attr("checked", "checked");
+										$("#chk" + data2[index2].IdFunction).attr("checked", "checked");
 									});
 								}, "json");
 					},
 		"json");
+		
 		$("#MyUsersEdit_Permissions").dialog({
-		autoOpen: false, 				
+		autoOpen: false, 
 		minWidth: 620,
 		tittle: "Edit Permissions",
 		buttons: [
@@ -567,6 +562,14 @@ function EditarPermisos(IdUsuario)
 				  ]
 								});
 	$("#MyUsersEdit_Permissions").dialog('open');	
+	
+	$.post('php/CargarRoles.php',
+		{Id_Roll : Usuario.IdInitialRoll},
+		function(data)
+		   {
+				$("#MyUsersEdit_Permissions_Roll").html(data);
+		   }, "html"	
+		);
 }
 function MostrarAlerta(NombreContenedor, TipoMensaje, Icono, Strong, Mensaje)
 {

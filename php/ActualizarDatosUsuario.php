@@ -19,7 +19,7 @@
 			NickName = '$NickName', 
 			mail = '$Email', 
 			urlFacebook = '$urlFacebook', 
-			urlTwitter = '$urlTwitter' 
+			urlTwitter = '$urlTwitter'
 		WHERE
 			IdUsersData = '$Id';";
 				
