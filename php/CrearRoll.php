@@ -17,59 +17,28 @@
 			'$RollName',   
 			'$RollDescription'
 				);";
-				
+	
 	$result = mysql_query($sql, $link);
+	$RollId = mysql_insert_id();
 	
 		if ($result)
 		{
-			
 			$Values = "";
 			foreach($Obj as $IdFunction)
 					{
-								$Values .= "('$IdFunction', '$IdUsuario'), ";
+								$Values .= "('$RollId', '$IdFunction'), ";
 					}
 			$Values = substr($Values, 0, -2); 
 			
-			
-			$UserId = mysql_insert_id();			
-			$sql = "INSERT INTO UsersData
-						(IdUsersData, Name, NickName, mail, IdCompany, urlFacebook, urlTwitter, IdInitialRoll)
-					VALUES
-						(
-						'$UserId', 
-						'$Name', 
-						'$NickName', 
-						'$Email', 
-						'$CompanyId', 
-						'$urlFacebook', 
-						'$urlTwitter', 
-						'$IdInitialRoll');";		
+			$sql = "INSERT INTO Roll_has_Function
+						(idRoll, idFunction)
+					VALUES $Values;";
 	
 			mysql_query($sql, $link);
 				
-				$Fecha = date('Y-m-d'); 
-				
-			$sql = "INSERT INTO UsersTransactions
-						(IdUser, IdMasterUser, Operation, Date)
-					VALUES
-						(
-						'$UserId', 
-						'$Id', 
-						'Create',
-						'$Fecha')";		
-						
-			mysql_query($sql, $link); 
-			echo $UserId;
 		} else
 		{
-				if (mysql_errno() == 1062)
-				{
-					echo "The user already exists";
-				} else
-				{
 					echo "The User was not created";	
-				}
 		}
 		mysql_close($link); 
-	}
 ?> 

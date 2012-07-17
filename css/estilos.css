@@ -24,7 +24,23 @@ table tr:hover
 {
 	background: #F8F8F8;
 }
-#alertEstadoLogin, #CompanyData, #AccessData_Message , #PersonalInformation_Message, #CreatingUsers_Create, #MyUsers_Edit, #MyUsersEdit_CompanyData, #MyUsersEdit_Message, #MyUsers_DeleteUser, #MyUsers_Edit_Confirm, #MyUsers_Delete, #MyUsers_DeleteAlert, #MyAccount_Options_Permissions_Delete, #MyUsersEdit_Permissions,  li
+#AccessData_Message, 
+#alertEstadoLogin, 
+#CompanyData, 
+#CreatingUsers_Create,
+#lnkCreatingUsers,
+#MyUsers_Delete, 
+#MyUsers_DeleteAlert, 
+#MyUsers_DeleteUser, 
+#MyUsersEdit_CompanyData, 
+#MyUsersEdit_Message, 
+#MyUsers_Edit, 
+#MyUsers_Edit_Confirm, 
+#MyAccount_Options_CreatingUsers,
+#MyAccount_Options_Permissions_Delete, 
+#MyUsersEdit_Permissions,  
+#PersonalInformation_Message, 
+li
 {
 	display: none;
 }

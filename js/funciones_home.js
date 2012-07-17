@@ -34,12 +34,13 @@ function arranque()
 	$("#MyAccount_Options_PersonalInformation").on("submit", MyAccount_Options_PersonalInformation_Submit)
 	
 	$("#lblAccessData").on("click", function(){ResetearContenedor("MyAccount_Options_AccessData");});
+	$("#lblCreatringRoll").on('click', function(){CargarFunciones(Usuario.Id);});
 	$("#lblMyUsers").on("click", CargarUsuariosPropios);
 	$("#lblPermissions").on("click", function(){CargarPermisos(Usuario.Id);});
 	
 	$("#lnkLogout").on("click", CerrarSesion);
 	$("#tableMyUsersRefresh").on("click", CargarUsuariosPropios);
-	$("#tableMyUsersAddUser").on('click', function()
+	$("#lnkCreatingUsers").on('click', function()
 		{
 			$("#MyAccount_Options_CreatingUsers").dialog(
 			{
@@ -324,7 +325,8 @@ function btnMyUsers_LoginAsAUser_click()
 		"Email": $(this).attr('Mail'),
 		"urlFacebook": $(this).attr("urlFacebook"),
 		"urlTwitter": $(this).attr("urlTwitter"),
-		"IdInitialRoll": $(this).attr("IdInitialRoll")
+		"IdInitialRoll": $(this).attr("IdInitialRoll"),
+		"RollName": $(this).attr("RollName")
 	}
 																) + ']');
 	abrirPopup("UserLogin.html");
@@ -380,6 +382,55 @@ function CambiarTipoCustomPlayer()
 		$("#IframeCustomPlayer").load($("#cboToolsType").val());	
 	}
 }
+function CargarFunciones(IdUsuario)
+{
+	$.post("php/VerPermisos.php",
+		{ Id : IdUsuario},
+		function(data){
+			$("#TableRollFunctions td").remove();
+			$.each(data,function(index,value) 
+			{
+				if (data[index].IdPermission)
+				{
+					var tds = "<tr id='" + data[index].IdPermission + "'>";
+						  tds += "<td name='" + data[index].IdPermission + "'><input type='checkbox' id='chkTableRollFunctions_Function' class='ui-button-default ui-button ui-widget ui-corner-all' /> </td>";
+						  tds += "<td name='" + data[index].IdPermission + "'>" + data[index].Name + "</td>";
+						  tds += "<td name='" + data[index].IdPermission + "'>" + data[index].Description + "</td>";
+						tds += '</tr>';	
+					$("#TableRollFunctions").append(tds);
+				}
+			});
+					},
+		"json");
+		
+		$.post('php/CargarRoles.php',
+		{Id_Roll : Usuario.IdInitialRoll},
+		function(data)
+		   {
+			   $("#RollParent input").remove();
+			   $("#RollParent label").remove();
+			   $("#RollChildren input").remove();
+			   $("#RollChildren label").remove();
+			   
+			   var tps = "<input type='radio' name='optRollParent' id='optParentRoll" + Usuario.IdInitialRoll + "' value='" + Usuario.IdInitialRoll + "'/><label id='labelRadioSet' for='optParentRoll" + Usuario.IdInitialRoll + "'>" + $("#lblWelcomeRoll span").text() + "</label>"
+			   $("#RollParent").append(tps);
+			   
+				$.each(data,function(index,value) 
+				{
+					if (data[index].RollId)
+					{
+						var tps = "<input type='radio' name='optRollParent' id='optParentRoll" + data[index].RollId + "' value='" + data[index].RollId + "'/><label id='labelRadioSet' for='optParentRoll" + data[index].RollId + "'>" + data[index].RollName + "</label>"
+						var tcs = "<input type='checkbox' name='optRollChildren' id='optChildrenRoll" + data[index].RollId + "' value='" + data[index].RollId + "'/><label id='labelRadioSet' for='optChildrenRoll" + data[index].RollId + "'>" + data[index].RollName + "</label>"
+							  
+						$("#RollParent").append(tps);
+						$("#RollChildren").append(tcs);
+					}
+				});
+				$("#RollParent").buttonset();
+				$("#RollChildren").buttonset();
+		   }, "json"	
+		);
+}
 function CargarPermisos(IdUsuario)
 {
 	$.post("php/VerPermisos.php",
@@ -411,7 +462,6 @@ function CargarUsuario()
 	$("#lblWelcome span").text(Usuario.NickName);
 	$("#lblWelcomeRoll span").text(Usuario.RollName);
 	
-	
 	$("#txtMyAccount_Name").val(Usuario.Name);
 	$("#txtMyAccount_DisplayName").val(Usuario.NickName);
 	$("#txtMyAccount_Email").val(Usuario.Email);
@@ -421,13 +471,23 @@ function CargarUsuario()
 	
 	$("#tableMyUsers td").remove();
 	CargarPermisos(Usuario.Id);
+	
 	$.post('php/CargarRoles.php',
-			{Id_Roll : Usuario.IdInitialRoll},
-			function(data)
-			   {
-					$("#cboCreatingUsersCreate_Roll").html(data);
-			   }, "html"	
-			);
+		{Id_Roll : Usuario.IdInitialRoll},
+		function(data)
+		   {
+			   $("#MyUsersEdit_Permissions_Roll option").remove();
+				$.each(data,function(index,value) 
+				{
+					if (data[index].RollId)
+					{
+						var tds = "<option value='" + data[index].RollId + "'>" + data[index].RollName + "</option>";
+							  
+						$("#MyUsersEdit_Permissions_Roll").append(tds);
+					}
+				});
+		   }, "json"	
+		);
 }
 
 function CargarUsuariosPropios()
@@ -448,7 +508,7 @@ function CargarUsuariosPropios()
 										data[index].Owner,
 										data[index].State,
 										data[index].RollName,
-										"<button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'  idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "'><strong><span class='ui-icon ui-icon-play'></span></strong></button>",
+										"<button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'  idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "' RollName='" + data[index].RollName + "'><strong><span class='ui-icon ui-icon-play'></span></strong></button>",
 										"<button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all' idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button>",
 										"<button title='Edit Permissions' id='btnMyUsers_EditPermissions' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-unlocked'></span></strong></button>",
 										"<button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button>"
@@ -575,8 +635,17 @@ $.post("php/VerPermisos.php",
 		{Id_Roll : Usuario.IdInitialRoll},
 		function(data)
 		   {
-				$("#MyUsersEdit_Permissions_Roll").html(data);
-		   }, "html"	
+			   $("#MyUsersEdit_Permissions_Roll option").remove();
+				$.each(data,function(index,value) 
+				{
+					if (data[index].RollId)
+					{
+						var tds = "<option value='" + data[index].RollId + "'>" + data[index].RollName + "</option>";
+							  
+						$("#MyUsersEdit_Permissions_Roll").append(tds);
+					}
+				});
+		   }, "json"	
 		);
 }
 function MostrarAlerta(NombreContenedor, TipoMensaje, Icono, Strong, Mensaje)

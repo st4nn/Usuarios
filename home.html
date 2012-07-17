@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
         
     <link rel="stylesheet" href="css/estilos.css" />
+    <link rel="stylesheet" href="css/customStyle.css" />
 	
 	<script src="Tools/HTML5/HTML5_enabling_script.js"></script>
 	<script src="Tools/HTML5/prefixfree.min.js"></script>
@@ -27,7 +28,7 @@
 	<select id="cboLanguage" placeholder="Language"></select>
 </header>
 	<h3 id='lblWelcome'>Welcome <span></span></h3>
-	<h6 id='lblWelcomeRoll'>Roll: <span></span></h6>
+	<h6 id='lblWelcomeRoll'>Role: <span></span></h6>
 	<hr width='97%'>
 	<div id="tabs">
 		<ul id='MainMenu'>
@@ -137,10 +138,10 @@
 		</section>
 		<section id='Users'>
 			<ul>
-				<li id='lnkCreatingUsers'><a id='lblCreatingUsers' href="#MyAccount_Options_CreatingUsers">Creating Users</a></li>
 				<li id='lnkMyUsers'><a id='lblMyUsers' href="#MyAccount_Options_MyUsers">My Users</a></li>
+				<li id='lnkCreatringRoll'><a id='lblCreatringRoll' href="#MyUser_CreatingRoll">Create Role</a></li>
+				<!--<li id='lnkCreatingUsers'><a id='lblCreatingUsers' href="#MyAccount_Options_CreatingUsers">Creating Users</a></li>-->
 			</ul>
-
 			<section id='MyAccount_Options_CreatingUsers'>
 					<form id='CreatingUsersCreate'>
 							<div id='CreatingUsers_Create' class="ui-state-highlight ui-corner-all">
@@ -154,7 +155,7 @@
 						<label class='labelForm' for='txtCreatingUsersCreate_Password'>Password: </label><input class='password inputForm' type='password' id='txtCreatingUsersCreate_Password' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_ReTypePassword'>Re-type Password: </label><input class='inputForm' type='password' id='txtCreatingUsersCreate_ReTypePassword'/>
 						
-						<label class='labelForm' for='cboCreatingUsersCreate_Roll'>Roll</label><select class='inputForm' id='cboCreatingUsersCreate_Roll'></select>
+						<label class='labelForm' for='cboCreatingUsersCreate_Roll'>Role</label><select class='inputForm' id='cboCreatingUsersCreate_Roll'></select>
 						<label class='labelForm' for='txtCreatingUsersCreate_Name'>Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_Name' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_DisplayName'>Display Name: </label><input class='inputForm' type='text' id='txtCreatingUsersCreate_DisplayName' required/>
 						<label class='labelForm' for='txtCreatingUsersCreate_Email'>Email: </label><input class='inputForm' type='email' id='txtCreatingUsersCreate_Email'/>
@@ -182,7 +183,7 @@
 					
 					<center>
 						<button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button>
-						<button id='tableMyUsersAddUser' class='ui-button-default ui-button ui-widget ui-corner-all' title='Add User'><strong><span class="ui-icon ui-icon-plusthick" style="color: green;"></span></strong></button>
+						<button id='lnkCreatingUsers' class='ui-button-default ui-button ui-widget ui-corner-all' title='Add User'><strong><span class="ui-icon ui-icon-plusthick" style="color: green;"></span></strong></button>
 					</center>
 						<div id='MyUsers_DeleteAlert' class="ui-state-highlight ui-corner-all">
 								<p>
@@ -199,7 +200,7 @@
 							<th>Mail</th>
 							<th>Owner</th>
 							<th>State</th>
-							<th>Roll</th>
+							<th>Role</th>
 							<th>Login</th>
 							<th>Edit</th>
 							<th>Permissions</th>
@@ -260,7 +261,7 @@
 					</div>
 				</section>
 				<section id='MyUsersEdit_Permissions'>
-					<label for='MyUsersEdit_Permissions_Roll'>Roll</label>
+					<label for='MyUsersEdit_Permissions_Roll'>Role</label>
 					<select id='MyUsersEdit_Permissions_Roll'></select>
 					<table id='UserTableFunctions'>
 					  <thead>
@@ -272,6 +273,32 @@
 					  </thead>
 					  <tbody></tbody>
 					</table>
+				</section>
+				<section id='MyUser_CreatingRoll'>
+					<form>
+						<label class='labelForm' for='txtMyUser_CreatingRoll_RollName'>Role Name: </label>
+							<input class='inputForm' type='text' id='txtMyUser_CreatingRoll_RollName' required />
+						
+						<label class='labelForm' for='txtMyUser_CreatingRoll_RollDescription'>Role Description: </label>
+							<input class='inputForm' type='text' id='txtMyUser_CreatingRoll_RollDescription'/>
+						<table id='TableRollFunctions'>
+						  <thead>
+							<tr>
+								<th>State</th>
+								<th>Name</th>
+								<th>Function</th>
+							</tr>
+						  </thead>
+						  <tbody></tbody>
+						</table>
+						<h3>Role Parent</h3>
+						<div id="RollParent">
+							<input type="radio" name="optRollParent" id="rdbNivelPequeño" value="1"/><label id="labelRadioSet" for="rdbNivelPequeño">Pequeño</label>
+						</div>
+						<h3>Role Children</h3>
+						<div id="RollChildren">	</div>
+					</form>
+					
 				</section>
 		</section>
 		<section id='MyService'>

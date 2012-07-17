@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 	<meta charset="utf-8"/>
-	<title>BRONCO</title>
+	<title>BRONCO Login As a User</title>
 	
 	<link rel="stylesheet" href="css/jquery.ui.1.8.16.ie.css"/>
 	<link rel="stylesheet" href="css/jquery-ui-1.8.16.custom.css"/>
@@ -16,7 +16,8 @@
 	<script src="Tools/HTML5/jquery-ui.js"></script>
 	<script src="Tools/HTML5/jquery.pstrength-min.1.2.js"></script>
 	
-	
+	<script src="Tools/jquery.dataTables.js"></script>
+
 	<script src="js/funciones_LoginAsAUser.js"></script>
 	<link  rel="shortcut icon" href="css/imagenes/favicon.ico" />
 	
@@ -26,6 +27,7 @@
 	<select id="cboLanguage" placeholder="Language"></select>
 </header>
 	<h3 id='lblWelcome'>Welcome <span></span></h3>
+	<h6 id='lblWelcomeRoll'>Roll: <span></span></h6>
 	<hr width='97%'>
 	<div id="tabs">
 		<ul id='MainMenu'>
@@ -119,23 +121,26 @@
 					</br></br>
 				</form>
 				<section id='MyAccount_Options_Permissions'>
-						<table id='TableFunctions'>
-							<tr>
-								<th>Name</th>
-								<th>Function</th>
-								<th>Associated Control</th>
-								<th>Delete</th>
-							</tr>
-						</table>
+					<table id='TableFunctions'>
+					  <thead>
+						<tr>
+							<th>Name</th>
+							<th>Function</th>
+							<th>Associated Control</th>
+							<th>Delete</th>
+						</tr>
+					  </thead>
+					  <tbody></tbody>
+					</table>
 				</section>
 			</div>
 		</section>
 		<section id='Users'>
 			<ul>
-				<li id='lnkCreatingUsers'><a id='lblCreatingUsers' href="#MyAccount_Options_CreatingUsers">Creating Users</a></li>
 				<li id='lnkMyUsers'><a id='lblMyUsers' href="#MyAccount_Options_MyUsers">My Users</a></li>
+				<li id='lnkCreatringRoll'><a id='lblCreatringRoll' href="#MyUser_CreatingRoll">Creating Roll</a></li>
+				<!--<li id='lnkCreatingUsers'><a id='lblCreatingUsers' href="#MyAccount_Options_CreatingUsers">Creating Users</a></li>-->
 			</ul>
-
 			<section id='MyAccount_Options_CreatingUsers'>
 					<form id='CreatingUsersCreate'>
 							<div id='CreatingUsers_Create' class="ui-state-highlight ui-corner-all">
@@ -177,7 +182,7 @@
 					
 					<center>
 						<button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button>
-						<button id='tableMyUsersAddUser' class='ui-button-default ui-button ui-widget ui-corner-all' title='Add User'><strong><span class="ui-icon ui-icon-plusthick" style="color: green;"></span></strong></button>
+						<button id='lnkCreatingUsers' class='ui-button-default ui-button ui-widget ui-corner-all' title='Add User'><strong><span class="ui-icon ui-icon-plusthick" style="color: green;"></span></strong></button>
 					</center>
 						<div id='MyUsers_DeleteAlert' class="ui-state-highlight ui-corner-all">
 								<p>
@@ -187,21 +192,26 @@
 								</p>
 						</div>
 					<table id='tableMyUsers'>
+					   <thead>
 						<tr>
 							<th>Name</th>
 							<th>NickName</th>
 							<th>Mail</th>
 							<th>Owner</th>
 							<th>State</th>
+							<th>Roll</th>
 							<th>Login</th>
 							<th>Edit</th>
 							<th>Permissions</th>
 							<th>Delete</th>
 						</tr>
+					   </thead>
+					   <tbody></tbody>
 					</table>
 					<section id='MyUsers_Delete' title='Delete'>
 						<p>Will be deleted the following Users and their services permanently too</p>
 						<table id='tableDeleteMyUsers'>
+						  <thead>
 							<tr>
 								<th>Name</th>
 								<th>NickName</th>
@@ -209,6 +219,8 @@
 								<th>Owner</th>
 								<th>State</th>
 							</tr>
+						  </thead>
+						  <tbody></tbody>
 						</table>	
 					</section>
 					<div id='MyUsers_Edit' title='Edit' IdUsuario='0'>
@@ -251,12 +263,42 @@
 					<label for='MyUsersEdit_Permissions_Roll'>Roll</label>
 					<select id='MyUsersEdit_Permissions_Roll'></select>
 					<table id='UserTableFunctions'>
+					  <thead>
 						<tr>
 							<th>State</th>
 							<th>Name</th>
 							<th>Function</th>
+							<th>Associated Control</th>
 						</tr>
+					  </thead>
+					  <tbody></tbody>
 					</table>
+				</section>
+				<section id='MyUser_CreatingRoll'>
+					<form>
+						<label class='labelForm' for='txtMyUser_CreatingRoll_RollName'>Roll Name: </label>
+							<input class='inputForm' type='text' id='txtMyUser_CreatingRoll_RollName' required />
+						
+						<label class='labelForm' for='txtMyUser_CreatingRoll_RollDescription'>Roll Description: </label>
+							<input class='inputForm' type='text' id='txtMyUser_CreatingRoll_RollDescription'/>
+						<table id='TableRollFunctions'>
+						  <thead>
+							<tr>
+								<th>State</th>
+								<th>Name</th>
+								<th>Function</th>
+							</tr>
+						  </thead>
+						  <tbody></tbody>
+						</table>
+						<h3>Roll Parent</h3>
+						<div id="RollParent">
+							<input type="radio" name="optRollParent" id="rdbNivelPequeño" value="1"/><label id="labelRadioSet" for="rdbNivelPequeño">Pequeño</label>
+						</div>
+						<h3>Roll Children</h3>
+						<div id="RollChildren">	</div>
+					</form>
+					
 				</section>
 		</section>
 		<section id='MyService'>
@@ -268,6 +310,7 @@
 				<input type='image' src='css/Recursos/Grafica1.png'/>
 			</section>
 		</section>
+		
 		
 	</div>
 <footer>

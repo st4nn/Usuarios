@@ -3,6 +3,11 @@
 	
 	$Roll = $_POST['Id_Roll'];
 
+		class Rolls
+	{
+		public $RollId;
+		public $RollName;
+	}
 	$link=Conectarse(); 
 	$sql = "
 		SELECT r.IdRollChildren As 'IdRoll', d.Name AS 'Name'
@@ -13,11 +18,18 @@
 				
 	$result=mysql_query($sql, $link); 
 	$row = mysql_fetch_array($result);
-
+	
+	$Index = 0;
 	do{
-        	echo '<option value="'.$row['IdRoll'].'">'. utf8_encode($row['Name']) .'</option>';
+		$Rolles[$Index] = new Rolls();
+		
+		$Rolles[$Index]->RollId = $row['IdRoll'];
+		$Rolles[$Index]->RollName = $row['Name'];
+		$Index++;
        } while ($row = mysql_fetch_array($result)) ;
 
+	echo json_encode($Rolles);
 	mysql_free_result($result); 
+	
 	mysql_close($link); 
 ?> 
