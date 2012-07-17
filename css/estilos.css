@@ -65,24 +65,24 @@ li
 	border-bottom: none;
 }
 #tabs > .ui-tabs-nav { /*Controla el contenedor del menú lateral*/
-	bottom: 0.25em;
-	border-bottom: none;
-	left: 0.25em;
+	bottom: 1em;
+	/*border-bottom: none;*/
+	left: 1em;
 	padding: 0.2em 0 0.2em 0.2em;
 	position: absolute;
-	top: 0.25em;
+	top: 1em;
 	width: 10%;
 }
 #tabs > .ui-tabs-nav li { /*Controla los controles (las opciones) del menu lateral */
-	border-right: none;
-	right: 1px;
+	/*border-right: none;
+	right: 1px;*/
 	width: 100%;
 }
-#tabs > .ui-tabs-nav li a { /*Controla el mensaje (a) de los controles*/
-	float: right;
+/*#tabs > .ui-tabs-nav li a { /*Controla el mensaje (a) de los controles*/
+	/*float: right;
 	text-align: right;
 	width: 100%;
-}
+}*/
 #tabs section
 {
 	float: rigth;

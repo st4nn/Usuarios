@@ -2,3 +2,63 @@ body
 {
 	background: url('imagenes/background2.jpg');
 }
+body > h3
+{
+	color: white;
+	margin-left: 8%;
+	margin-bottom: 0;
+}
+body >h6
+{
+	margin-left: 8%;
+}
+header
+{
+	background: url('imagenes/LogoBronco.png') no-repeat 50%,
+				url("imagenes/thumbnail_2.jpg");
+	border-radius: 0.5em;
+	margin: auto;
+	margin-top: 1em;
+	width: 90%;
+}
+#tabs 
+{
+	background: none;
+	margin: auto;
+	min-height: 30em;
+	padding-left: 15%;
+	width: 80%;
+}
+#tabs > .ui-tabs-nav 
+{
+	background: #d8d8d8;
+	text-align: center;
+	padding: 2em;
+	padding-top: 1em;
+}
+#tabs > .ui-tabs-nav li
+{
+	width: 100%;
+	margin-top: 1em;
+}
+#tabs > .ui-tabs-nav li :hover
+{
+	background: url("imagenes/background2.jpg");
+	cursor: pointer;
+}
+#tabs > .ui-tabs-nav li a 
+{
+	background: url("imagenes/background3.jpg");
+	border-radius: 0.5em;
+	box-shadow: rgba(0,0,0,0.8) 0px 4px 10px;
+	color: white;
+	height: 2.5em;
+	width: 80%;
+}
+
+#a123
+{
+	background: white;
+	border-radius: 0.5em;
+
+}
