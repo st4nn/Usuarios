@@ -20,6 +20,7 @@
 		mysql_query($sql, $link);
 		
 	echo mysql_affected_rows();
+	
 		$sql = "UPDATE UsersData SET IdInitialRoll = '$IdInitialRoll' WHERE IdUsersData ='$IdUsuario'";
 		mysql_query($sql, $link);
 ?> 

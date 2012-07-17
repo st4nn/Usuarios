@@ -19,6 +19,7 @@
 		public $urlTwitter;
 		public $State;
 		public $IdInitialRoll;
+		public $RollName;
 	}
 	
 do
@@ -35,16 +36,19 @@ do
 				d.urlFacebook AS 'urlFacebook',
 				d.urlTwitter AS 'urlTwitter',
 				l.State as 'State',
-				d.IdInitialRoll AS 'IdInitialRoll'
+				d.IdInitialRoll AS 'IdInitialRoll',
+				p.Name AS 'RollName'
 		FROM
 				Login AS l, 
 				UsersData AS d,
 				UsersData AS o,
 				Company AS c,
+				Roll AS p, 
 				UsersTransactions AS r
 		WHERE
 			l.IdLogin = d.IdUsersData AND 
 			d.IdCompany = c.IdCompany AND
+			p.idRoll = d.IdInitialRoll AND
 			r.Operation = 'Create' AND
 			r.IdMasterUser = o.IdUsersData AND
 			r.IdUser = d.IdUsersData AND
@@ -68,6 +72,7 @@ do
 		$Users[$Index]->urlTwitter = $row['urlTwitter'];
 		$Users[$Index]->State = $row['State'];
 		$Users[$Index]->IdInitialRoll = $row['IdInitialRoll'];
+		$Users[$Index]->RollName = $row['RollName'];
 
 		if ($Users[$Index]->IdUser)
 		{

@@ -1,0 +1,97 @@
+@font-face
+{
+	font-family: "Nunito";
+	src: url("Nunito-Regular.ttf");
+}
+body
+{
+	display: inline-block;
+	font-family: "Nunito";
+	font-size: 16px;
+	width: 100%;
+}
+header
+{
+	background: url("imagenes/LogoBronco.png") no-repeat 50%;
+	height: 8em;
+	width: 100%;
+}
+footer
+{
+	text-align: right;
+}
+table tr:hover
+{
+	background: #F8F8F8;
+}
+#alertEstadoLogin, #CompanyData, #AccessData_Message , #PersonalInformation_Message, #CreatingUsers_Create, #MyUsers_Edit, #MyUsersEdit_CompanyData, #MyUsersEdit_Message, #MyUsers_DeleteUser, #MyUsers_Edit_Confirm, #MyUsers_Delete, #MyUsers_DeleteAlert, #MyAccount_Options_Permissions_Delete, #MyUsersEdit_Permissions,  li
+{
+	display: none;
+}
+#cboLanguage
+{
+	float: right;
+}
+#frmLogin
+{
+	border-radius: 0.5em;
+	box-shadow: rgba(0,0,0,0.8) 2px 2px 8px;
+	display: block;
+	margin: 1em auto;
+	padding: 0.4em;
+	text-align: center;
+	width: 40%;
+}
+#tabs {		/*Controla todo el contenedor*/
+	font-family: "Nunito";
+	position: relative;
+	padding-left: 10%;
+	border-bottom: none;
+}
+#tabs > .ui-tabs-nav { /*Controla el contenedor del menú lateral*/
+	bottom: 0.25em;
+	border-bottom: none;
+	left: 0.25em;
+	padding: 0.2em 0 0.2em 0.2em;
+	position: absolute;
+	top: 0.25em;
+	width: 10%;
+}
+#tabs > .ui-tabs-nav li { /*Controla los controles (las opciones) del menu lateral */
+	border-right: none;
+	right: 1px;
+	width: 100%;
+}
+#tabs > .ui-tabs-nav li a { /*Controla el mensaje (a) de los controles*/
+	float: right;
+	text-align: right;
+	width: 100%;
+}
+#tabs section
+{
+	float: rigth;
+	margin: 1em;
+}
+.inputForm
+{
+	margin: 0.8em 0 0.8em 0;
+	padding: 0.4em 0.6em 0.4em 0.6em;
+	width: 35%;
+}
+.labelForm
+{
+	float: left; 
+	clear: right;
+	margin: 0.4em 1.2em 0.4em 0;
+	text-align: right;    
+	width: 35%;
+}
+.password {
+	font-size : 12px;
+	border : 1px solid #cc9933;
+	/*width : 200px;*/
+	font-family : arial, sans-serif;
+}
+.pstrength-minchar {
+	font-size : 10px;
+}

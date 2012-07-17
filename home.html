@@ -16,7 +16,8 @@
 	<script src="Tools/HTML5/jquery-ui.js"></script>
 	<script src="Tools/HTML5/jquery.pstrength-min.1.2.js"></script>
 	
-	
+	<script src="Tools/jquery.dataTables.js"></script>
+
 	<script src="js/funciones_home.js"></script>
 	<link  rel="shortcut icon" href="css/imagenes/favicon.ico" />
 	
@@ -26,6 +27,7 @@
 	<select id="cboLanguage" placeholder="Language"></select>
 </header>
 	<h3 id='lblWelcome'>Welcome <span></span></h3>
+	<h6 id='lblWelcomeRoll'>Roll: <span></span></h6>
 	<hr width='97%'>
 	<div id="tabs">
 		<ul id='MainMenu'>
@@ -119,14 +121,17 @@
 					</br></br>
 				</form>
 				<section id='MyAccount_Options_Permissions'>
-						<table id='TableFunctions'>
-							<tr>
-								<th>Name</th>
-								<th>Function</th>
-								<th>Associated Control</th>
-								<th>Delete</th>
-							</tr>
-						</table>
+					<table id='TableFunctions'>
+					  <thead>
+						<tr>
+							<th>Name</th>
+							<th>Function</th>
+							<th>Associated Control</th>
+							<th>Delete</th>
+						</tr>
+					  </thead>
+					  <tbody></tbody>
+					</table>
 				</section>
 			</div>
 		</section>
@@ -187,21 +192,26 @@
 								</p>
 						</div>
 					<table id='tableMyUsers'>
+					   <thead>
 						<tr>
 							<th>Name</th>
 							<th>NickName</th>
 							<th>Mail</th>
 							<th>Owner</th>
 							<th>State</th>
+							<th>Roll</th>
 							<th>Login</th>
 							<th>Edit</th>
 							<th>Permissions</th>
 							<th>Delete</th>
 						</tr>
+					   </thead>
+					   <tbody></tbody>
 					</table>
 					<section id='MyUsers_Delete' title='Delete'>
 						<p>Will be deleted the following Users and their services permanently too</p>
 						<table id='tableDeleteMyUsers'>
+						  <thead>
 							<tr>
 								<th>Name</th>
 								<th>NickName</th>
@@ -209,6 +219,8 @@
 								<th>Owner</th>
 								<th>State</th>
 							</tr>
+						  </thead>
+						  <tbody></tbody>
 						</table>	
 					</section>
 					<div id='MyUsers_Edit' title='Edit' IdUsuario='0'>
@@ -251,11 +263,14 @@
 					<label for='MyUsersEdit_Permissions_Roll'>Roll</label>
 					<select id='MyUsersEdit_Permissions_Roll'></select>
 					<table id='UserTableFunctions'>
+					  <thead>
 						<tr>
 							<th>State</th>
 							<th>Name</th>
 							<th>Function</th>
 						</tr>
+					  </thead>
+					  <tbody></tbody>
 					</table>
 				</section>
 		</section>
@@ -268,6 +283,7 @@
 				<input type='image' src='css/Recursos/Grafica1.png'/>
 			</section>
 		</section>
+		
 		
 	</div>
 <footer>

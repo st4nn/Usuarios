@@ -14,8 +14,9 @@ class UserData
  var $urlFacebook;
  var $urlTwitter;
  var $IdInitialRoll;
+ var $RollName;
  
- function __construct($Id, $Name, $NickName, $IdCompany, $CompanyName, $Email, $urlFacebook, $urlTwitter, $IdInitialRoll)
+ function __construct($Id, $Name, $NickName, $IdCompany, $CompanyName, $Email, $urlFacebook, $urlTwitter, $IdInitialRoll, $RollName)
 	   {
 	      $this->Id = $Id;
 	      $this->Name = $Name;
@@ -26,6 +27,7 @@ class UserData
 	      $this->urlFacebook = $urlFacebook;
 	      $this->urlTwitter = $urlTwitter;
 	      $this->IdInitialRoll = $IdInitialRoll;
+	      $this->RollName = $RollName;
 	   }
 }
 	
@@ -40,11 +42,15 @@ class UserData
 			d.mail as 'Email',
 			d.urlFacebook as 'urlFacebook',
 			d.urlTwitter as 'urlTwitter',
-			d.IdInitialRoll as 'IdInitialRoll'
+			d.IdInitialRoll as 'IdInitialRoll',
+			r.Name as 'RollName'
 		FROM 
-			Login as l, UsersData as d , Company as c
+			Login AS l, UsersData AS d , Company AS c, Roll AS r
 		WHERE
-			l.IdLogin = d.IdUsersData AND d.IdCompany = c.IdCompany AND State = 'Active' AND 
+			r.idRoll = d.IdInitialRoll AND
+			l.IdLogin = d.IdUsersData AND 
+			d.IdCompany = c.IdCompany AND 
+			State = 'Active' AND 
 			l.User = '$User' AND l.Pass = '$Pass';";
 				
 	$result=mysql_query($sql, $link); 
@@ -60,11 +66,12 @@ if ($row)
 							utf8_encode($row['Email']),
 							utf8_encode($row['urlFacebook']),
 							utf8_encode($row['urlTwitter']),
-							utf8_encode($row['IdInitialRoll'])
+							utf8_encode($row['IdInitialRoll']),
+							utf8_encode($row['RollName'])
 							);
 }else
 {
-	$User = new UserData('','','','','','','','','');
+	$User = new UserData('','','','','','','','','','');
 }
 	echo json_encode($User);
 	mysql_free_result($result); 

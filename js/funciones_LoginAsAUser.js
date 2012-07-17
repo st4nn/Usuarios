@@ -451,7 +451,9 @@ function CargarUsuariosPropios()
 function CerrarSesion()
 {
 	delete localStorage.UsuarioSimulado;
-	window.location.replace("index.html");
+	window.close();
+	//window.location.replace("index.html");
+	
 	
 }
 function CreatingUsersCreate_submit(evento)
