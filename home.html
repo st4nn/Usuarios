@@ -186,6 +186,7 @@
 					<center>
 						<button id='tableMyUsersRefresh' class='ui-button-default ui-button ui-widget ui-corner-all'><strong><span class="ui-icon ui-icon-refresh" style="color: green;"></span></strong></button>
 						<button id='lnkCreatingUsers' class='ui-button-default ui-button ui-widget ui-corner-all' title='Add User'><strong><span class="ui-icon ui-icon-plusthick" style="color: green;"></span></strong></button>
+						<button id='lnkObjUserPR' class='ui-button-default ui-button ui-widget ui-corner-all' title='Add User'><strong><span class="ui-icon ui-icon-help" style="color: green;"></span></strong></button>
 					</center>
 						<div id='MyUsers_DeleteAlert' class="ui-state-highlight ui-corner-all">
 								<p>
@@ -197,20 +198,50 @@
 					<table id='tableMyUsers'>
 					   <thead>
 						<tr>
+							<th>User Name</th>
 							<th>Name</th>
-							<th>NickName</th>
-							<th>Mail</th>
-							<th>Owner</th>
 							<th>State</th>
 							<th>Role</th>
-							<th>Login</th>
+							<!--<th>Login</th>
 							<th>Edit</th>
 							<th>Permissions</th>
-							<th>Delete</th>
+							<th>Delete</th>-->
 						</tr>
 					   </thead>
 					   <tbody></tbody>
 					</table>
+					
+					<table id='tableDeleteMyUsers'>
+						  <thead>
+							<tr>
+								<th>Name</th>
+								<th>NickName</th>
+								<th>Mail</th>
+								<th>Owner</th>
+								<th>State</th>
+							</tr>
+						  </thead>
+						  <tbody>
+						  </tbody>
+						</table>	
+						<section id='MyUsers_InfoUser'>
+							<h5 id='MyUsers_Info_NickName'>NickName: <span></span></h5>
+							<li id='MyUsers_Info_Mail'>Mail: <span></span></li>
+							<li id='MyUsers_Info_Owner'>Owner: <span></span></li>
+							<li id='MyUsers_Info_Company'>Company: <span></span></li>
+							<li id='MyUsers_Info_Facebook'>Facebook: <span></span></li>
+							<li id='MyUsers_Info_Twitter'>Twitter: <span></span></li>
+							
+	<button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'  idUser = '' urlFacebook='' urlTwitter='' State='' IdCompany='' UserName='' DisplayName='' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "' RollName='" + data[index].RollName + "'><strong><span class='ui-icon ui-icon-play'></span></strong></button>
+	<button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'  idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "' RollName='" + data[index].RollName + "'><strong><span class='ui-icon ui-icon-play'></span></strong></button>
+	<button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all' idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button>
+	<button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all' idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button>
+	<button title='Edit Permissions' id='btnMyUsers_EditPermissions' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-unlocked'></span></strong></button>
+	<button title='Edit Permissions' id='btnMyUsers_EditPermissions' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-unlocked'></span></strong></button>
+	<button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button>
+	<button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button>
+						</section>
+						
 					<section id='MyUsers_Delete' title='Delete'>
 						<p>Will be deleted the following Users and their services permanently too</p>
 						<table id='tableDeleteMyUsers'>
@@ -223,7 +254,8 @@
 								<th>State</th>
 							</tr>
 						  </thead>
-						  <tbody></tbody>
+						  <tbody>
+						  </tbody>
 						</table>	
 					</section>
 					<div id='MyUsers_Edit' title='Edit' IdUsuario='0'>
@@ -293,12 +325,14 @@
 						  </thead>
 						  <tbody></tbody>
 						</table>
+						<!--
 						<h3>Role Parent</h3>
 						<div id="RollParent">
 							<input type="radio" name="optRollParent" id="rdbNivelPequeño" value="1"/><label id="labelRadioSet" for="rdbNivelPequeño">Pequeño</label>
 						</div>
 						<h3>Role Children</h3>
 						<div id="RollChildren">	</div>
+						-->
 					</form>
 					
 				</section>

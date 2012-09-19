@@ -2,7 +2,7 @@
    require("conectar.php"); 
 	$link=Conectarse(); 
 	
-	$Id = $_POST['Id'];
+	$Id = $_GET['Id'];
 	
 	$sql = "SELECT
 				p.IdPermission AS 'IdPermission',
@@ -30,6 +30,7 @@
 		public $AssociatedControl;
 	}
 	$Index = 0;
+	
 	do 
 	{ 
 		$Permission[$Index] = new Permissions();

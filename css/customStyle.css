@@ -16,6 +16,7 @@ header
 {
 	background: url('imagenes/LogoBronco.png') no-repeat 50%,
 				url("imagenes/thumbnail_2.jpg");
+	background-size: 16em;
 	border-radius: 0.5em;
 	margin: auto;
 	margin-top: 1em;
@@ -62,3 +63,4 @@ header
 	border-radius: 0.5em;
 
 }
+

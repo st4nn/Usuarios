@@ -1,8 +1,25 @@
 ﻿var Usuario;
 $(document).on("ready", arranque);
 
+function objPr()
+{
+	$('#MyUsers_Info_NickName span').text($(this).find('information').attr('DisplayName'));
+	$('#MyUsers_Info_Mail span').text($(this).find('information').attr('Mail'));
+	$('#MyUsers_Info_Owner span').text($(this).find('information').attr('Owner'));
+	$('#MyUsers_Info_Company span').text($(this).find('information').attr('CompanyName'));
+	$('#MyUsers_Info_Facebook span').text($(this).find('information').attr('urlFacebook'));
+	$('#MyUsers_Info_Twitter span').text($(this).find('information').attr('urlTwitter'));
+
+	"<button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'  idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "' RollName='" + data[index].RollName + "'><strong><span class='ui-icon ui-icon-play'></span></strong></button>",
+	"<button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all' idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button>",
+	"<button title='Edit Permissions' id='btnMyUsers_EditPermissions' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-unlocked'></span></strong></button>",
+	"<button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button>"	
+	
+	
+}
 function arranque()
 {
+	$("#tableMyUsers tr").live('click', objPr);
 	if(!localStorage.Usuario)
 	{CerrarSesion();}
 	
@@ -35,7 +52,7 @@ function arranque()
 	
 	$("#lblAccessData").on("click", function(){ResetearContenedor("MyAccount_Options_AccessData");});
 	$("#lblCreatringRoll").on('click', function(){CargarFunciones(Usuario.Id);});
-	$("#lblMyUsers").on("click", CargarUsuariosPropios);
+	
 	$("#lblPermissions").on("click", function(){CargarPermisos(Usuario.Id);});
 	
 	$("#lnkLogout").on("click", CerrarSesion);
@@ -65,6 +82,7 @@ function arranque()
 	CargarUsuario();
 	
 	$('#tableMyUsers').dataTable();
+	
 }
 
 function abrirPopup(url)
@@ -193,6 +211,7 @@ function btnMyUsers_Delete_click()
 												}else if (parseInt(data) > 0)
 												{
 													MostrarAlerta("MyUsers_DeleteAlert", "default", "ui-icon-circle-check", "Hey!", "Users have been eliminated");
+													CargarUsuariosPropios();
 														//Cambios Correctos
 												} else
 												{
@@ -201,7 +220,6 @@ function btnMyUsers_Delete_click()
 												}
 											});
 											$(this).dialog("close"); 
-											CargarUsuariosPropios();
 								  }
 			},
 			{
@@ -471,6 +489,7 @@ function CargarUsuario()
 	
 	$("#tableMyUsers td").remove();
 	CargarPermisos(Usuario.Id);
+	CargarUsuariosPropios();
 	
 	$.post('php/CargarRoles.php',
 		{Id_Roll : Usuario.IdInitialRoll},
@@ -502,21 +521,20 @@ function CargarUsuariosPropios()
 				if (data[index].IdUser)
 				{
 					$('#tableMyUsers').dataTable().fnAddData( [
+										data[index].UserName + "<information  idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "' RollName='" + data[index].RollName + "' CompanyName='" + data[index].Company + "'></information>",
 										data[index].Name,
-										data[index].NickName,
-										data[index].Mail,
-										data[index].Owner,
 										data[index].State,
-										data[index].RollName,
+										data[index].RollName
+										 /*,
 										"<button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'  idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "' RollName='" + data[index].RollName + "'><strong><span class='ui-icon ui-icon-play'></span></strong></button>",
 										"<button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all' idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button>",
 										"<button title='Edit Permissions' id='btnMyUsers_EditPermissions' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-unlocked'></span></strong></button>",
-										"<button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button>"
+										"<button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button>"*/
 															  ] 
 															);
 				}
 			});
-		}, "json");
+		}, "json")	;
 		
 }
 function CerrarSesion()

@@ -58,6 +58,23 @@ li
 	text-align: center;
 	width: 40%;
 }
+#MyUsers_InfoUser li
+{
+	display: block;
+}
+#tableMyUsers_Username
+{
+	text-decoration: underline;
+}
+#tableMyUsers_Username:hover
+{
+	color: blue;
+	cursor: pointer;
+}
+#tableMyUsers td
+{
+	cursor: pointer;
+}
 #tabs {		/*Controla todo el contenedor*/
 	font-family: "Nunito";
 	position: relative;
@@ -110,4 +127,8 @@ li
 }
 .pstrength-minchar {
 	font-size : 10px;
+}
+#MyUsers_InfoUser
+{
+	column-count: 2;
 }

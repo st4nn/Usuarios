@@ -9,6 +9,7 @@
 	class User
 	{
 		public $IdUser;
+		public $UserName;
 		public $Name;
 		public $NickName;
 		public $Mail;
@@ -27,6 +28,7 @@ do
 
 	$sql = "SELECT DISTINCT
 				l.IdLogin AS 'Id', 
+				l.User AS 'UserName',
 				d.Name AS 'Name',
 				d.NickName AS 'NickName',
 				d.mail AS 'Mail', 
@@ -62,6 +64,7 @@ do
 		$Users[$Index] = new User();
 		
 		$Users[$Index]->IdUser = $row['Id'];
+		$Users[$Index]->UserName = $row['UserName'];
 		$Users[$Index]->Name = $row['Name'];
 		$Users[$Index]->NickName = $row['NickName'];
 		$Users[$Index]->Mail = $row['Mail'];
