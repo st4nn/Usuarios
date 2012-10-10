@@ -39,8 +39,7 @@ table tr:hover
 #MyAccount_Options_CreatingUsers,
 #MyAccount_Options_Permissions_Delete, 
 #MyUsersEdit_Permissions,  
-#PersonalInformation_Message, 
-li
+#PersonalInformation_Message
 {
 	display: none;
 }
@@ -131,4 +130,20 @@ li
 #MyUsers_InfoUser
 {
 	column-count: 2;
+}
+
+
+#container 
+{
+        width : 97%;
+        height: 384px;
+        margin: 8px auto;
+}
+#rdsAgrupacion
+{
+	color: black;
+}
+#stats_
+{
+	height: 70em;
 }

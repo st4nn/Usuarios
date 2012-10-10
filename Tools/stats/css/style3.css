@@ -1,0 +1,28 @@
+#container 
+{
+        width : 97%;
+        height: 384px;
+        margin: 8px auto;
+}
+#rdsAgrupacion
+{
+	color: black;
+}
+#lblPico
+{
+	background: #c7d550;
+}
+#lblPromedio
+{
+	background: #aadb96;	
+}
+#menu
+{
+	text-align: center;
+}
+#imgCargando
+{
+	display: none;
+	margin: auto 40%;
+	
+}

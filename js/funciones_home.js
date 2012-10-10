@@ -3,6 +3,20 @@ $(document).on("ready", arranque);
 
 function objPr()
 {
+	/*
+	* idUser = data[index].IdUser
+	* urlFacebook= data[index].urlFacebook
+	* urlTwitter= data[index].urlTwitter
+	* State= data[index].State
+	* IdCompany= data[index].IdCompany
+	* UserName= data[index].Name
+	* DisplayName= data[index].NickName
+	* Mail= data[index].Mail
+	* Owner= data[index].Owner
+	* IdInitialRoll= data[index].IdInitialRoll
+	* RollName= data[index].RollName
+	* CompanyName= data[index].Company
+	* */
 	$('#MyUsers_Info_NickName span').text($(this).find('information').attr('DisplayName'));
 	$('#MyUsers_Info_Mail span').text($(this).find('information').attr('Mail'));
 	$('#MyUsers_Info_Owner span').text($(this).find('information').attr('Owner'));
@@ -10,18 +24,41 @@ function objPr()
 	$('#MyUsers_Info_Facebook span').text($(this).find('information').attr('urlFacebook'));
 	$('#MyUsers_Info_Twitter span').text($(this).find('information').attr('urlTwitter'));
 
-	"<button title='Login as User' id='btnMyUsers_LoginAsAUser' class='ui-button-default ui-button ui-widget ui-corner-all'  idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "' RollName='" + data[index].RollName + "'><strong><span class='ui-icon ui-icon-play'></span></strong></button>",
-	"<button title='Edit' id='btnMyUsers_Edit' class='ui-button-default ui-button ui-widget ui-corner-all' idUser = '" + data[index].IdUser + "' urlFacebook='" + data[index].urlFacebook + "' urlTwitter='" + data[index].urlTwitter + "' State='" + data[index].State + "' IdCompany='" + data[index].IdCompany + "' UserName='" + data[index].Name + "' DisplayName='" + data[index].NickName + "' Mail='" + data[index].Mail + "' Owner='" + data[index].Owner + "' IdInitialRoll='" + data[index].IdInitialRoll + "'><strong><span class='ui-icon ui-icon-pencil'></span></strong></button>",
-	"<button title='Edit Permissions' id='btnMyUsers_EditPermissions' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-unlocked'></span></strong></button>",
-	"<button title='Delete' id='btnMyUsers_Delete' class='ui-button-default ui-button ui-widget ui-corner-all' idUser='" + data[index].IdUser + "'><strong><span class='ui-icon ui-icon-closethick'></span></strong></button>"	
+	$("#btnMyUsers_LoginAsAUser").attr('IdUser', $(this).find('information').attr('IdUser'));
+	$("#btnMyUsers_LoginAsAUser").attr('urlFacebook', $(this).find('information').attr('urlFacebook'));
+	$("#btnMyUsers_LoginAsAUser").attr('urlTwitter', $(this).find('information').attr('urlTwitter'));
+	$("#btnMyUsers_LoginAsAUser").attr('State', $(this).find('information').attr('State'));
+	$("#btnMyUsers_LoginAsAUser").attr('IdCompany', $(this).find('information').attr('IdCompany'));
+	$("#btnMyUsers_LoginAsAUser").attr('UserName', $(this).find('information').attr('UserName'));
+	$("#btnMyUsers_LoginAsAUser").attr('DisplayName', $(this).find('information').attr('DisplayName'));
+	$("#btnMyUsers_LoginAsAUser").attr('Mail', $(this).find('information').attr('Mail'));
+	$("#btnMyUsers_LoginAsAUser").attr('Owner', $(this).find('information').attr('Owner'));
+	$("#btnMyUsers_LoginAsAUser").attr('IdInitialRoll', $(this).find('information').attr('IdInitialRoll'));
+	$("#btnMyUsers_LoginAsAUser").attr('RollName', $(this).find('information').attr('RollName'));
+		
+	$("#btnMyUsers_Edit").attr('IdUser', $(this).find('information').attr('IdUser'));
+	$("#btnMyUsers_Edit").attr('urlFacebook', $(this).find('information').attr('urlFacebook'));
+	$("#btnMyUsers_Edit").attr('urlTwitter', $(this).find('information').attr('urlTwitter'));
+	$("#btnMyUsers_Edit").attr('State', $(this).find('information').attr('State'));
+	$("#btnMyUsers_Edit").attr('IdCompany', $(this).find('information').attr('IdCompany'));
+	$("#btnMyUsers_Edit").attr('UserName', $(this).find('information').attr('UserName'));
+	$("#btnMyUsers_Edit").attr('DisplayName', $(this).find('information').attr('DisplayName'));
+	$("#btnMyUsers_Edit").attr('Mail', $(this).find('information').attr('Mail'));
+	$("#btnMyUsers_Edit").attr('Owner', $(this).find('information').attr('Owner'));
+	$("#btnMyUsers_Edit").attr('IdInitialRoll', $(this).find('information').attr('IdInitialRoll'));
+	$("#btnMyUsers_Edit").attr('RollName', $(this).find('information').attr('RollName'));
 	
+	$("#btnMyUsers_EditPermissions").attr('idUser', $(this).find('information').attr('IdUser'));
 	
+	$("#btnMyUsers_Delete").attr('idUser', $(this).find('information').attr('IdUser'));
 }
 function arranque()
 {
 	$("#tableMyUsers tr").live('click', objPr);
 	if(!localStorage.Usuario)
 	{CerrarSesion();}
+	
+	$("#stats").html("Tools/stats/index3.html");
 	
 	$("#btnMyAccount_CreatingUsersCreate_Reset").on("click", function(evento){evento.preventDefault();ResetearContenedor("CreatingUsersCreate");})
 	
@@ -83,6 +120,7 @@ function arranque()
 	
 	$('#tableMyUsers').dataTable();
 	
+	$("#stats").load('Tools/stats');
 }
 
 function abrirPopup(url)

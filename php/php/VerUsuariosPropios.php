@@ -1,0 +1,94 @@
+<?php 
+   include("conectar.php"); 
+	$link=Conectarse(); 
+	
+	$i = 0;
+	$Index = 0;	
+	$Id = $_POST['Id'];
+	
+	class User
+	{
+		public $IdUser;
+		public $UserName;
+		public $Name;
+		public $NickName;
+		public $Mail;
+		public $Owner;
+		public $IdCompany;
+		public $Company;
+		public $urlFacebook;
+		public $urlTwitter;
+		public $State;
+		public $IdInitialRoll;
+		public $RollName;
+	}
+	
+do
+{
+
+	$sql = "SELECT DISTINCT
+				l.IdLogin AS 'Id', 
+				l.User AS 'UserName',
+				d.Name AS 'Name',
+				d.NickName AS 'NickName',
+				d.mail AS 'Mail', 
+				o.Name AS 'Owner', 
+				c.Name AS 'Company',
+				c.IdCompany AS 'IdCompany',
+				d.urlFacebook AS 'urlFacebook',
+				d.urlTwitter AS 'urlTwitter',
+				l.State as 'State',
+				d.IdInitialRoll AS 'IdInitialRoll',
+				p.Name AS 'RollName'
+		FROM
+				Login AS l, 
+				UsersData AS d,
+				UsersData AS o,
+				Company AS c,
+				Roll AS p, 
+				UsersTransactions AS r
+		WHERE
+			l.IdLogin = d.IdUsersData AND 
+			d.IdCompany = c.IdCompany AND
+			p.idRoll = d.IdInitialRoll AND
+			r.Operation = 'Create' AND
+			r.IdMasterUser = o.IdUsersData AND
+			r.IdUser = d.IdUsersData AND
+			r.IdMasterUser = '$Id';";
+			
+	$result = mysql_query($sql, $link);
+	$row = mysql_fetch_array($result);
+	
+	do
+	{ 
+		$Users[$Index] = new User();
+		
+		$Users[$Index]->IdUser = $row['Id'];
+		$Users[$Index]->UserName = $row['UserName'];
+		$Users[$Index]->Name = $row['Name'];
+		$Users[$Index]->NickName = $row['NickName'];
+		$Users[$Index]->Mail = $row['Mail'];
+		$Users[$Index]->Owner = $row['Owner'];
+		$Users[$Index]->IdCompany = $row['IdCompany'];
+		$Users[$Index]->Company = $row['Company'];
+		$Users[$Index]->urlFacebook = $row['urlFacebook'];
+		$Users[$Index]->urlTwitter = $row['urlTwitter'];
+		$Users[$Index]->State = $row['State'];
+		$Users[$Index]->IdInitialRoll = $row['IdInitialRoll'];
+		$Users[$Index]->RollName = $row['RollName'];
+
+		if ($Users[$Index]->IdUser)
+		{
+			$Index++;	
+		}
+		
+	} while($row = mysql_fetch_array($result));
+
+			$Id = $Users[$i]->IdUser;
+			
+			$i++;
+} while($i <= $Index);
+		
+	mysql_close($link);	
+	echo json_encode($Users);
+?> 

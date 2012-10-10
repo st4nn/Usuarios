@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Estadisticas Por Canal</title>
+
+	<script src="js/HTML5_enabling_script.js"></script>
+	<script src="js/prefixfree.min.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/flotr2.min.js"></script>
+	
+	<script type="text/javascript" src="js/date.js"></script>
+	<script type="text/javascript" src="js/daterangepicker.jQuery.js"></script>
+	
+	<script src="../tooltipster/js/jquery.tooltipster.js"></script>
+	
+	<script src="js/funcionesII.js"></script>
+	
+	<link rel="stylesheet" href="css/jquery.ui.1.8.16.ie.css"/>
+	<link rel="stylesheet" href="css/jquery-ui-1.8.16.custom.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/ui.daterangepicker.css" type="text/css" />
+    
+    <link rel="stylesheet" href="../tooltipster/css/tooltipster.css" type="text/css" />
+            
+    <link rel="stylesheet" href="css/style3.css" />
+    
+</head>
+
+<body>
+	<header>
+		<h1>Estadísticas de Audiencia</h1>
+	</header>
+	<section>
+	<section id='menu'>
+		<h2>Rango de Fechas</h2>	
+		<!--
+		<img id='imgTooltip' src="css/imagenes/Avatar.png" class="tooltip" title="This is my image's <br> <span></span> tooltip message!" />
+		-->
+		
+		<div>
+				<input type="text" value="2012-09-01" id="rangeBa" />	
+				<input type="text" value="2012-09-30" id="rangeBb" />			
+		</div>
+		<section id='rdsGrafica'>
+			<input type="radio" name="TipoGrafica" id="btnConcurrencias" value ="Concurrencias" checked ="checked" /><label for='btnConcurrencias'>Concurrencias</label>
+			<input type="radio" name="TipoGrafica" id="btnConexiones" value ="Conexiones" /><label for='btnConexiones'>Conexiones</label>
+			<input type="radio" name="TipoGrafica" id="btnIps" value ="Ips" /><label for='btnIps'>Ips</label>
+		</section>
+		<section id='rdsAgrupacion'>
+			<input type="radio" name="TipoAgrupacion" id="rdbHora" value ="Hora" checked ="checked" /><label for='rdbHora'>Por Hora</label>
+			<input type="radio" name="TipoAgrupacion" id="rdbDia" value ="Dia" /><label for='rdbDia'>Por Día</label>
+			<input type="radio" name="TipoAgrupacion" id="rdbMes" value ="Mes" /><label for='rdbMes'>Por Mes</label>
+		</section>
+		<section id='rdsPromedios'>
+			<input type="radio" name="TipoPromedios" id="rdbPromediar" value ="false" checked ="checked" /><label for='rdbPromediar'>No Promediar</label>
+			<input type="radio" name="TipoPromedios" id="rdbNoPromediar" value ="true" /><label for='rdbNoPromediar'>Promediar</label>
+		</section>
+		
+	</section>
+	<input id='imgCargando' type='image' src='css/imagenes/cargando.gif'/>
+	<div id="container"></div>
+		
+		
+		<div id="demo"></div>
+		<section id='convencionesConcurrencias'>
+			<label id='lblPromedio'>Promedio Usuarios Simultaneos</label></br>
+			<label id='lblPico' >Pico Usuarios Simultaneos</label>
+		</section>
+		<!--
+		<section>
+			<label id='txtHora'>Hora: <span></span></label></br>
+			<label id='txtFecha'>Fecha: <span></span></label></br>
+			<label id='txtConexiones'>Maximo Conexiones: <span></span></label></br>
+			<label id='txtIO'>IO: <span></span></label></br>
+			<label id='txtURL'>URL: <span></span></label></br>
+		</section>
+		-->
+	</section>
+</body>
+</html>

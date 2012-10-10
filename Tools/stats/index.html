@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Estadisticas Por Canal</title>
+
+	<script src="js/HTML5_enabling_script.js"></script>
+	<script src="js/prefixfree.min.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/flotr2.min.js"></script>
+	
+	<script type="text/javascript" src="js/date.js"></script>
+	<script type="text/javascript" src="js/daterangepicker.jQuery.js"></script>
+	
+	<script src="js/funciones.js"></script>
+	
+	<link rel="stylesheet" href="css/jquery.ui.1.8.16.ie.css"/>
+	<link rel="stylesheet" href="css/jquery-ui-1.8.16.custom.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/ui.daterangepicker.css" type="text/css" />
+            
+    <link rel="stylesheet" href="css/style.css" />
+    
+</head>
+
+<body>
+	<header>
+		
+		<h1>Estadísticas de Audiencia</h1>
+	</header>
+		
+	<section>
+	<h2>Rango de Fechas</h2>	
+	<div>
+			<input type="text" value="4/23/99" id="rangeBa" />	
+			<input type="text" value="4/23/99" id="rangeBb" />			
+	</div>
+	<button id='btnConcurrencias'>Concurrencias</button>
+	<button id='btnConexiones'>Conexiones</button>
+	<button id='btnIps'>IPs</button>
+	<section id='rdsAgrupacion'>
+		<input type="radio" name="TipoAgrupacion" id="rdbHora" value ="Hora" checked ="checked" /><label for='rdbHora'>Por Hora</label>
+		<input type="radio" name="TipoAgrupacion" id="rdbDia" value ="Dia" /><label for='rdbDia'>Por Día</label>
+		<input type="radio" name="TipoAgrupacion" id="rdbMes" value ="Mes" /><label for='rdbMes'>Por Mes</label>
+	</section>
+	<div id="container"></div>
+		
+		<div id="demo"></div>
+		<section>
+			<h5 id='txtFecha'>Fecha: <span></span></h5>
+			<h5 id='txtHora'>Hora: <span></span></h5>
+			<h5 id='txtIp'>Ip: <span></span></h5>
+			<h5 id='txtConexiones'>Conexiones: <span></span></h5>
+			<h5 id='txtIO'>IO: <span></span></h5>
+			<h5 id='txtURL'>URL: <span></span></h5>
+		</section>
+	</section>
+	
+	<footer>
+		Diseñado por CeHis Ltda
+	</footer>
+</body>
+</html>
