@@ -1,6 +1,6 @@
 ﻿var Usuario;
 $(document).on("ready", arranque);
-
+var Meses = new Array('', 'January', 'Frebruary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 function objPr()
 {
 	/*
@@ -121,8 +121,124 @@ function arranque()
 	$('#tableMyUsers').dataTable();
 	
 	$("#stats").load('Tools/stats');
+	
+	$('#Dashboard_rangeBa, #Dashboard_rangeBb').daterangepicker(); 
+	$('#Dashboard_rangeBa').val(Date.parse('today').moveToFirstDayOfMonth().toString("yyyy-MM-dd"));
+	$('#Dashboard_rangeBb').val(Date.parse('today').toString("yyyy-MM-dd"));	
+	
+	CagarDashboard();
+	
+	$("#btnDashboard_CambiarFecha").on('click', CagarDashboard)
 }
+function CagarDashboard()
+{
+	
+	$.post("php/Dashboard.php", 
+			{	Fecha1: $('#Dashboard_rangeBa').val(),
+				Fecha2: $('#Dashboard_rangeBb').val()
+			}, 
+			function(data)
+			{
+				$("#ConexionesTotales span").text(Math.round(data[0].ConexionesTotales));
+				$("#IpUnicas span").text(data[0].IpUnicas);
+				//$("#TiempoPromedio span").text(data[0].ConexionesTotales);
+				
+				var DatosMeses = new google.visualization.DataTable();
+				 DatosMeses.addColumn('string', 'Mes');
+				 DatosMeses.addColumn('string', 'Conexiones');
+				 DatosMeses.addColumn('string', 'Ip Unicas');
+				 
+				 for (var i=0; i < data.length; i++)
+				 {
+					DatosMeses.addRow([Meses[data[i].IdMes],  data[i].ConexionesXmes, data[i].IpUnicasXmes]);
+					//[Meses[data[i].IdMes],  {v: data[i].ConexionesXmes, f: data[i].ConexionesXmes}, {v: data[i].ConexionesXmes, f: data[i].ConexionesXmes}]
+				 }
+				 var tablaMeses = new google.visualization.Table(document.getElementById('Dashboard_table_div'));
+				tablaMeses.draw(DatosMeses, {showRowNumber: false});
+				
+			}, "json");
+			
+	$.post("php/CargarConcurrenciasII.php", 
+			{	
+				Fecha1: $('#Dashboard_rangeBa').val(),
+				Fecha2: $('#Dashboard_rangeBb').val()
+			}, 
+			function(data)
+			{
+				var obj84 = DiferenciaDias($('#Dashboard_rangeBa').val(), $('#Dashboard_rangeBb').val());
+				
+				
+				var	obj = new Array();
+			if (!data[0].Fecha)
+			{
+				var obj2 = '[0, 0, 0, 0, 0]';
+				obj = '[["Date", "Total Connections", "max Concurrences", "Average Concurrences", "Unique IP"], ' + obj2;
+			}
+			else
+			{
+				for (var i = 0; i < data.length; i++)
+				{
+					/*
+					var obj2 = '["' + data[i].Fecha + '", ' + data[i].maxConcurrencias + ', ' + data[i].avgConcurrencias + ', ' + data[i].sumConcurrencias + ', ' + data[i].IpUnicas + ']';
+					if (i == 0)
+					{
+						obj = '[["Date", "Max Concurrences", "Average Concurrences", "Connections", "Unique IP"], ' + obj2;
+					}*/
+					var obj2 = '["' + data[i].Fecha + '", ' + data[i].countConcurrencias + ', ' + data[i].maxConcurrencias + ', ' + data[i].avgConcurrencias + ', ' + data[i].IpUnicas + ']';
+					if (i == 0)
+					{
+						obj = '[["Date", "Total Connections", "max Concurrences", "Average Concurrences", "Unique IP"], ' + obj2;
+					}
+					else 
+					{
+						obj += ', ' + obj2;
+					}
+				}
+			}
+					obj += ']';
+					
+					obj = (JSON.parse(obj));
+					var data = google.visualization.arrayToDataTable(obj);
 
+					var options = {
+					  hAxis: {title: 'Date',  titleTextStyle: {color: 'red'}
+					  },
+					  isStacked: false,
+					  legend: {position: 'top'},
+					  width: 650, 
+					  pointSize: 5
+					};
+
+					var chart = new google.visualization.AreaChart(document.getElementById('dashboard_chart_div'));
+						
+					chart.draw(data, options);
+						
+			}, "json");
+			
+			//Geolocalización Ficticia
+			var data = google.visualization.arrayToDataTable([
+          ['Country', 'Connections'],
+          ['Germany', 200],
+          ['United States', 300],
+          ['Brazil', 400],
+          ['Canada', 500],
+          ['France', 600],
+          ['Colombia', 700]
+        ]);
+
+        var options = {width: 200};
+
+        var chart = new google.visualization.GeoChart(document.getElementById('Dashboard_geo_div'));
+        chart.draw(data, options);
+        
+        var options = {
+          vAxis: {title: 'Geo Connections',  titleTextStyle: {color: 'red'}},
+          width: 200
+        };
+
+        chart = new google.visualization.BarChart(document.getElementById('Dashboard_geoBar_div'));
+        chart.draw(data, options);
+}
 function abrirPopup(url)
 {
 	popupWin = window.open(url, 'open_window');
@@ -839,3 +955,17 @@ function obj()
 			}
 		});
 }
+function DiferenciaDias(FechaInicial, FechaFinal)
+{  
+    var d1 = FechaInicial.split("-");  
+    var dat1 = new Date();  
+    dat1.setFullYear(d1[0], parseFloat(d1[1])-1, parseFloat(d1[2]));
+   
+    var d2 = FechaFinal.split("-");  
+    var dat2 = new Date();  
+    dat2.setFullYear(d2[0], parseFloat(d2[1])-1, parseFloat(d2[2]));
+  
+    var fin = dat2.getTime() - dat1.getTime();  
+    var dias = Math.floor(fin / (1000 * 60 * 60 * 24))    
+    return dias;  
+}  

@@ -17,7 +17,7 @@
 		if ($Avg == "true")
 		{
 			$Funcion = "AVG";
-			$Campo = "Concurrencias";
+			$Campo = "Conexiones";
 			$GROUPBY = "HOUR(Hora)";	
 			$Order = $GROUPBY;
 			$Label = "CONCAT( HOUR( Hora ) ,  ':00')";
@@ -32,7 +32,7 @@
 		if ($Avg == 'true')
 		{
 			$Funcion = "AVG";
-			$Campo = "Concurrencias";
+			$Campo = "Conexiones";
 			$GROUPBY = "DATE_FORMAT(Fecha, '%W')";	
 			$Label = "DATE_FORMAT(Fecha, '%W')";
 			$Order = $GROUPBY;
@@ -47,7 +47,7 @@
 		if ($Avg == 'true')
 		{
 			$Funcion = "AVG";
-			$Campo = "Concurrencias";
+			$Campo = "Conexiones";
 			$GROUPBY = "MONTH(Fecha)";	
 			$Label = "DATE_FORMAT(Fecha, '%M')";
 			$Order = "DATE_FORMAT(Fecha, '%m')";
@@ -60,11 +60,11 @@
 		Ip,
 		Fecha,
 		Hora,
-		max(Concurrencias) as 'Conexiones',
+		max(Conexiones) as 'Conexiones',
 		IO,
 		URL,
 		$Funcion($Campo) AS 'Fecha2', 
-			AVG( Concurrencias ) AS 'Conexiones2',
+			AVG( Conexiones ) AS 'Conexiones2',
 		$Label AS FechaII
 	FROM
 		Estadisticas1

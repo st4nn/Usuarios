@@ -4,24 +4,48 @@
 	<meta charset="utf-8"/>
 	<title>BRONCO</title>
 	
+	<script src="Tools/HTML5/HTML5_enabling_script.js"></script>
+	<script src="Tools/HTML5/jquery.js"></script>
+	<script src="Tools/HTML5/jquery-ui.js"></script>
+	<script src="Tools/HTML5/prefixfree.min.js"></script>
+	<script src="Tools/HTML5/jquery.pstrength-min.1.2.js"></script>
+	
 	<link rel="stylesheet" href="css/jquery.ui.1.8.16.ie.css"/>
 	<link rel="stylesheet" href="css/jquery-ui-1.8.16.custom.css"/>
     <link rel="stylesheet" href="css/bootstrap.css">
         
+    <link rel="stylesheet" href="css/ui.daterangepicker.css" type="text/css" />
+    
     <link rel="stylesheet" href="css/estilos.css" />
     <link rel="stylesheet" href="css/customStyle.css" />
-	
-	<script src="Tools/HTML5/HTML5_enabling_script.js"></script>
-	<script src="Tools/HTML5/prefixfree.min.js"></script>
-	<script src="Tools/HTML5/jquery.js"></script>
-	<script src="Tools/HTML5/jquery-ui.js"></script>
-	<script src="Tools/HTML5/jquery.pstrength-min.1.2.js"></script>
-	
+
 	<script src="Tools/jquery.dataTables.js"></script>
+	
+	<script src="js/date.js"></script>
+	<script src="js/daterangepicker.jQuery.js"></script>
 
 	<script src="js/funciones_home.js"></script>
 	<link  rel="shortcut icon" href="css/imagenes/favicon.ico" />
 	
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+	google.load("visualization", "1", {packages:["corechart"]});
+	google.load('visualization', '1', {packages:['table']});
+	google.load('visualization', '1', {packages:['geochart']});
+	
+      //google.setOnLoadCallback(drawChart);
+      function drawChart() 
+      {
+        var data = google.visualization.arrayToDataTable([['Date', 'Concurrences', 'Unique IP'],['0', 0, 0]]);
+
+        var options = {
+          title: '',
+          hAxis: {title: 'Date',  titleTextStyle: {color: 'red'}}
+        };
+        var chart = new google.visualization.AreaChart(document.getElementById('dashboard_chart_div'));
+        chart.draw(data, options);
+      }
+	</script>
 </head>
 <body>
 <header>
@@ -41,15 +65,35 @@
 			<li id='lnkMyService'><a id='lblMyService' href="#MyService">My Service</a></li>
 			<li id="lnkLogout"><a id='lblLogout' >Logout</a></li>
 		</ul>
-		<section id='a123'>
+	<section id='a123'>
 		<section id="DashBoard">
 			
-				<h3 id='lblMyStreams'>My Streams</h3>
-			<section>
-					<h2>Zona en Construcción</h2>
-					<h3>Estará cuando se puedan asociar productos a usuarios</h3>
-				<input type='image' src='css/Recursos/Llenar.png'/>	
-				<input type='image' src='css/Recursos/Grafica1.png'/>
+			<h3 id='lblMyStreams'>My Streams</h3>
+			
+			<section id="PanelSuperior">
+				<article id="ConexionesTotales"><h4>Total Connections: </h4><br><span></span></article>
+				<article id="IpUnicas"><h4>Unique users: </h4><br><span></span></article>
+				<article id="TiempoPromedio"><h4>Average connection time:</h4><br><span></span></article>
+				<article id='DashboardFechas'>
+					<h4>Rank:</h4>
+					<h5>From: Until:</h5>
+					<input type="text" value="4/23/99" id="Dashboard_rangeBa" />	
+					<input type="text" value="4/23/99" id="Dashboard_rangeBb" />			
+					<button id='btnDashboard_CambiarFecha' class='ui-button-success ui-button ui-widget ui-corner-all'>See</button>
+				</article>
+			</section>
+			<section id='DashboardGraficas'>
+				<section>
+					<div id='dashboard_chart_div'></div>
+					<h4>Ultimos Meses:</h4>
+					<div id='Dashboard_table_div'></div>
+				</section>
+				<section id='Dashboard_GeoGraficas'>
+					<div id='Dashboard_geo_div'></div>
+					
+					<div id='Dashboard_geoBar_div'></div>
+					<label>* Los Datos de Geolocalización no corresponden a datos reales</label>
+				</section>
 			</section>
 		</section>
 		<section id="Tools">
@@ -74,7 +118,7 @@
 		</section>
 		<section id="Analytics">
 			<h2>Zona en Construcción</h2>
-			<iframe id='stats_'src='Tools/stats/index3.html' width='100%' height='auto' frameborder='0'></iframe>
+			<iframe id='stats_'src='Tools/stats_google/index.html' width='100%' height='auto' frameborder='0'></iframe>
 			<!--<section id='stats'></section>-->
 		</section>
 		<section id="MyAccount">
@@ -114,7 +158,7 @@
 						<div id='AccessData_Message' class="ui-state-highlight ui-corner-all">
 							<p>
 								<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-								<stronglo>Alert!</strong> 
+								<strong>Alert!</strong> 
 								<texto>The password has been changed.</texto>
 							</p>
 						</div>

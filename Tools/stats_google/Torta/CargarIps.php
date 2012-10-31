@@ -10,7 +10,7 @@
 	FROM 
 		Estadisticas1
 	WHERE 
-		IO = 'in' AND (FECHA BETWEEN '$Fecha1' AND '$Fecha2') 
+		IO = 'in' AND (Fecha BETWEEN '$Fecha1' AND '$Fecha2') 
 	GROUP BY (IP)
 	";
 	

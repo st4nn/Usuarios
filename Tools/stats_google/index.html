@@ -4,18 +4,35 @@
 <meta charset="utf-8" />
 <title>Estadisticas Por Canal</title>
 
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() 
+      {
+        var data = google.visualization.arrayToDataTable([['Date', 'Concurrences', 'Unique IP'],['0', 0, 0]]);
+
+        var options = {
+          title: '',
+          hAxis: {title: 'Date',  titleTextStyle: {color: 'red'}}
+        };
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+	</script>
+
 	<script src="js/HTML5_enabling_script.js"></script>
 	<script src="js/prefixfree.min.js"></script>
 	<script src="js/jquery.js"></script>
 	<script src="js/jquery-ui.js"></script>
-	<script src="js/flotr2.min.js"></script>
+	<!--<script src="js/flotr2.min.js"></script>-->
 	
 	<script type="text/javascript" src="js/date.js"></script>
 	<script type="text/javascript" src="js/daterangepicker.jQuery.js"></script>
 	
 	<script src="../tooltipster/js/jquery.tooltipster.js"></script>
 	
-	<script src="js/funcionesII.js"></script>
+	<script src="js/funciones.js"></script>
 	
 	<link rel="stylesheet" href="css/jquery.ui.1.8.16.ie.css"/>
 	<link rel="stylesheet" href="css/jquery-ui-1.8.16.custom.css"/>
@@ -56,24 +73,9 @@
 			<input type="radio" name="TipoPromedios" id="rdbPromediar" value ="false" checked ="checked" /><label for='rdbPromediar'>No Promediar</label>
 			<input type="radio" name="TipoPromedios" id="rdbNoPromediar" value ="true" /><label for='rdbNoPromediar'>Promediar</label>
 		</section>
-		
 	</section>
+		<div id="chart_div"></div>
 	<input id='imgCargando' type='image' src='css/imagenes/cargando.gif'/>
-	<div id="container"></div>
 		
-		
-		<div id="demo"></div>
-		<section id='convencionesConcurrencias'>
-			<label id='lblPromedio'>Promedio Usuarios Simultaneos</label></br>
-			<label id='lblPico' >Pico Usuarios Simultaneos</label>
-		</section>
-		<section>
-			<label id='txtHora'>Hora: <span></span></label></br>
-			<label id='txtFecha'>Fecha: <span></span></label></br>
-			<label id='txtConexiones'>Maximo Conexiones: <span></span></label></br>
-			<label id='txtIO'>IO: <span></span></label></br>
-			<label id='txtURL'>URL: <span></span></label></br>
-		</section>
-	</section>
 </body>
 </html>

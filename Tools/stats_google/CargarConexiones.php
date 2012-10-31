@@ -30,7 +30,7 @@
 	$sql = "
 	SELECT 
 		$Funcion($Campo) AS 'Fecha', 
-		COUNT( Concurrencias ) AS 'Conexiones',
+		COUNT( Conexiones ) AS 'Conexiones',
 		$Label AS FechaII
 	FROM Estadisticas1
 	WHERE 

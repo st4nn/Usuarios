@@ -1,7 +1,7 @@
 <?php 
 function Conectarse() 
 { 
-   if (!($link=mysql_connect("cehis.net","broncoce","jhonathan.21"))) 
+   if (!($link=mysql_connect("127.0.0.1","broncoce","jhonathan.21"))) 
    { 
       echo "Error conectando a la base de datos."; 
       exit(); 

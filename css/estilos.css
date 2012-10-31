@@ -3,6 +3,11 @@
 	font-family: "Nunito";
 	src: url("Nunito-Regular.ttf");
 }
+article
+{
+	border-radius: 0.5em;
+	box-shadow: rgba(0,0,0,0.8) 0px 4px 10px;
+}
 body
 {
 	display: inline-block;
@@ -146,4 +151,51 @@ table tr:hover
 #stats_
 {
 	height: 70em;
+}
+#PanelSuperior article
+{
+	background: PaleGoldenRod ;
+	cursor: pointer;
+	display: inline-block;
+	margin: 0.6em 0.6em 0.6em 0.6em;
+	min-height: 8em;
+	text-align: center;
+	vertical-align: top;
+	width: 20%;
+}
+#DashboardGraficas section
+{
+	cursor: pointer;
+	display: inline-block;
+	margin: 0.6em 0.6em 0.6em 0.6em;
+	text-align: left;
+	vertical-align: top;
+}
+#Dashboard_GeoGraficas
+{
+	width: 15%;
+}
+#DashBoard #dashboard_chart_div
+{
+	width: 60%;
+}
+#PanelSuperior #DashboardFechas
+{
+	display: inline-block;
+	vertical-align: top;
+	width: 30%;
+}
+#PanelSuperior #DashboardFechas input
+{
+	width: 27%;
+}
+#Dashboard_table_div
+{
+	width: 40%;
+}
+
+#DashBoard article span
+{
+	color: green;
+	font-size: 2.5em;
 }

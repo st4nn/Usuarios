@@ -1,42 +1,36 @@
 <?php 
-   include("conectar.php"); 
+   include("../conectar.php"); 
 	$Agrupacion = $_POST['Agrupacion'];
-	$Fecha1 = $_POST['Fecha1'];
-	$Fecha2 = $_POST['Fecha2'];
 	
 	if ($Agrupacion == "Hora")
 	{
 		$Campo = "Hora";
 		$Funcion = "HOUR";
-		$Label = "CONCAT( HOUR( Hora ) ,  ':00', ' ', Fecha )";
-		$GROUPBY = "$Funcion($Campo), DAY(Fecha), MONTH(FECHA)";
+		$Label = "CONCAT( HOUR( Hora ) ,  ':00' )";
 	}
 	elseif ($Agrupacion =="Dia")
 	{
 		$Campo = "Fecha";
 		$Funcion = "DAY";
 		$Label = "Fecha";
-		$GROUPBY = "DAY(Fecha), MONTH(FECHA)";
 	}
 	elseif ($Agrupacion =="Mes")
 	{
 		$Campo = "Fecha";
 		$Funcion = "MONTH";
-		$Label = "DATE_FORMAT(Fecha, '%M')";
-		$GROUPBY = "MONTH(FECHA)";
+		$Label = "MONTH(Fecha)";
 	}
 	
 	$link=Conectarse();
 	$sql = "
 	SELECT 
 		$Funcion($Campo) AS 'Fecha', 
-		COUNT( Concurrencias ) AS 'Conexiones',
+		COUNT( Conexiones ) AS 'Conexiones',
 		$Label AS FechaII
 	FROM Estadisticas1
 	WHERE 
-		IO = 'in' AND (Fecha BETWEEN '$Fecha1' AND '$Fecha2') 
-	GROUP BY $GROUPBY
-	ORDER BY Id
+		IO = 'in'
+	GROUP BY $Funcion($Campo) 
 	";
 	
 	$result=mysql_query($sql,$link); 

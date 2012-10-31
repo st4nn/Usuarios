@@ -10,7 +10,7 @@
 		Ip,
 		Fecha,
 		Hora,
-		Concurrencias,
+		Conexiones,
 		IO,
 		URL
 	FROM
